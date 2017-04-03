@@ -2,6 +2,7 @@
 #include <QApplication>
 
 //hello edu!!!
+//Hello David
 
 int main(int argc, char *argv[])
 {
