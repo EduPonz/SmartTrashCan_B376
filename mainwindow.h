@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMenu>
+#include <QAbstractButton>
 
 namespace Ui {
 class MainWindow;
@@ -15,7 +17,20 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+private slots:
+     void settingsSlot();
+
 private:
+    void createActions();
+    void createToolBars();
+    void createMenu();
+
+    QToolBar *mainToolBar;
+    QAction *settingsAction;
+    QIcon settingsIcon;
+    QMenu *settingsMenu;
+    QAbstractButton *button;
+
     Ui::MainWindow *ui;
 };
 
