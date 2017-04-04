@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QMenu>
 #include <QAbstractButton>
+#include <QtWidgets>
 
 namespace Ui {
 class MainWindow;
@@ -29,7 +30,6 @@ private:
     QAction *settingsAction;
     QIcon settingsIcon;
     QMenu *settingsMenu;
-    QAbstractButton *button;
 
     Ui::MainWindow *ui;
 };
