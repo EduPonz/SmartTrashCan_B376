@@ -23,9 +23,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-428</y>
+        <y>0</y>
         <width>692</width>
-        <height>899</height>
+        <height>593</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_12" stretch="1,1">
@@ -66,15 +66,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QTextEdit" name="textEdit">
-                  <property name="html">
-                   <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                 </widget>
+                 <widget class="QLineEdit" name="lineEdit"/>
                 </item>
                </layout>
               </widget>
@@ -90,7 +82,7 @@ p, li { white-space: pre-wrap; }
                  </widget>
                 </item>
                 <item>
-                 <widget class="QTextEdit" name="textEdit_2"/>
+                 <widget class="QLineEdit" name="lineEdit_2"/>
                 </item>
                </layout>
               </widget>
@@ -106,7 +98,7 @@ p, li { white-space: pre-wrap; }
                  </widget>
                 </item>
                 <item>
-                 <widget class="QTextEdit" name="textEdit_3"/>
+                 <widget class="QLineEdit" name="lineEdit_3"/>
                 </item>
                </layout>
               </widget>
@@ -122,7 +114,7 @@ p, li { white-space: pre-wrap; }
                  </widget>
                 </item>
                 <item>
-                 <widget class="QTextEdit" name="textEdit_4"/>
+                 <widget class="QLineEdit" name="lineEdit_4"/>
                 </item>
                </layout>
               </widget>
@@ -138,7 +130,7 @@ p, li { white-space: pre-wrap; }
                  </widget>
                 </item>
                 <item>
-                 <widget class="QTextEdit" name="textEdit_5"/>
+                 <widget class="QLineEdit" name="lineEdit_5"/>
                 </item>
                </layout>
               </widget>
@@ -149,12 +141,12 @@ p, li { white-space: pre-wrap; }
                 <item>
                  <widget class="QLabel" name="label_8">
                   <property name="text">
-                   <string>TextLabel</string>
+                   <string>Add people</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QTextEdit" name="textEdit_7"/>
+                 <widget class="QLineEdit" name="lineEdit_6"/>
                 </item>
                </layout>
               </widget>
@@ -260,7 +252,7 @@ p, li { white-space: pre-wrap; }
                     </widget>
                    </item>
                    <item>
-                    <widget class="QTextEdit" name="textEdit_8"/>
+                    <widget class="QLineEdit" name="lineEdit_7"/>
                    </item>
                    <item>
                     <widget class="QLabel" name="label_11">
@@ -270,7 +262,7 @@ p, li { white-space: pre-wrap; }
                     </widget>
                    </item>
                    <item>
-                    <widget class="QTextEdit" name="textEdit_9"/>
+                    <widget class="QLineEdit" name="lineEdit_8"/>
                    </item>
                    <item>
                     <widget class="QLabel" name="label_12">
@@ -280,7 +272,7 @@ p, li { white-space: pre-wrap; }
                     </widget>
                    </item>
                    <item>
-                    <widget class="QTextEdit" name="textEdit_10"/>
+                    <widget class="QLineEdit" name="lineEdit_9"/>
                    </item>
                   </layout>
                  </widget>
