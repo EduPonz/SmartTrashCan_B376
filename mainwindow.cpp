@@ -35,6 +35,10 @@ void MainWindow::createActions()
 
     logOut = new QAction (tr("Log Out"), this);
     logOut->setStatusTip(tr("Log Out"));
+
+    homeButtonAction = new QAction (QIcon(":/new/Icons/Resources/homeButton.png"), tr(""), this);
+    personalInfo->setStatusTip(tr("Home"));
+    connect(homeButtonAction, &QAction::triggered, this, &MainWindow::homeButtonActionSlot);
 }
 
 void MainWindow::createToolBars()
@@ -47,8 +51,9 @@ void MainWindow::createToolBars()
     QWidget *spacerWidget = new QWidget(this);
     spacerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     spacerWidget->setVisible(true);
-    mainToolBar->addWidget(spacerWidget);
 
+    mainToolBar->addAction(homeButtonAction);
+    mainToolBar->addWidget(spacerWidget);
     mainToolBar->addWidget(userNameButton);
     mainToolBar->addWidget(settingButton);
 }
@@ -81,6 +86,10 @@ void MainWindow::personalInfoSlot()
 {
     optionsWindow = new OptionsWindow;
     this->setCentralWidget(optionsWindow);
+}
+
+void MainWindow::homeButtonActionSlot(){
+    ui->setupUi(this);
 }
 
 MainWindow::~MainWindow()

@@ -21,6 +21,7 @@ public:
 
 private slots:
      void personalInfoSlot();
+     void homeButtonActionSlot();
 
 private:
     void createActions();
@@ -28,6 +29,7 @@ private:
     void createMenu();
 
     QToolBar *mainToolBar;
+
     QAction *settingsAction;
     QAction *personalInfo;
     QAction *language;
@@ -35,9 +37,13 @@ private:
     QAction *units;
     QAction *home;
     QAction *logOut;
+    QAction *homeButtonAction;
+
     QIcon settingsIcon;
+
     QMenu *settingsMenu;
     QMenu *userNameMenu;
+
     QToolButton *settingButton;
     QToolButton *userNameButton;
 
