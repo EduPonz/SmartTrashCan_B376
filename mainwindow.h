@@ -28,8 +28,13 @@ private:
 
     QToolBar *mainToolBar;
     QAction *settingsAction;
+    QAction *personalInfo;
+    QAction *language;
+    QAction *theme;
+    QAction *units;
     QIcon settingsIcon;
     QMenu *settingsMenu;
+    QToolButton *settingButton;
 
     Ui::MainWindow *ui;
 };
