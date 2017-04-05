@@ -25,21 +25,21 @@
         <x>0</x>
         <y>0</y>
         <width>692</width>
-        <height>593</height>
+        <height>650</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_12" stretch="1,1">
+      <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0">
        <item>
-        <widget class="QWidget" name="widget_3" native="true">
-         <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,1">
+        <widget class="QWidget" name="personalPayment" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,1">
           <item>
-           <widget class="QWidget" name="profile" native="true">
-            <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,1,1,1,1,1,0,1">
+           <widget class="QWidget" name="personalInfo" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_2">
              <item>
-              <widget class="QWidget" name="widget" native="true">
-               <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <widget class="QWidget" name="widget_8" native="true">
+               <layout class="QHBoxLayout" name="horizontalLayout_3">
                 <item>
-                 <widget class="QLabel" name="label_3">
+                 <widget class="QLabel" name="label">
                   <property name="text">
                    <string>Personal Info</string>
                   </property>
@@ -48,7 +48,7 @@
                 <item>
                  <widget class="QPushButton" name="pushButton">
                   <property name="text">
-                   <string>Apply Changes</string>
+                   <string>Apply changes</string>
                   </property>
                  </widget>
                 </item>
@@ -56,10 +56,10 @@
               </widget>
              </item>
              <item>
-              <widget class="QWidget" name="widget_9" native="true">
-               <layout class="QVBoxLayout" name="verticalLayout_4">
+              <widget class="QWidget" name="widget_7" native="true">
+               <layout class="QVBoxLayout" name="verticalLayout_3">
                 <item>
-                 <widget class="QLabel" name="label">
+                 <widget class="QLabel" name="label_2">
                   <property name="text">
                    <string>Username</string>
                   </property>
@@ -72,10 +72,10 @@
               </widget>
              </item>
              <item>
-              <widget class="QWidget" name="widget_2" native="true">
-               <layout class="QVBoxLayout" name="verticalLayout_3">
+              <widget class="QWidget" name="widget_6" native="true">
+               <layout class="QVBoxLayout" name="verticalLayout_4">
                 <item>
-                 <widget class="QLabel" name="label_2">
+                 <widget class="QLabel" name="label_3">
                   <property name="text">
                    <string>Full name</string>
                   </property>
@@ -104,7 +104,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QWidget" name="widget_6" native="true">
+              <widget class="QWidget" name="widget_3" native="true">
                <layout class="QVBoxLayout" name="verticalLayout_6">
                 <item>
                  <widget class="QLabel" name="label_5">
@@ -120,7 +120,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QWidget" name="widget_7" native="true">
+              <widget class="QWidget" name="widget_2" native="true">
                <layout class="QVBoxLayout" name="verticalLayout_7">
                 <item>
                  <widget class="QLabel" name="label_6">
@@ -136,10 +136,10 @@
               </widget>
              </item>
              <item>
-              <widget class="QWidget" name="widget_10" native="true">
-               <layout class="QVBoxLayout" name="verticalLayout_8">
+              <widget class="QWidget" name="widget" native="true">
+               <layout class="QVBoxLayout" name="verticalLayout_9">
                 <item>
-                 <widget class="QLabel" name="label_8">
+                 <widget class="QLabel" name="label_7">
                   <property name="text">
                    <string>Add people</string>
                   </property>
@@ -152,52 +152,41 @@
               </widget>
              </item>
              <item>
-              <widget class="QWidget" name="widget_8" native="true">
-               <widget class="QLabel" name="label_7">
-                <property name="geometry">
-                 <rect>
-                  <x>70</x>
-                  <y>20</y>
-                  <width>47</width>
-                  <height>13</height>
-                 </rect>
-                </property>
-                <property name="text">
-                 <string>TextLabel</string>
-                </property>
-               </widget>
-               <widget class="QTextEdit" name="textEdit_6">
-                <property name="geometry">
-                 <rect>
-                  <x>240</x>
-                  <y>20</y>
-                  <width>104</width>
-                  <height>71</height>
-                 </rect>
-                </property>
-               </widget>
+              <widget class="QWidget" name="widget_4" native="true">
+               <layout class="QVBoxLayout" name="verticalLayout_8">
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_7"/>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_8">
+                  <property name="text">
+                   <string>TextLabel</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </item>
             </layout>
            </widget>
           </item>
           <item>
-           <widget class="QWidget" name="payment" native="true">
-            <layout class="QVBoxLayout" name="verticalLayout" stretch="1,4">
+           <widget class="QWidget" name="paymentInfo" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_10">
              <item>
-              <widget class="QWidget" name="paymentTitle" native="true">
-               <layout class="QHBoxLayout" name="horizontalLayout_5">
+              <widget class="QWidget" name="paymenMethod" native="true">
+               <layout class="QHBoxLayout" name="horizontalLayout_4">
                 <item>
-                 <widget class="QLabel" name="label_13">
+                 <widget class="QLabel" name="label_9">
                   <property name="text">
-                   <string>Payment Info</string>
+                   <string>TextLabel</string>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QPushButton" name="pushButton_2">
                   <property name="text">
-                   <string>Apply Changes</string>
+                   <string>PushButton</string>
                   </property>
                  </widget>
                 </item>
@@ -205,77 +194,71 @@
               </widget>
              </item>
              <item>
-              <widget class="QWidget" name="paymentInfo" native="true">
-               <layout class="QVBoxLayout" name="verticalLayout_9" stretch="1,8">
+              <widget class="QWidget" name="widget_9" native="true">
+               <layout class="QVBoxLayout" name="verticalLayout_11">
                 <item>
-                 <widget class="QWidget" name="paymentMethod" native="true">
-                  <layout class="QVBoxLayout" name="verticalLayout_10">
-                   <item>
-                    <widget class="QLabel" name="label_9">
-                     <property name="text">
-                      <string>Payment Method</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QCheckBox" name="checkBox_2">
-                     <property name="text">
-                      <string>Visa</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QCheckBox" name="checkBox_3">
-                     <property name="text">
-                      <string>Mastercard</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QCheckBox" name="checkBox">
-                     <property name="text">
-                      <string>Bottlecaps</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
+                 <widget class="QLabel" name="label_10">
+                  <property name="text">
+                   <string>Payment Method</string>
+                  </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QWidget" name="widget_14" native="true">
-                  <layout class="QVBoxLayout" name="verticalLayout_11">
-                   <item>
-                    <widget class="QLabel" name="label_10">
-                     <property name="text">
-                      <string>Card number</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="lineEdit_7"/>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_11">
-                     <property name="text">
-                      <string>CVV</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="lineEdit_8"/>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_12">
-                     <property name="text">
-                      <string>Expiration date</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="lineEdit_9"/>
-                   </item>
-                  </layout>
+                 <widget class="QCheckBox" name="checkBox">
+                  <property name="text">
+                   <string>CheckBox</string>
+                  </property>
                  </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="checkBox_2">
+                  <property name="text">
+                   <string>CheckBox</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="checkBox_3">
+                  <property name="text">
+                   <string>CheckBox</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QWidget" name="widget_10" native="true">
+               <layout class="QVBoxLayout" name="verticalLayout_12">
+                <item>
+                 <widget class="QLabel" name="label_11">
+                  <property name="text">
+                   <string>Card number</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_8"/>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_12">
+                  <property name="text">
+                   <string>CVV</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_10"/>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_13">
+                  <property name="text">
+                   <string>Expiration date</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_9"/>
                 </item>
                </layout>
               </widget>
@@ -287,7 +270,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QWidget" name="history" native="true">
+        <widget class="QWidget" name="widget_11" native="true">
          <layout class="QVBoxLayout" name="verticalLayout_13">
           <item>
            <widget class="QLabel" name="label_14">
@@ -298,9 +281,6 @@
           </item>
           <item>
            <widget class="QTableWidget" name="tableWidget">
-            <property name="lineWidth">
-             <number>1</number>
-            </property>
             <column>
              <property name="text">
               <string>Invoice Number</string>
@@ -313,7 +293,7 @@
             </column>
             <column>
              <property name="text">
-              <string>Date Ordered</string>
+              <string>New Column</string>
              </property>
             </column>
             <column>
@@ -323,7 +303,7 @@
             </column>
             <column>
              <property name="text">
-              <string>Price</string>
+              <string>Date Picked UP</string>
              </property>
             </column>
             <column>
