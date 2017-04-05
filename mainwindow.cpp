@@ -79,8 +79,8 @@ void MainWindow::createMenu()
 
 void MainWindow::personalInfoSlot()
 {
-    optionsWindow = new OptionsWindow(this);
-    optionsWindow->show();
+    optionsWindow = new OptionsWindow;
+    this->setCentralWidget(optionsWindow);
 }
 
 MainWindow::~MainWindow()

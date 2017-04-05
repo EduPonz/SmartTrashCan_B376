@@ -8,7 +8,7 @@ namespace Ui {
 class OptionsWindow;
 }
 
-class OptionsWindow : public QMainWindow
+class OptionsWindow : public QWidget
 {
     Q_OBJECT
 
