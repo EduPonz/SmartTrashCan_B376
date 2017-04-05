@@ -23,7 +23,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-136</y>
         <width>692</width>
         <height>650</height>
        </rect>
@@ -77,7 +77,7 @@
                 <item>
                  <widget class="QLabel" name="label_3">
                   <property name="text">
-                   <string>Full name</string>
+                   <string>Full Name</string>
                   </property>
                  </widget>
                 </item>
@@ -93,7 +93,7 @@
                 <item>
                  <widget class="QLabel" name="label_4">
                   <property name="text">
-                   <string>Phone number</string>
+                   <string>Address</string>
                   </property>
                  </widget>
                 </item>
@@ -109,7 +109,7 @@
                 <item>
                  <widget class="QLabel" name="label_5">
                   <property name="text">
-                   <string>email</string>
+                   <string>Phone Number</string>
                   </property>
                  </widget>
                 </item>
@@ -125,7 +125,7 @@
                 <item>
                  <widget class="QLabel" name="label_6">
                   <property name="text">
-                   <string>Other people registered at this address</string>
+                   <string>Email</string>
                   </property>
                  </widget>
                 </item>
@@ -141,7 +141,7 @@
                 <item>
                  <widget class="QLabel" name="label_7">
                   <property name="text">
-                   <string>Add people</string>
+                   <string>Other Peopler Registered at this Address</string>
                   </property>
                  </widget>
                 </item>
@@ -155,14 +155,14 @@
               <widget class="QWidget" name="widget_4" native="true">
                <layout class="QVBoxLayout" name="verticalLayout_8">
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_7"/>
-                </item>
-                <item>
                  <widget class="QLabel" name="label_8">
                   <property name="text">
-                   <string>TextLabel</string>
+                   <string>Add People</string>
                   </property>
                  </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_7"/>
                 </item>
                </layout>
               </widget>
@@ -206,14 +206,14 @@
                 <item>
                  <widget class="QCheckBox" name="checkBox">
                   <property name="text">
-                   <string>CheckBox</string>
+                   <string>Visa</string>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QCheckBox" name="checkBox_2">
                   <property name="text">
-                   <string>CheckBox</string>
+                   <string>Mastercard</string>
                   </property>
                  </widget>
                 </item>
