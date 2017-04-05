@@ -220,7 +220,7 @@
                 <item>
                  <widget class="QCheckBox" name="checkBox_3">
                   <property name="text">
-                   <string>CheckBox</string>
+                   <string>Bottlecaps</string>
                   </property>
                  </widget>
                 </item>
