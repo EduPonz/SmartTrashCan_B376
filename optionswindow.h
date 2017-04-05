@@ -2,17 +2,18 @@
 #define OPTIONSWINDOW_H
 
 #include <QWidget>
+#include <QMainWindow>
 
 namespace Ui {
 class OptionsWindow;
 }
 
-class OptionsWindow : public QWidget
+class OptionsWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit OptionsWindow(QWidget *parent = 0);
+    OptionsWindow(QWidget *parent = 0);
     ~OptionsWindow();
 
 private:

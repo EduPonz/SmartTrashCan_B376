@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "optionswindow.h"
 #include <QMainWindow>
 #include <QMenu>
 #include <QAbstractButton>
@@ -19,7 +20,7 @@ public:
     ~MainWindow();
 
 private slots:
-     void settingsSlot();
+     void personalInfoSlot();
 
 private:
     void createActions();
@@ -32,11 +33,16 @@ private:
     QAction *language;
     QAction *theme;
     QAction *units;
+    QAction *home;
+    QAction *logOut;
     QIcon settingsIcon;
     QMenu *settingsMenu;
+    QMenu *userNameMenu;
     QToolButton *settingButton;
+    QToolButton *userNameButton;
 
     Ui::MainWindow *ui;
+    OptionsWindow *optionsWindow;
 };
 
 #endif // MAINWINDOW_H
