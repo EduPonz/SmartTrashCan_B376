@@ -1,7 +1,7 @@
 #include "loginwindow.h"
 #include "ui_loginwindow.h"
+#include "mainwindow.h"
 #include "userdatabasemanager.h"
-
 #include <QDebug>
 
 
@@ -25,7 +25,6 @@ void LoginWindow::on_loginButton_clicked()
 
     UserDataBaseManager query;
     userName = query.DataBaseRetrieve(userNameEntry, passWordEntry);
-    qWarning() << "LoginWindow::on_loginButton_clicked - ERROR: " << userName;
 
     if(!query.NOT_PERSON_FOUND.compare(userName))
     {

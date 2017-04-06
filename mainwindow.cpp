@@ -37,6 +37,7 @@ void MainWindow::createActions()
 
     logOut = new QAction (tr("Log Out"), this);
     logOut->setStatusTip(tr("Log Out"));
+    connect(logOut, &QAction::triggered, this, &MainWindow::logOutSlot);
 
     homeButtonAction = new QAction (QIcon(":/new/Icons/Resources/homeButton.png"), tr(""), this);
     personalInfo->setStatusTip(tr("Home"));
@@ -81,10 +82,15 @@ void MainWindow::createMenu()
     userNameButton->setMenu(userNameMenu);
     userNameButton->setText(tr("User Name"));
     userNameButton->setPopupMode(QToolButton::InstantPopup);
-
 }
 
 void MainWindow::personalInfoSlot()
+{
+    optionsWindow = new OptionsWindow;
+    this->setCentralWidget(optionsWindow);
+}
+
+void MainWindow::logOutSlot()
 {
     loginWindow = new LoginWindow;
     this->setCentralWidget(loginWindow);

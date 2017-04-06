@@ -20,9 +20,12 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+public slots:
+    void homeButtonActionSlot();
+
 private slots:
      void personalInfoSlot();
-     void homeButtonActionSlot();
+     void logOutSlot();
 
 private:
     void createActions();
@@ -39,7 +42,6 @@ private:
     QAction *home;
     QAction *logOut;
     QAction *homeButtonAction;
-
     QIcon settingsIcon;
 
     QMenu *settingsMenu;

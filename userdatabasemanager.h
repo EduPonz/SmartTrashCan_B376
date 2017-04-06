@@ -3,6 +3,8 @@
 
 #include <QString>
 #include <QSqlQuery>
+#include <QSqlDatabase>
+
 
 class UserDataBaseManager
 {
@@ -19,12 +21,13 @@ private:
     QString COLUMN_ID;
     QString COLUMN_USERNAME;
     QString COLUMN_PASSWORD;
+    QSqlDatabase userDataBase;
 
     void DatabaseConnect();
     void DatabaseInit();
     void DatabasePopulate();
 
-    bool isExist(QSqlDatabase &dataBase);
+    bool isExist();
 };
 
 #endif // USERDATABASEMANAGER_H

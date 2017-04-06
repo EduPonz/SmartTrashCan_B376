@@ -30,12 +30,15 @@ UserDataBaseManager::UserDataBaseManager()
     DatabaseConnect();
 }
 
-bool UserDataBaseManager::isExist(QSqlDatabase &dataBase)
+bool UserDataBaseManager::isExist()
 {
-    if(!dataBase.open())
+    if(!userDataBase.open()){
+        qWarning() << "UserDataBaseManager::isExist - ERROR: "
+                   << userDataBase.lastError().text();
         return false;
-    else
+    }else{
         return true;
+    }
 }
 
 void UserDataBaseManager::DatabaseConnect()
@@ -44,14 +47,13 @@ void UserDataBaseManager::DatabaseConnect()
 
     if(QSqlDatabase::isDriverAvailable(DRIVER))
     {
-        QSqlDatabase userDataBase;
-        if(isExist(userDataBase))
+        userDataBase = QSqlDatabase::addDatabase(DRIVER);
+        //userDataBase.setDatabaseName(":/SmartTrashCan_B376/Databases/userDataBase.db");
+        userDataBase.setDatabaseName(":memory:");
+        if(isExist())
         {
-            qWarning() << "UserDataBaseManager::DatabaseConnect - ERROR: " << userDataBase.lastError().text();
+            DatabaseInit();
         }else{
-            userDataBase = QSqlDatabase::addDatabase(DRIVER);
-
-            userDataBase.setDatabaseName(":/SmartTrashCan_B376/Databases/userDataBase.db");
             DatabaseInit();
         }
     }else
@@ -70,6 +72,8 @@ void UserDataBaseManager::DatabaseInit()
 
     if(!query.isActive())
         qWarning() << "UserDataBaseManager::DatabaseInit - ERROR: " << query.lastError().text();
+    else
+        qDebug() << "UserDataBaseManager::DatabaseInit -  The DataBase has been inizialited";
     DatabasePopulate();
 }
 
@@ -82,6 +86,8 @@ void UserDataBaseManager::DatabasePopulate() //PASS TWO STRINGS INTO PLACEHOLDER
 
     if(!query.exec(SQL_POPULATE_USER_DATABASE_TABLE))
         qWarning() << "UserDataBaseManager::DatabasePopulate - ERROR: " << query.lastError().text();
+    else
+        qDebug() << "UserDataBaseManager::DatabasePopulate - The DataBase has been populated";
 }
 
 QString UserDataBaseManager::DataBaseRetrieve(QString userNameLineEdit, QString passWordLineEdit)
@@ -101,6 +107,10 @@ QString UserDataBaseManager::DataBaseRetrieve(QString userNameLineEdit, QString 
 
     if(!query.exec())
         qWarning() << "UserDataBaseManager::OnSearchClicked - ERROR: " << query.lastError().text();
+    else
+        qDebug() << "UserDataBaseManager::OnSearchClicked -"
+                 << " User Name: " << userNameLineEdit
+                 << "Password: "   << passWordLineEdit;
 
     if(query.first())
         return (query.value(0).toString());

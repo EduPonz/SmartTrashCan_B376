@@ -2,6 +2,7 @@
 #define LOGINWINDOW_H
 
 #include "userdatabasemanager.h"
+#include "mainwindow.h"
 #include <QWidget>
 #include <QString>
 
