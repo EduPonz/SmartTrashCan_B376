@@ -1,13 +1,12 @@
 #include "loginwindow.h"
 #include "ui_loginwindow.h"
 #include "mainwindow.h"
+#include "ui_mainwindow.h"
 #include "userdatabasemanager.h"
 #include <QDebug>
 
 
-LoginWindow::LoginWindow(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::LoginWindow)
+LoginWindow::LoginWindow(QWidget *parent) : QWidget(parent), ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
     connect(ui->loginButton, &QPushButton::clicked, this, &LoginWindow::on_loginButton_clicked);
@@ -31,5 +30,7 @@ void LoginWindow::on_loginButton_clicked()
         ui->outPutLabel->setText(query.NOT_PERSON_FOUND);
     }else{
         ui->outPutLabel->setText("GG");
+        emit correctUser();
+        qDebug() << "LoginWindow::on_loginButton_clicked - correctUser signal sent";
     }
 }

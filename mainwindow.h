@@ -3,6 +3,7 @@
 
 #include "optionswindow.h"
 #include "loginwindow.h"
+#include "datawindow.h"
 #include <QMainWindow>
 #include <QMenu>
 #include <QAbstractButton>
@@ -19,20 +20,19 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
-public slots:
-    void homeButtonActionSlot();
+    QToolBar *mainToolBar;
+    Ui::MainWindow *ui;
 
 private slots:
      void personalInfoSlot();
      void logOutSlot();
+     void homeButtonActionSlot();
+     void accessDataSlot();
 
 private:
     void createActions();
     void createToolBars();
     void createMenu();
-
-    QToolBar *mainToolBar;
 
     QAction *settingsAction;
     QAction *personalInfo;
@@ -42,6 +42,7 @@ private:
     QAction *home;
     QAction *logOut;
     QAction *homeButtonAction;
+
     QIcon settingsIcon;
 
     QMenu *settingsMenu;
@@ -50,9 +51,9 @@ private:
     QToolButton *settingButton;
     QToolButton *userNameButton;
 
-    Ui::MainWindow *ui;
-    LoginWindow *loginWindow;
     OptionsWindow *optionsWindow;
+    DataWindow *dataWindow;
+    LoginWindow *loginWindow;
 };
 
 #endif // MAINWINDOW_H

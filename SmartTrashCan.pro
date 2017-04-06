@@ -27,16 +27,19 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     loginwindow.cpp \
     optionswindow.cpp \
-    userdatabasemanager.cpp
+    userdatabasemanager.cpp \
+    datawindow.cpp
 
 HEADERS  += mainwindow.h \
     loginwindow.h \
     optionswindow.h \
-    userdatabasemanager.h
+    userdatabasemanager.h \
+    datawindow.h
 
 FORMS    += mainwindow.ui \
     loginwindow.ui \
-    optionswindow.ui
+    optionswindow.ui \
+    datawindow.ui
 
 RESOURCES += \
     resources.qrc
