@@ -13,15 +13,12 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
+    ui->setupUi(this);
+    loginWindow = new LoginWindow;
+    this->setCentralWidget(loginWindow);
     createActions();
     createToolBars();
     mainToolBar->setVisible(false);
-    ui->setupUi(this);
-
-    //dataWindow = new DataWindow;
-    //this->setCentralWidget(dataWindow);
-    loginWindow = new LoginWindow (this);
-    this->setCentralWidget(loginWindow);
 }
 
 void MainWindow::createActions()
@@ -102,7 +99,6 @@ void MainWindow::personalInfoSlot()
 
 void MainWindow::logOutSlot()
 {
-    loginWindow = new LoginWindow;
     this->setCentralWidget(loginWindow);
     mainToolBar->setVisible(false);
 }
