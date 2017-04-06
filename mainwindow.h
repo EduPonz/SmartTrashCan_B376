@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "optionswindow.h"
+#include "loginwindow.h"
 #include <QMainWindow>
 #include <QMenu>
 #include <QAbstractButton>
@@ -48,6 +49,7 @@ private:
     QToolButton *userNameButton;
 
     Ui::MainWindow *ui;
+    LoginWindow *loginWindow;
     OptionsWindow *optionsWindow;
 };
 

@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include "ui_optionswindow.h"
 #include "optionswindow.h"
+#include "loginwindow.h"
+#include "ui_loginwindow.h"
 #include <QtGui>
 #include <QToolBar>
 #include <QMenu>
@@ -84,8 +86,8 @@ void MainWindow::createMenu()
 
 void MainWindow::personalInfoSlot()
 {
-    optionsWindow = new OptionsWindow;
-    this->setCentralWidget(optionsWindow);
+    loginWindow = new LoginWindow;
+    this->setCentralWidget(loginWindow);
 }
 
 void MainWindow::homeButtonActionSlot(){

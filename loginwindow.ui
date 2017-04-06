@@ -60,7 +60,7 @@
              <number>25</number>
             </property>
             <item row="0" column="0">
-             <widget class="QLineEdit" name="usernamelineEdit">
+             <widget class="QLineEdit" name="userNameLineEdit">
               <property name="minimumSize">
                <size>
                 <width>250</width>
@@ -122,7 +122,7 @@
              </widget>
             </item>
             <item row="7" column="0">
-             <widget class="QLineEdit" name="passwordlineEdit">
+             <widget class="QLineEdit" name="passWordLineEdit">
               <property name="minimumSize">
                <size>
                 <width>250</width>
@@ -141,6 +141,13 @@
              <widget class="QPushButton" name="pushButton">
               <property name="text">
                <string>Forget pw</string>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="1">
+             <widget class="QLabel" name="outPutLabel">
+              <property name="text">
+               <string/>
               </property>
              </widget>
             </item>
