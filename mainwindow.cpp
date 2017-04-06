@@ -99,6 +99,8 @@ void MainWindow::personalInfoSlot()
 
 void MainWindow::logOutSlot()
 {
+    loginWindow = new LoginWindow;
+    createActions();
     this->setCentralWidget(loginWindow);
     mainToolBar->setVisible(false);
 }
