@@ -27,7 +27,7 @@ private slots:
      void personalInfoSlot();
      void logOutSlot();
      void homeButtonActionSlot();
-     void accessDataSlot();
+     void accessDataSlot(QString userName);
 
 private:
     void createActions();

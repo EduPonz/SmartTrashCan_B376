@@ -12,8 +12,11 @@ public:
     UserDataBaseManager();
 
     QString NOT_PERSON_FOUND;
+    QString USER_ADDED_SUCC;
+    QString USER_EXISTS;
 
-    QString DataBaseRetrieve(QString userNameLineEdit, QString passWordLineEdit);
+    QString userDataBaseRetrieve(QString userNameLineEdit, QString passWordLineEdit);
+    void userDatabaseInsert(QString userName, QString password);
 
 private:
 
@@ -25,7 +28,6 @@ private:
 
     void DatabaseConnect();
     void DatabaseInit();
-    void DatabasePopulate();
 
     bool isExist();
 };

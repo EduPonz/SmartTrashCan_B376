@@ -19,13 +19,16 @@ public:
     ~LoginWindow();
 
 signals:
-    void correctUser();
+    void correctUser(QString userName);
 
 public slots:
     void on_loginButton_clicked();
+    void on_loginSingupButton_clicked();
 
 private:
-    QString userName;
+    QString userNameEntry;
+    QString passWordEntry;
+    QString databaseUserName;
     UserDataBaseManager query;
 
     DataWindow *dataWindow;

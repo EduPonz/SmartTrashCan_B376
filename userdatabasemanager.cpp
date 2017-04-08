@@ -27,6 +27,8 @@ UserDataBaseManager::UserDataBaseManager()
     COLUMN_USERNAME = "username";
     COLUMN_PASSWORD = "password";
     NOT_PERSON_FOUND = "Sorry, wrong username or password!";
+    USER_ADDED_SUCC = "New user added successfully";
+    USER_EXISTS = "Username not available. Try another username";
     DatabaseConnect();
 }
 
@@ -74,26 +76,30 @@ void UserDataBaseManager::DatabaseInit()
         qWarning() << "UserDataBaseManager::DatabaseInit - ERROR: " << query.lastError().text();
     else
         qDebug() << "UserDataBaseManager::DatabaseInit -  The DataBase has been inizialited";
-    DatabasePopulate();
+    userDatabaseInsert("user", "password");
 }
 
-void UserDataBaseManager::DatabasePopulate() //PASS TWO STRINGS INTO PLACEHOLDER 'user' AND 'password'
+void UserDataBaseManager::userDatabaseInsert(QString userName, QString password)
 {
     QSqlQuery query;
 
-    QString SQL_POPULATE_USER_DATABASE_TABLE = "INSERT INTO " + TABLE_NAME + "("
-            + COLUMN_USERNAME + ", " + COLUMN_PASSWORD + ") VALUES ('user', 'password')";
+    QString SQL_POPULATE_USER_DATABASE_TABLE = "INSERT INTO " + TABLE_NAME
+            + "(" + COLUMN_USERNAME + ", " + COLUMN_PASSWORD
+            + ") VALUES ('" + userName + "', '" + password + "')";
 
     if(!query.exec(SQL_POPULATE_USER_DATABASE_TABLE))
         qWarning() << "UserDataBaseManager::DatabasePopulate - ERROR: " << query.lastError().text();
     else
-        qDebug() << "UserDataBaseManager::DatabasePopulate - The DataBase has been populated";
+        qDebug() << "UserDataBaseManager::userDatabaseInsert - INSERTED:"
+                 << " User Name: "    << userName
+                 << " Password: " << password;
 }
 
-QString UserDataBaseManager::DataBaseRetrieve(QString userNameLineEdit, QString passWordLineEdit)
+QString UserDataBaseManager::userDataBaseRetrieve(QString userNameLineEdit, QString passWordLineEdit)
 {
     QSqlQuery query;
 
+    //PASSES TWO STRINGS INTO PLACEHOLDER 'user' AND 'password'
     QString SQL_RETRIEVE_USER_DATABASE_TABLE = "SELECT "
             + COLUMN_USERNAME + ", "
             + COLUMN_PASSWORD + " FROM "
@@ -106,11 +112,11 @@ QString UserDataBaseManager::DataBaseRetrieve(QString userNameLineEdit, QString 
     query.addBindValue(passWordLineEdit);
 
     if(!query.exec())
-        qWarning() << "UserDataBaseManager::OnSearchClicked - ERROR: " << query.lastError().text();
+        qWarning() << "UserDataBaseManager::userDataBaseRetrieve - ERROR: " << query.lastError().text();
     else
-        qDebug() << "UserDataBaseManager::OnSearchClicked -"
+        qDebug() << "UserDataBaseManager::userDataBaseRetrieve - RETRIEVED:"
                  << " User Name: " << userNameLineEdit
-                 << "Password: "   << passWordLineEdit;
+                 << " Password: "   << passWordLineEdit;
 
     if(query.first())
         return (query.value(0).toString());

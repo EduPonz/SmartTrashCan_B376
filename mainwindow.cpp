@@ -10,6 +10,7 @@
 #include <iostream>
 #include <QtWidgets>
 #include <QDebug>
+#include <QFont>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -85,6 +86,8 @@ void MainWindow::createMenu()
     userNameMenu->addAction(logOut);
 
     userNameButton = new QToolButton;
+    QFont userNameButtonFont ("Courier", 20, QFont::Bold, true);
+    userNameButton->setFont(userNameButtonFont);
     userNameButton->setMenu(userNameMenu);
     userNameButton->setText(tr("User Name"));
     userNameButton->setPopupMode(QToolButton::InstantPopup);
@@ -111,13 +114,13 @@ void MainWindow::homeButtonActionSlot(){
     mainToolBar->setVisible(true);
 }
 
-void MainWindow::accessDataSlot(){
+void MainWindow::accessDataSlot(QString userName){
     qDebug() << "MainWindow::accessDataSlot - signal received";
     qDebug() << "MainWindow::accessDataSlot - changing the central widget to dataWindow";
     dataWindow = new DataWindow;
     this->setCentralWidget(dataWindow);
     mainToolBar->setVisible(true);
-    //userNameButton->setText(userName);
+    userNameButton->setText(userName);
 }
 
 MainWindow::~MainWindow()
