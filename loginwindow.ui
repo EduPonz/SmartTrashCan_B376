@@ -107,9 +107,12 @@
         <property name="enabled">
          <bool>true</bool>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,0">
+        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,0,0">
          <property name="spacing">
           <number>6</number>
+         </property>
+         <property name="bottomMargin">
+          <number>5</number>
          </property>
          <item>
           <widget class="QPushButton" name="loginButton">
@@ -129,6 +132,13 @@
           <widget class="QPushButton" name="forgoPasswordButton">
            <property name="text">
             <string>I Forgot My Password</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="loginRemoveButton">
+           <property name="text">
+            <string>Remove DataBase</string>
            </property>
           </widget>
          </item>

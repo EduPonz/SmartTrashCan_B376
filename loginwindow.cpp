@@ -22,15 +22,24 @@ void LoginWindow::on_loginSingupButton_clicked(){
     userNameEntry = ui->userNameLineEdit->text();
     passWordEntry = ui->passWordLineEdit->text();
 
-    databaseUserName = query.userDataBaseRetrieve(userNameEntry, passWordEntry);
+    loginQuery = loginDataBaseManager.userDataBaseRetrieve(userNameEntry, passWordEntry);
 
-    if(!query.NOT_PERSON_FOUND.compare(databaseUserName))
+    if(!(loginQuery.first()))
     {
-        query.userDatabaseInsert(userNameEntry, passWordEntry);
-        ui->outPutLabel->setText(query.USER_ADDED_SUCC);
-        qDebug() << "LoginWindow::on_loginSingupButton_clicked - USER ADDED SUCC";
+       bool insertSucced;
+       insertSucced = loginDataBaseManager.userDatabaseInsert(userNameEntry, passWordEntry, ""
+                                                , ""         , ""           , loginDataBaseManager.PAYMENT_METHOD_UNKNOWN
+                                                , ""         , ""           , "");
+        if (insertSucced){
+            ui->outPutLabel->setText(loginDataBaseManager.USER_ADDED_SUCC);
+            qDebug() << "LoginWindow::on_loginSingupButton_clicked - USER ADDED SUCC";
+        }else{
+            ui->outPutLabel->setText(loginDataBaseManager.USER_ADDED_FAIL);
+            qDebug() << "LoginWindow::on_loginSingupButton_clicked - USER ADDED FAIL";
+        }
+
     }else{
-        ui->outPutLabel->setText(query.USER_EXISTS);
+        ui->outPutLabel->setText(loginDataBaseManager.USER_EXISTS);
         qDebug() << "LoginWindow::on_loginSingupButton_clicked - USER EXISTS";
     }
 }
@@ -41,13 +50,17 @@ void LoginWindow::on_loginButton_clicked()
     userNameEntry = ui->userNameLineEdit->text();
     passWordEntry = ui->passWordLineEdit->text();
 
-    databaseUserName = query.userDataBaseRetrieve(userNameEntry, passWordEntry);
+    loginQuery = loginDataBaseManager.userDataBaseRetrieve(userNameEntry, passWordEntry);
 
-    if(!query.NOT_PERSON_FOUND.compare(databaseUserName))
-    {
-        ui->outPutLabel->setText(query.NOT_PERSON_FOUND);
-    }else{
+    if(loginQuery.first()){
         emit correctUser(userNameEntry);
         qDebug() << "LoginWindow::on_loginButton_clicked - correctUser signal sent";
+    }else{
+        ui->outPutLabel->setText(loginDataBaseManager.NOT_PERSON_FOUND);
     }
+}
+
+void LoginWindow::on_loginRemoveButton_clicked()
+{
+    loginDataBaseManager.userDatabaseDeleteAll();
 }
