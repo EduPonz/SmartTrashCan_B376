@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>OptionsWindow</class>
- <widget class="QWidget" name="OptionsWindow">
+ <class>SignUpWindow</class>
+ <widget class="QWidget" name="SignUpWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -23,7 +23,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-143</y>
+        <y>0</y>
         <width>688</width>
         <height>789</height>
        </rect>
@@ -62,7 +62,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="optionsUsernameLineEdit"/>
+                 <widget class="QLineEdit" name="signUpUsernameLineEdit"/>
                 </item>
                </layout>
               </widget>
@@ -78,7 +78,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="optionsPasswordLineEdit"/>
+                 <widget class="QLineEdit" name="signUpPasswordLineEdit"/>
                 </item>
                </layout>
               </widget>
@@ -94,7 +94,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="optionsFullNameLineEdit"/>
+                 <widget class="QLineEdit" name="signUpFullNameLineEdit"/>
                 </item>
                </layout>
               </widget>
@@ -110,7 +110,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="optionsAddressLineEdit"/>
+                 <widget class="QLineEdit" name="signUpAddressLineEdit"/>
                 </item>
                </layout>
               </widget>
@@ -126,7 +126,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="optionsPhoneNumberLineEdit"/>
+                 <widget class="QLineEdit" name="signUpPhoneNumberLineEdit"/>
                 </item>
                </layout>
               </widget>
@@ -142,7 +142,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="optionsEmailLineEdit"/>
+                 <widget class="QLineEdit" name="signUpEmailLineEdit"/>
                 </item>
                </layout>
               </widget>
@@ -158,7 +158,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="optionsOtherPeopleLineEdit"/>
+                 <widget class="QLineEdit" name="signUpOtherPeopleLineEdit"/>
                 </item>
                </layout>
               </widget>
@@ -186,7 +186,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="optionsVisaCheckBox">
+                 <widget class="QCheckBox" name="signUpVisaCheckBox">
                   <property name="text">
                    <string>Visa</string>
                   </property>
@@ -199,7 +199,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="optionsMastercardCheckBox">
+                 <widget class="QCheckBox" name="signUpMastercardCheckBox">
                   <property name="text">
                    <string>MasterCard</string>
                   </property>
@@ -212,7 +212,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="optionsBottlecapsCheckBox">
+                 <widget class="QCheckBox" name="signUpBottlecapsCheckBox">
                   <property name="text">
                    <string>Bottlecaps</string>
                   </property>
@@ -238,7 +238,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="optionsCardNumberLineEdit"/>
+                 <widget class="QLineEdit" name="signUpCardNumberLineEdit"/>
                 </item>
                 <item>
                  <widget class="QLabel" name="label_12">
@@ -248,7 +248,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="optionsCvvLineEdit"/>
+                 <widget class="QLineEdit" name="signUpCvvLineEdit"/>
                 </item>
                 <item>
                  <widget class="QLabel" name="label_13">
@@ -258,7 +258,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="optionsExpirationDateLineEdit"/>
+                 <widget class="QLineEdit" name="signUpExpirationDateLineEdit"/>
                 </item>
                </layout>
               </widget>
@@ -266,24 +266,24 @@
              <item>
               <widget class="QWidget" name="widget_12" native="true">
                <layout class="QGridLayout" name="gridLayout">
-                <item row="0" column="0">
-                 <widget class="QPushButton" name="optionsApplyChangesButton">
-                  <property name="text">
-                   <string>Apply Changes</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="2" column="0">
-                 <widget class="QLabel" name="optionsOutPutLabel">
+                 <widget class="QLabel" name="signUpOutPutLabel">
                   <property name="text">
                    <string/>
                   </property>
                  </widget>
                 </item>
                 <item row="1" column="0">
-                 <widget class="QPushButton" name="optionsDeleteUserButton">
+                 <widget class="QPushButton" name="signUpDeleteUserButton">
                   <property name="text">
                    <string>Delete User</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QPushButton" name="signUpSingUpButton">
+                  <property name="text">
+                   <string>Sign Up</string>
                   </property>
                  </widget>
                 </item>

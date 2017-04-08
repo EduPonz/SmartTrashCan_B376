@@ -4,6 +4,8 @@
 #include "optionswindow.h"
 #include "loginwindow.h"
 #include "ui_loginwindow.h"
+#include "signupwindow.h"
+#include "ui_signupwindow.h"
 #include <QtGui>
 #include <QToolBar>
 #include <QMenu>
@@ -16,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 {
     ui->setupUi(this);
     loginWindow = new LoginWindow;
+    optionsWindow = new OptionsWindow;
     this->setCentralWidget(loginWindow);
     createActions();
     createToolBars();
@@ -49,6 +52,8 @@ void MainWindow::createActions()
     connect(homeButtonAction, &QAction::triggered, this, &MainWindow::homeButtonActionSlot);
 
     connect(loginWindow, &LoginWindow::correctUser, this, &MainWindow::accessDataSlot);
+    connect(loginWindow, &LoginWindow::signUpSignal, this, &MainWindow::signUpSlot);
+    connect(signUpWindow, &SignUpWindow::signUpAddUserSignal, this, &MainWindow::accessDataSlot);
 }
 
 void MainWindow::createToolBars()
@@ -95,32 +100,47 @@ void MainWindow::createMenu()
 
 void MainWindow::personalInfoSlot()
 {
-    optionsWindow = new OptionsWindow;
+    optionsWindow = new OptionsWindow (this, user);
+    connect(personalInfo, &QAction::triggered, this, &MainWindow::personalInfoSlot);
     this->setCentralWidget(optionsWindow);
     mainToolBar->setVisible(true);
+    this->setWindowTitle("Personal Information");
 }
 
 void MainWindow::logOutSlot()
 {
     loginWindow = new LoginWindow;
-    createActions();
+    qDebug() << "MainWindow::logOutSlot - creating actions";
+    connect(loginWindow, &LoginWindow::correctUser, this, &MainWindow::accessDataSlot);
+    connect(loginWindow, &LoginWindow::signUpSignal, this, &MainWindow::signUpSlot);
     this->setCentralWidget(loginWindow);
     mainToolBar->setVisible(false);
 }
 
-void MainWindow::homeButtonActionSlot(){
+void MainWindow::signUpSlot()
+{
+    signUpWindow = new SignUpWindow;
+    createActions();
+    this->setCentralWidget(signUpWindow);
+    mainToolBar->setVisible(true);
+    this->setWindowTitle("Sign Up");
+}
+
+void MainWindow::homeButtonActionSlot()
+{
     dataWindow = new DataWindow;
     this->setCentralWidget(dataWindow);
     mainToolBar->setVisible(true);
+    this->setWindowTitle("Personal Data");
 }
 
 void MainWindow::accessDataSlot(QString userName){
-    qDebug() << "MainWindow::accessDataSlot - signal received";
-    qDebug() << "MainWindow::accessDataSlot - changing the central widget to dataWindow";
+    user = userName;
     dataWindow = new DataWindow;
     this->setCentralWidget(dataWindow);
     mainToolBar->setVisible(true);
     userNameButton->setText(userName);
+    this->setWindowTitle("Personal Data");
 }
 
 MainWindow::~MainWindow()

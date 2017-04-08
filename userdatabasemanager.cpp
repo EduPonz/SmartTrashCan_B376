@@ -152,6 +152,35 @@ QSqlQuery UserDataBaseManager::userDataBaseRetrieve(QString userName, QString pa
     return query;
 }
 
+QSqlQuery UserDataBaseManager::userDataBaseRetrieve(QString userName)
+{
+    QSqlQuery query;
+
+    //PASSES TWO STRINGS INTO PLACEHOLDER 'user' AND 'password'
+    QString SQL_RETRIEVE_USER_DATABASE_TABLE = "SELECT "
+            + COLUMN_USERNAME        + ", "
+            + COLUMN_PASSWORD        + ", "
+            + COLUMN_FULL_NAME       + ", "
+            + COLUMN_ADDRESS         + ", "
+            + COLUMN_PHONE_NUMBER    + ", "
+            + COLUMN_PAYMENT_METHOD  + ", "
+            + COLUMN_CARD_NUMBER     + ", "
+            + COLUMN_CVV             + ", "
+            + COLUMN_EXPIRATION_DATE + " FROM "
+            + TABLE_NAME             + " WHERE "
+            + COLUMN_USERNAME        + " = ?";
+
+    query.prepare(SQL_RETRIEVE_USER_DATABASE_TABLE);
+    query.addBindValue(userName);
+
+    if(!query.exec())
+        qWarning() << "UserDataBaseManager::userDataBaseRetrieve - ERROR: " << query.lastError().text();
+    else
+        qDebug() << "UserDataBaseManager::userDataBaseRetrieve - RETRIEVED:"
+                 << " User Name: " << userName;
+    return query;
+}
+
 void UserDataBaseManager::userDatabaseDeleteAll(){
     QSqlQuery query(userDataBase);
     query.clear();
@@ -162,16 +191,4 @@ void UserDataBaseManager::userDatabaseDeleteAll(){
         qDebug() << "UserDataBaseManager::userDatabaseDeleteAll() - Table" << TABLE_NAME << "NOT removed";
     }
     userDatabaseConnect();
-    /*
-    if (userDataBase.open()){
-        QString DROP_TABLE = "DROP TABLE" + TABLE_NAME;
-        QSqlQuery query;
-        query.prepare(DROP_TABLE);
-        if (query.exec()) {
-            qDebug() << "UserDataBaseManager::userDatabaseDeleteAll() - Table" << TABLE_NAME << "removed";
-        }else{
-            qDebug() << "UserDataBaseManager::userDatabaseDeleteAll() - Table" << TABLE_NAME << "NOT removed";
-        }
-    }
-    */
 }

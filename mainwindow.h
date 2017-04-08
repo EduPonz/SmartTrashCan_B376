@@ -4,13 +4,15 @@
 #include "optionswindow.h"
 #include "loginwindow.h"
 #include "datawindow.h"
+#include "signupwindow.h"
 #include <QMainWindow>
 #include <QMenu>
 #include <QAbstractButton>
 #include <QtWidgets>
+#include <QString>
 
 namespace Ui {
-class MainWindow;
+    class MainWindow;
 }
 
 class MainWindow : public QMainWindow
@@ -18,7 +20,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    MainWindow(QWidget *parent = 0);
     ~MainWindow();
     QToolBar *mainToolBar;
     Ui::MainWindow *ui;
@@ -28,6 +30,7 @@ private slots:
      void logOutSlot();
      void homeButtonActionSlot();
      void accessDataSlot(QString userName);
+     void signUpSlot();
 
 private:
     void createActions();
@@ -43,6 +46,8 @@ private:
     QAction *logOut;
     QAction *homeButtonAction;
 
+    QString user;
+
     QIcon settingsIcon;
 
     QMenu *settingsMenu;
@@ -54,6 +59,7 @@ private:
     OptionsWindow *optionsWindow;
     DataWindow *dataWindow;
     LoginWindow *loginWindow;
+    SignUpWindow *signUpWindow;
 };
 
 #endif // MAINWINDOW_H

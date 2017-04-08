@@ -2,13 +2,13 @@
 #define LOGINWINDOW_H
 
 #include "userdatabasemanager.h"
-#include"datawindow.h"
+#include "datawindow.h"
 #include <QWidget>
 #include <QString>
 #include <QSqlQuery>
 
 namespace Ui {
-class LoginWindow;
+    class LoginWindow;
 }
 
 class LoginWindow : public QWidget
@@ -21,6 +21,7 @@ public:
 
 signals:
     void correctUser(QString userName);
+    void signUpSignal();
 
 public slots:
     void on_loginButton_clicked();
@@ -32,9 +33,9 @@ private slots:
 private:
     QString userNameEntry;
     QString passWordEntry;
-    UserDataBaseManager loginDataBaseManager;
-    QSqlQuery loginQuery;
 
+    QSqlQuery loginQuery;
+    UserDataBaseManager loginDataBaseManager;
     DataWindow *dataWindow;
 
     Ui::LoginWindow *ui;

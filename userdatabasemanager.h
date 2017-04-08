@@ -20,14 +20,6 @@ public:
     QString PAYMENT_METHOD_MASTERCARD;
     QString PAYMENT_METHOD_BOTTLECAPS;
 
-    QSqlQuery userDataBaseRetrieve(QString userNameLineEdit, QString passWordLineEdit);
-    bool userDatabaseInsert(QString userName, QString password, QString full_name,
-                            QString address, QString phone_number, QString payment_method,
-                            QString card_number, QString cvv, QString expiration_date);
-    void userDatabaseDeleteAll();
-
-private:
-    QString TABLE_NAME;
     QString COLUMN_ID;
     QString COLUMN_USERNAME;
     QString COLUMN_PASSWORD;
@@ -38,6 +30,16 @@ private:
     QString COLUMN_CARD_NUMBER;
     QString COLUMN_CVV;
     QString COLUMN_EXPIRATION_DATE;
+
+    QSqlQuery userDataBaseRetrieve(QString userNameLineEdit, QString passWordLineEdit);
+    QSqlQuery userDataBaseRetrieve(QString userNameLineEdit);
+    bool userDatabaseInsert(QString userName, QString password, QString full_name,
+                            QString address, QString phone_number, QString payment_method,
+                            QString card_number, QString cvv, QString expiration_date);
+    void userDatabaseDeleteAll();
+
+private:
+    QString TABLE_NAME;
     QString userDatabasePath;
 
     QSqlDatabase userDataBase;
