@@ -61,7 +61,7 @@ void UserDataBaseManager::userDatabaseConnect()
     if(QSqlDatabase::isDriverAvailable(DRIVER))
     {
         QDir currentPath;
-        userDatabasePath = currentPath.currentPath() + "myDb.db";
+        userDatabasePath = currentPath.currentPath() + "smartTrashCanDatabe.SQL";
         qDebug() << "UserDataBaseManager::userDatabaseConnect - Database Path" << userDatabasePath;
         userDataBase = QSqlDatabase::addDatabase(DRIVER);
         userDataBase.setDatabaseName(userDatabasePath);

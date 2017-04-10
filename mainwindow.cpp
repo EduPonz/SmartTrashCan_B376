@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 {
     ui->setupUi(this);
     loginWindow = new LoginWindow;
+    signUpWindow = new SignUpWindow;
     this->setCentralWidget(loginWindow);
     createActions();
     createToolBars();
