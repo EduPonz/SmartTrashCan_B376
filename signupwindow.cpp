@@ -60,3 +60,8 @@ void SignUpWindow::insertNewUser()
     }
 }
 
+
+void SignUpWindow::on_signUpCancelButton_clicked()
+{
+    emit singUpCancelSignUp();
+}

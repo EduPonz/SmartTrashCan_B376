@@ -18,7 +18,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 {
     ui->setupUi(this);
     loginWindow = new LoginWindow;
-    optionsWindow = new OptionsWindow;
     this->setCentralWidget(loginWindow);
     createActions();
     createToolBars();
@@ -54,6 +53,7 @@ void MainWindow::createActions()
     connect(loginWindow, &LoginWindow::correctUser, this, &MainWindow::accessDataSlot);
     connect(loginWindow, &LoginWindow::signUpSignal, this, &MainWindow::signUpSlot);
     connect(signUpWindow, &SignUpWindow::signUpAddUserSignal, this, &MainWindow::accessDataSlot);
+    connect(signUpWindow, &SignUpWindow::singUpCancelSignUp, this, &MainWindow::logOutSlot);
 }
 
 void MainWindow::createToolBars()
@@ -122,7 +122,7 @@ void MainWindow::signUpSlot()
     signUpWindow = new SignUpWindow;
     createActions();
     this->setCentralWidget(signUpWindow);
-    mainToolBar->setVisible(true);
+    mainToolBar->setVisible(false);
     this->setWindowTitle("Sign Up");
 }
 

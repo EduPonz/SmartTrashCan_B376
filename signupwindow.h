@@ -22,9 +22,12 @@ public:
 
 signals:
     void signUpAddUserSignal(QString userName);
+    void singUpCancelSignUp();
 
 private slots:
     void on_signUpSingUpButton_clicked();
+
+    void on_signUpCancelButton_clicked();
 
 private:
     QString userName;
