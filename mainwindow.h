@@ -5,11 +5,13 @@
 #include "loginwindow.h"
 #include "datawindow.h"
 #include "signupwindow.h"
+#include "userdatabasemanager.h"
 #include <QMainWindow>
 #include <QMenu>
 #include <QAbstractButton>
 #include <QtWidgets>
 #include <QString>
+#include <QSqlQuery>
 
 namespace Ui {
     class MainWindow;
@@ -24,6 +26,7 @@ public:
     ~MainWindow();
     QToolBar *mainToolBar;
     Ui::MainWindow *ui;
+    void setNameWindowName();
 
 private slots:
      void personalInfoSlot();
@@ -60,6 +63,8 @@ private:
     DataWindow *dataWindow;
     LoginWindow *loginWindow;
     SignUpWindow *signUpWindow;
+    UserDataBaseManager mainWindowUserDatabaseManager;
+    QSqlQuery mainWindowQuery;
 };
 
 #endif // MAINWINDOW_H

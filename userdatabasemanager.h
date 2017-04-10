@@ -31,11 +31,17 @@ public:
     QString COLUMN_CVV;
     QString COLUMN_EXPIRATION_DATE;
 
+    bool userDataBaseUpdate(QString previousUserName, QString userName, QString password, QString full_name,
+                             QString address, QString phone_number, QString payment_method,
+                             QString card_number, QString cvv, QString expiration_date);
+
     QSqlQuery userDataBaseRetrieve(QString userNameLineEdit, QString passWordLineEdit);
     QSqlQuery userDataBaseRetrieve(QString userNameLineEdit);
     bool userDatabaseInsert(QString userName, QString password, QString full_name,
                             QString address, QString phone_number, QString payment_method,
                             QString card_number, QString cvv, QString expiration_date);
+    QSqlQuery userDataBaseRetrieveFullName(QString userName);
+    bool availableUserName(QString userName);
     void userDatabaseDeleteAll();
 
 private:

@@ -7,6 +7,7 @@
 #include "signupwindow.h"
 #include "ui_signupwindow.h"
 #include <QtGui>
+#include <QString>
 #include <QToolBar>
 #include <QMenu>
 #include <iostream>
@@ -99,12 +100,22 @@ void MainWindow::createMenu()
     userNameButton->setPopupMode(QToolButton::InstantPopup);
 }
 
+void MainWindow::setNameWindowName(){
+    QString fullName;
+    mainWindowQuery = mainWindowUserDatabaseManager.userDataBaseRetrieveFullName(user);
+    mainWindowQuery.first();
+    fullName = mainWindowQuery.value(0).toString();
+    userNameButton->setText(fullName);
+}
+
 void MainWindow::personalInfoSlot()
 {
     optionsWindow = new OptionsWindow (this, user);
     connect(personalInfo, &QAction::triggered, this, &MainWindow::personalInfoSlot);
+    connect(optionsWindow, &OptionsWindow::apply_changes, this, &MainWindow::setNameWindowName);
     this->setCentralWidget(optionsWindow);
     mainToolBar->setVisible(true);
+    setNameWindowName();
     this->setWindowTitle("Personal Information");
 }
 
@@ -132,6 +143,8 @@ void MainWindow::homeButtonActionSlot()
     dataWindow = new DataWindow;
     this->setCentralWidget(dataWindow);
     mainToolBar->setVisible(true);
+    QString fullName;
+    setNameWindowName();
     this->setWindowTitle("Personal Data");
 }
 
@@ -140,7 +153,7 @@ void MainWindow::accessDataSlot(QString userName){
     dataWindow = new DataWindow;
     this->setCentralWidget(dataWindow);
     mainToolBar->setVisible(true);
-    userNameButton->setText(userName);
+    setNameWindowName();
     this->setWindowTitle("Personal Data");
 }
 

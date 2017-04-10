@@ -33,7 +33,15 @@ void SignUpWindow::on_signUpSingUpButton_clicked()
     }else{
         payment_method = signUpDatabaseManager.PAYMENT_METHOD_UNKNOWN;
     }
-    insertNewUser();
+
+    if ((!userName.isEmpty()) && (!password.isEmpty()) && (!full_name.isEmpty()) && (!address.isEmpty())){
+        if (signUpDatabaseManager.availableUserName(userName))
+            insertNewUser();
+        else
+            ui->signUpOutPutLabel->setText("Username not avilable. Try another one");
+    }else{
+            ui->signUpOutPutLabel->setText("Some key fields are missing");
+    }
 }
 
 void SignUpWindow::insertNewUser()

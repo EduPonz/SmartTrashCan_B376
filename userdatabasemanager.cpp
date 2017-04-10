@@ -31,7 +31,7 @@ UserDataBaseManager::UserDataBaseManager()
     COLUMN_CARD_NUMBER = "card_number";
     COLUMN_CVV = "cvv";
     COLUMN_EXPIRATION_DATE = "expiration_date";
-    PAYMENT_METHOD_UNKNOWN = "unkown";
+    PAYMENT_METHOD_UNKNOWN = "unknown";
     PAYMENT_METHOD_VISA = "visa";
     PAYMENT_METHOD_MASTERCARD = "mastercard";
     PAYMENT_METHOD_BOTTLECAPS = "bottlecaps";
@@ -93,6 +93,67 @@ void UserDataBaseManager::userDatabaseInit()
         qWarning() << "UserDataBaseManager::userDatabaseInit - ERROR: " << query.lastError().text();
     else
         qDebug() << "UserDataBaseManager::userDatabaseInit -  The DataBase has been inizialited";
+}
+
+bool UserDataBaseManager::availableUserName(QString userName){
+    QSqlQuery query;
+    QString SQL_AVAILABLE_USER_NAME = "SELECT " + COLUMN_USERNAME + " FROM "
+            + TABLE_NAME;
+    query.exec(SQL_AVAILABLE_USER_NAME);
+    query.first();
+    bool rtn;
+    int i = 0;
+    do {
+        if (query.value(0).toString().compare(userName)){
+            rtn = true;
+        }else{
+            rtn = false;
+            break;
+        }
+    }while (query.next());
+    return rtn;
+}
+
+bool UserDataBaseManager::userDataBaseUpdate(QString previousUserName, QString userName, QString password, QString full_name,
+                                              QString address, QString phone_number, QString payment_method,
+                                              QString card_number, QString cvv, QString expiration_date)
+{
+    QSqlQuery query;
+
+    qDebug () << "UserDataBaseManager::userDataBaseUpdate - trying to update WHERE "
+                 + COLUMN_USERNAME + " = " + previousUserName;
+
+    QString SQL_UPDATE_USER_DATABASE_TABLE = "UPDATE " + TABLE_NAME + " SET "
+            + COLUMN_USERNAME        + " = '" + userName        + "', "
+            + COLUMN_PASSWORD        + " = '" + password        + "', "
+            + COLUMN_FULL_NAME       + " = '" + full_name       + "', "
+            + COLUMN_ADDRESS         + " = '" + address         + "', "
+            + COLUMN_PHONE_NUMBER    + " = '" + phone_number    + "', "
+            + COLUMN_PAYMENT_METHOD  + " = '" + payment_method  + "', "
+            + COLUMN_CARD_NUMBER     + " = '" + card_number     + "', "
+            + COLUMN_CVV             + " = '" + cvv             + "', "
+            + COLUMN_EXPIRATION_DATE + " = '" + expiration_date + "'"
+            + " WHERE "
+            + COLUMN_USERNAME + " = '" + previousUserName + "'";
+
+    qDebug() << SQL_UPDATE_USER_DATABASE_TABLE;
+    query.prepare(SQL_UPDATE_USER_DATABASE_TABLE);
+    if(!query.exec()){
+        qWarning() << "UserDataBaseManager::userDatabaseUpdate - ERROR: " << query.lastError().text();
+        return false;
+    }else{
+        qDebug() << "UserDataBaseManager::userDatabaseUpdate - INSERTED:" << "\n"
+                 << " User Name: "      << userName       << "\n"
+                 << " Password: "       << password       << "\n"
+                 << " Full_name: "      << full_name      << "\n"
+                 << " Address: "        << address        << "\n"
+                 << " Phone_number: "   << phone_number   << "\n"
+                 << " Payment_method: " << payment_method << "\n"
+                 << " Card_number: "    << card_number    << "\n"
+                 << " CVV: "            << cvv            << "\n"
+                 << " Expiration_date: "<< expiration_date;
+        return true;
+    }
 }
 
 bool UserDataBaseManager::userDatabaseInsert(QString userName, QString password, QString full_name,
@@ -178,6 +239,27 @@ QSqlQuery UserDataBaseManager::userDataBaseRetrieve(QString userName)
     else
         qDebug() << "UserDataBaseManager::userDataBaseRetrieve - RETRIEVED:"
                  << " User Name: " << userName;
+    return query;
+}
+
+QSqlQuery UserDataBaseManager::userDataBaseRetrieveFullName(QString userName)
+{
+    QSqlQuery query;
+
+    QString SQL_RETRIEVE_FULLNAME_DATABASE_TABLE = "SELECT "
+            + COLUMN_FULL_NAME
+            + " FROM "
+            + TABLE_NAME      + " WHERE "
+            + COLUMN_USERNAME + " = ?";
+
+    query.prepare(SQL_RETRIEVE_FULLNAME_DATABASE_TABLE);
+    query.addBindValue(userName);
+
+    QString full_name = query.value(0).toString();
+
+    if(!query.exec())
+        qWarning() << "UserDataBaseManager::userDataBaseRetrieveFullName - ERROR: " << query.lastError().text();
+
     return query;
 }
 

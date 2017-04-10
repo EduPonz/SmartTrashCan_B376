@@ -18,6 +18,12 @@ public:
     OptionsWindow(QWidget *parent = 0, QString user = "");
     ~OptionsWindow();
 
+signals:
+    void apply_changes();
+
+private slots:
+    void on_optionsApplyChangesButton_clicked();
+
 private:
     Ui::OptionsWindow *ui;
     UserDataBaseManager optionsDatabaseManager;
