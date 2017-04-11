@@ -49,6 +49,8 @@ private:
     QAction *home;
     QAction *logOut;
     QAction *homeButtonAction;
+    QAction *settingButton;
+
 
     int id;
 
@@ -57,7 +59,6 @@ private:
     QMenu *settingsMenu;
     QMenu *userNameMenu;
 
-    QToolButton *settingButton;
     QToolButton *userNameButton;
 
     OptionsWindow *optionsWindow;

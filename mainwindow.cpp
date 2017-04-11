@@ -28,9 +28,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
 void MainWindow::createActions()
 {
-    personalInfo = new QAction (tr("Personal Information"), this);
-    personalInfo->setStatusTip(tr("Personal Information"));
-    connect(personalInfo, &QAction::triggered, this, &MainWindow::personalInfoSlot);
+    settingButton = new QAction (QIcon(":/new/Icons/Resources/SettingsIcos.png"), tr(""), this);
+    settingButton->setStatusTip(tr("Settings"));
+    connect(settingButton, &QAction::triggered, this, &MainWindow::personalInfoSlot);
 
     language = new QAction (tr("Language"), this);
     language->setStatusTip(tr("Language"));
@@ -41,15 +41,12 @@ void MainWindow::createActions()
     units = new QAction (tr("Units"), this);
     units->setStatusTip(tr("Units"));
 
-    home = new QAction (tr("Home"), this);
-    home->setStatusTip(tr("Home"));
-
     logOut = new QAction (tr("Log Out"), this);
     logOut->setStatusTip(tr("Log Out"));
     connect(logOut, &QAction::triggered, this, &MainWindow::logOutSlot);
 
     homeButtonAction = new QAction (QIcon(":/new/Icons/Resources/homeButton.png"), tr(""), this);
-    personalInfo->setStatusTip(tr("Home"));
+    homeButtonAction->setStatusTip(tr("Home"));
     connect(homeButtonAction, &QAction::triggered, this, &MainWindow::homeButtonActionSlot);
 
     connect(loginWindow, &LoginWindow::correctUser, this, &MainWindow::accessDataSlot);
@@ -60,7 +57,6 @@ void MainWindow::createActions()
 
 void MainWindow::createToolBars()
  {
-    settingsIcon = QIcon(":/new/Icons/Resources/SettingsIcos.png");
     mainToolBar = addToolBar(tr("mainToolBar"));
     mainToolBar->setMovable(false);
     createMenu();
@@ -71,25 +67,16 @@ void MainWindow::createToolBars()
 
     mainToolBar->addAction(homeButtonAction);
     mainToolBar->addWidget(spacerWidget);
+    mainToolBar->addAction(units);
+    mainToolBar->addAction(language);
+    mainToolBar->addAction(theme);
     mainToolBar->addWidget(userNameButton);
-    mainToolBar->addWidget(settingButton);
+    mainToolBar->addAction(settingButton);
 }
 
 void MainWindow::createMenu()
 {
-    settingsMenu = new QMenu;
-    settingsMenu->addAction(personalInfo);
-    settingsMenu->addAction(language);
-    settingsMenu->addAction(theme);
-    settingsMenu->addAction(units);
-
-    settingButton = new QToolButton;
-    settingButton->setMenu(settingsMenu);
-    settingButton->setIcon(QIcon(":/new/Icons/Resources/SettingsIcos.png"));
-    settingButton->setPopupMode(QToolButton::InstantPopup);
-
     userNameMenu = new QMenu;
-    userNameMenu->addAction(home);
     userNameMenu->addAction(logOut);
 
     userNameButton = new QToolButton;
