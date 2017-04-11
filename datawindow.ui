@@ -474,12 +474,6 @@
      </item>
     </layout>
    </item>
-   <item>
-    <widget class="QMenuBar" name="menuBar"/>
-   </item>
-   <item>
-    <widget class="QStatusBar" name="statusBar"/>
-   </item>
   </layout>
   <action name="actionSetting">
    <property name="enabled">
