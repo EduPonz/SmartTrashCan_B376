@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     signUpWindow = new SignUpWindow;
     this->setCentralWidget(loginWindow);
     createActions();
-    createToolBars();
+    createToolBars(ENGLISH_LANGUAGE);
     mainToolBar->setVisible(false);
 }
 
@@ -32,14 +32,29 @@ void MainWindow::createActions()
     settingButton->setStatusTip(tr("Settings"));
     connect(settingButton, &QAction::triggered, this, &MainWindow::personalInfoSlot);
 
-    language = new QAction (tr("Language"), this);
-    language->setStatusTip(tr("Language"));
+    danishAction = new QAction (QIcon(":/new/Icons/Resources/danishFlag.png"), tr("Danish"), this);
+    danishAction->setStatusTip(tr("Danish"));
+    connect(danishAction, &QAction::triggered, this, &MainWindow::danishSlot);
 
-    theme = new QAction (tr("Theme"), this);
-    theme->setStatusTip(tr("Theme"));
+    englishAction = new QAction (QIcon(":/new/Icons/Resources/ukFlak.png"), tr("English"), this);
+    englishAction->setStatusTip(tr("English"));
+    connect(englishAction, &QAction::triggered, this, &MainWindow::englishSlot);
 
-    units = new QAction (tr("Units"), this);
-    units->setStatusTip(tr("Units"));
+    themeLight = new QAction (tr("Light Theme"), this);
+    themeLight->setStatusTip(tr("Select Light Theme"));
+    connect(themeLight, &QAction::triggered, this, &MainWindow::lightThemeSlot);
+
+    normalUnits = new QAction (tr("Kg / ºC"), this);
+    normalUnits->setStatusTip(tr("Select SI Unit System"));
+    connect(normalUnits, &QAction::triggered, this, &MainWindow::normalUnitSlot);
+
+    americanUnits = new QAction (tr("Lbs / ºF"), this);
+    americanUnits->setStatusTip(tr("Select American Unit System"));
+    connect(normalUnits, &QAction::triggered, this, &MainWindow::americanUnitSlot);
+
+    themeDark = new QAction (tr("Dark Theme"), this);
+    themeDark->setStatusTip(tr("Select Dark Theme"));
+    connect(themeDark, &QAction::triggered, this, &MainWindow::darkThemeSlot);
 
     logOut = new QAction (tr("Log Out"), this);
     logOut->setStatusTip(tr("Log Out"));
@@ -55,7 +70,7 @@ void MainWindow::createActions()
     connect(signUpWindow, &SignUpWindow::singUpCancelSignUp, this, &MainWindow::logOutSlot);
 }
 
-void MainWindow::createToolBars()
+void MainWindow::createToolBars(int language)
  {
     mainToolBar = addToolBar(tr("mainToolBar"));
     mainToolBar->setMovable(false);
@@ -65,11 +80,23 @@ void MainWindow::createToolBars()
     spacerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     spacerWidget->setVisible(true);
 
+    switch (language) {
+    case ENGLISH_LANGUAGE:
+        languageButton->setIcon(QIcon(":/new/Icons/Resources/ukFlak.png"));
+        break;
+    case DANISH_LANGUAGE:
+        languageButton->setIcon(QIcon("::/new/Icons/Resources/danishFlag.png"));
+        break;
+    default:
+        languageButton->setIcon(QIcon(":/new/Icons/Resources/ukFlak.png"));
+        break;
+    }
+
     mainToolBar->addAction(homeButtonAction);
     mainToolBar->addWidget(spacerWidget);
-    mainToolBar->addAction(units);
-    mainToolBar->addAction(language);
-    mainToolBar->addAction(theme);
+    mainToolBar->addWidget(unitsButton);
+    mainToolBar->addWidget(themeButton);
+    mainToolBar->addWidget(languageButton);
     mainToolBar->addWidget(userNameButton);
     mainToolBar->addAction(settingButton);
 }
@@ -85,6 +112,35 @@ void MainWindow::createMenu()
     userNameButton->setMenu(userNameMenu);
     userNameButton->setText(tr("User Name"));
     userNameButton->setPopupMode(QToolButton::InstantPopup);
+
+    languageMenu = new QMenu;
+    languageMenu->addAction(danishAction);
+    languageMenu->addAction(englishAction);
+
+    languageButton = new QToolButton;
+    languageButton->setMenu(languageMenu);
+    languageButton->setPopupMode(QToolButton::InstantPopup);
+
+    themeMenu = new QMenu;
+    themeMenu->addAction(themeLight);
+    themeMenu->addAction(themeDark);
+
+    themeButton = new QToolButton;
+    QFont themeButtonFont ("Courier", 16, QFont::StyleNormal, true);
+    themeButton->setFont(themeButtonFont);
+    themeButton->setMenu(themeMenu);
+    themeButton->setText(tr("Theme"));
+    themeButton->setPopupMode(QToolButton::InstantPopup);
+
+    unitsMenu = new QMenu;
+    unitsMenu->addAction(normalUnits);
+    unitsMenu->addAction(americanUnits);
+
+    unitsButton = new QToolButton;
+    unitsButton->setFont(themeButtonFont);
+    unitsButton->setMenu(unitsMenu);
+    unitsButton->setText(tr("Units"));
+    unitsButton->setPopupMode(QToolButton::InstantPopup);
 }
 
 void MainWindow::setNameWindowName(){
@@ -95,6 +151,42 @@ void MainWindow::setNameWindowName(){
 
 void MainWindow::updateWindowName(QString fullName){
     userNameButton->setText(fullName);
+}
+
+void MainWindow::englishSlot()
+{
+    languageButton->setIcon(QIcon(":/new/Icons/Resources/Ukflag.png"));
+    mainToolBar->clear();
+    createToolBars(ENGLISH_LANGUAGE);
+    setNameWindowName();
+}
+
+void MainWindow::danishSlot()
+{
+    languageButton->setIcon(QIcon(":/new/Icons/Resources/DanishFlag.GIF"));
+    mainToolBar->clear();
+    createToolBars(DANISH_LANGUAGE);
+    setNameWindowName();
+}
+
+void MainWindow::lightThemeSlot()
+{
+
+}
+
+void MainWindow::darkThemeSlot()
+{
+
+}
+
+void MainWindow::normalUnitSlot()
+{
+
+}
+
+void MainWindow::americanUnitSlot()
+{
+
 }
 
 void MainWindow::personalInfoSlot()
@@ -133,7 +225,6 @@ void MainWindow::homeButtonActionSlot()
     dataWindow = new DataWindow;
     this->setCentralWidget(dataWindow);
     mainToolBar->setVisible(true);
-    QString fullName;
     setNameWindowName();
     this->setWindowTitle("Personal Data");
 }

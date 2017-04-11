@@ -34,32 +34,48 @@ private slots:
      void homeButtonActionSlot();
      void accessDataSlot(int userId);
      void signUpSlot();
+     void englishSlot();
+     void danishSlot();
+     void lightThemeSlot();
+     void darkThemeSlot();
+     void normalUnitSlot();
+     void americanUnitSlot();
      void updateWindowName(QString fullName);
 
 private:
     void createActions();
-    void createToolBars();
+    void createToolBars(int language);
     void createMenu();
+
+    static const int ENGLISH_LANGUAGE = 1;
+    static const int DANISH_LANGUAGE = 2;
 
     QAction *settingsAction;
     QAction *personalInfo;
-    QAction *language;
-    QAction *theme;
-    QAction *units;
+    QAction *themeLight;
+    QAction *themeDark;
+    QAction *normalUnits;
+    QAction *americanUnits;
     QAction *home;
     QAction *logOut;
     QAction *homeButtonAction;
     QAction *settingButton;
+    QAction *danishAction;
+    QAction *englishAction;
 
+    QToolButton *themeButton;
+    QToolButton *userNameButton;
+    QToolButton *languageButton;
+    QToolButton *unitsButton;
 
     int id;
 
     QIcon settingsIcon;
 
-    QMenu *settingsMenu;
+    QMenu *languageMenu;
     QMenu *userNameMenu;
-
-    QToolButton *userNameButton;
+    QMenu *themeMenu;
+    QMenu *unitsMenu;
 
     OptionsWindow *optionsWindow;
     DataWindow *dataWindow;
