@@ -71,10 +71,17 @@ void OptionsWindow::on_optionsApplyChangesButton_clicked()
                                               payment_method, card_number, cvv, expiry_date);
 
     if ((!newUserName.isEmpty()) && (!password.isEmpty()) && (!full_name.isEmpty()) && (!address.isEmpty())){
-        if (!optionsDatabaseManager.availableUserName(newUserName) && !newUserName.compare(userName)){
+        if (!newUserName.compare(userName)){
+            qDebug() << "OptionsWindow::on_optionsApplyChangesButton_clicked - User Comparison"
+                     << !newUserName.compare(userName);
             emit apply_changes();
             ui->optionsOutPutLabel->setText("Your user has been updated");
-        }else{
+        }else if (optionsDatabaseManager.availableUserName(newUserName)){
+            qDebug() << "OptionsWindow::on_optionsApplyChangesButton_clicked - User available"
+                     << optionsDatabaseManager.availableUserName(newUserName);
+            emit apply_changes();
+            ui->optionsOutPutLabel->setText("Your user has been updated");
+        }else {
             ui->optionsOutPutLabel->setText("Username not avilable. Try another one");
         }
     }else{

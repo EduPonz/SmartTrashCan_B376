@@ -142,7 +142,7 @@ bool UserDataBaseManager::userDataBaseUpdate(QString previousUserName, QString u
         qWarning() << "UserDataBaseManager::userDatabaseUpdate - ERROR: " << query.lastError().text();
         return false;
     }else{
-        qDebug() << "UserDataBaseManager::userDatabaseUpdate - INSERTED:" << "\n"
+        qDebug() << "UserDataBaseManager::userDatabaseUpdate - UPDATED:" << "\n"
                  << " User Name: "      << userName       << "\n"
                  << " Password: "       << password       << "\n"
                  << " Full_name: "      << full_name      << "\n"
