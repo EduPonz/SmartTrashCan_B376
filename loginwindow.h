@@ -20,7 +20,7 @@ public:
     ~LoginWindow();
 
 signals:
-    void correctUser(QString userName);
+    void correctUser(int id);
     void signUpSignal();
 
 public slots:

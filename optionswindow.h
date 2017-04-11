@@ -15,11 +15,11 @@ class OptionsWindow : public QWidget
     Q_OBJECT
 
 public:
-    OptionsWindow(QWidget *parent = 0, QString user = "");
+    OptionsWindow(QWidget *parent = 0, int id = 0);
     ~OptionsWindow();
 
 signals:
-    void apply_changes();
+    void apply_changes(QString fullName);
 
 private slots:
     void on_optionsApplyChangesButton_clicked();
@@ -28,7 +28,7 @@ private:
     Ui::OptionsWindow *ui;
     UserDataBaseManager optionsDatabaseManager;
     QSqlQuery optionsQuery;
-    QString userName;
+    int userId;
 
 
     void populate();

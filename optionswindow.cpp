@@ -6,16 +6,18 @@
 #include <QDebug>
 #include <QSqlQuery>
 
-OptionsWindow::OptionsWindow(QWidget *parent, QString user) : QWidget(parent), ui(new Ui::OptionsWindow)
+OptionsWindow::OptionsWindow(QWidget *parent, int id) : QWidget(parent), ui(new Ui::OptionsWindow)
 {
     ui->setupUi(this);
-    userName = user;
+    userId = id;
+    QString idString;
+    qDebug() << "OptionsWindow::OptionsWindow - ID: " << idString.number(userId);
     populate();
 }
 
 void OptionsWindow::populate()
 {
-    optionsQuery = optionsDatabaseManager.userDataBaseRetrieve(userName);
+    optionsQuery = optionsDatabaseManager.userDataBaseRetrieve(userId);
     if (optionsQuery.isActive()){
         optionsQuery.first();
         ui->optionsUsernameLineEdit->setText(optionsQuery.value(0).toString());
@@ -66,22 +68,17 @@ void OptionsWindow::on_optionsApplyChangesButton_clicked()
     }else {
         payment_method = optionsDatabaseManager.PAYMENT_METHOD_UNKNOWN;
     }
-    optionsDatabaseManager.userDataBaseUpdate(userName, newUserName, password,
-                                              full_name, address, phone_number,
-                                              payment_method, card_number, cvv, expiry_date);
 
     if ((!newUserName.isEmpty()) && (!password.isEmpty()) && (!full_name.isEmpty()) && (!address.isEmpty())){
-        if (!newUserName.compare(userName)){
-            qDebug() << "OptionsWindow::on_optionsApplyChangesButton_clicked - User Comparison"
-                     << !newUserName.compare(userName);
-            emit apply_changes();
+        QString idString;
+        qDebug() << "OptionsWindow::on_optionsApplyChangesButton_clicked - ID: " << idString.number(userId);
+        if (optionsDatabaseManager.availableUpdateUserName(userId, newUserName)){
+            optionsDatabaseManager.userDataBaseUpdate(userId, newUserName, password,
+                                                      full_name, address, phone_number,
+                                                      payment_method, card_number, cvv, expiry_date);
+            emit apply_changes(full_name);
             ui->optionsOutPutLabel->setText("Your user has been updated");
-        }else if (optionsDatabaseManager.availableUserName(newUserName)){
-            qDebug() << "OptionsWindow::on_optionsApplyChangesButton_clicked - User available"
-                     << optionsDatabaseManager.availableUserName(newUserName);
-            emit apply_changes();
-            ui->optionsOutPutLabel->setText("Your user has been updated");
-        }else {
+        }else{
             ui->optionsOutPutLabel->setText("Username not avilable. Try another one");
         }
     }else{

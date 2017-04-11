@@ -27,10 +27,14 @@ void LoginWindow::on_loginButton_clicked()
     passWordEntry = ui->passWordLineEdit->text();
 
     loginQuery = loginDataBaseManager.userDataBaseRetrieve(userNameEntry, passWordEntry);
+    qDebug() << loginQuery.executedQuery();
 
     if(loginQuery.first()){
-        emit correctUser(userNameEntry);
-        qDebug() << "LoginWindow::on_loginButton_clicked - correctUser signal sent";
+        QString userIdString = loginQuery.value(0).toString();
+        int id = userIdString.toInt();
+        userIdString.number(id);
+        qDebug() << "LoginWindow::on_loginButton_clicked - ID: " + userIdString;
+        emit correctUser(id);
     }else{
         ui->outPutLabel->setText(loginDataBaseManager.NOT_PERSON_FOUND);
     }

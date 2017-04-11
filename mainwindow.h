@@ -32,8 +32,9 @@ private slots:
      void personalInfoSlot();
      void logOutSlot();
      void homeButtonActionSlot();
-     void accessDataSlot(QString userName);
+     void accessDataSlot(int userId);
      void signUpSlot();
+     void updateWindowName(QString fullName);
 
 private:
     void createActions();
@@ -49,7 +50,7 @@ private:
     QAction *logOut;
     QAction *homeButtonAction;
 
-    QString user;
+    int id;
 
     QIcon settingsIcon;
 

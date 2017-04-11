@@ -21,7 +21,7 @@ public:
     ~SignUpWindow();
 
 signals:
-    void signUpAddUserSignal(QString userName);
+    void signUpAddUserSignal(int id);
     void singUpCancelSignUp();
 
 private slots:

@@ -102,20 +102,23 @@ void MainWindow::createMenu()
 
 void MainWindow::setNameWindowName(){
     QString fullName;
-    mainWindowQuery = mainWindowUserDatabaseManager.userDataBaseRetrieveFullName(user);
-    mainWindowQuery.first();
-    fullName = mainWindowQuery.value(0).toString();
+    fullName = mainWindowUserDatabaseManager.userDataBaseRetrieveFullName(id);
+    userNameButton->setText(fullName);
+}
+
+void MainWindow::updateWindowName(QString fullName){
     userNameButton->setText(fullName);
 }
 
 void MainWindow::personalInfoSlot()
 {
-    optionsWindow = new OptionsWindow (this, user);
+    QString idString;
+    qDebug() << "MainWindow::personalInfoSlot - ID: " << idString.number(id);
+    optionsWindow = new OptionsWindow (this, id);
     connect(personalInfo, &QAction::triggered, this, &MainWindow::personalInfoSlot);
-    connect(optionsWindow, &OptionsWindow::apply_changes, this, &MainWindow::setNameWindowName);
+    connect(optionsWindow, &OptionsWindow::apply_changes, this, &MainWindow::updateWindowName);
     this->setCentralWidget(optionsWindow);
     mainToolBar->setVisible(true);
-    setNameWindowName();
     this->setWindowTitle("Personal Information");
 }
 
@@ -148,8 +151,10 @@ void MainWindow::homeButtonActionSlot()
     this->setWindowTitle("Personal Data");
 }
 
-void MainWindow::accessDataSlot(QString userName){
-    user = userName;
+void MainWindow::accessDataSlot(int userId){
+    id = userId;
+    QString idString;
+    qDebug() << "MainWindow::accessDataSlot - ID: " << idString.number(id);
     dataWindow = new DataWindow;
     this->setCentralWidget(dataWindow);
     mainToolBar->setVisible(true);

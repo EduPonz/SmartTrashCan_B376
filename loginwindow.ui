@@ -124,7 +124,7 @@
          <item>
           <widget class="QPushButton" name="loginSingupButton">
            <property name="text">
-            <string>Sing Up</string>
+            <string>Sign Up</string>
            </property>
           </widget>
          </item>

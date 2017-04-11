@@ -50,12 +50,16 @@ void SignUpWindow::insertNewUser()
 
     if(!(signUpQuery.first()))
     {
-       bool insertSucced;
-       insertSucced = signUpDatabaseManager.userDatabaseInsert(userName, password, full_name,
+       bool insertSucceed;
+       insertSucceed = signUpDatabaseManager.userDatabaseInsert(userName, password, full_name,
                                                                 address, phone_number, payment_method,
                                                                 card_number, cvv, expiration_date);
-        if (insertSucced){
-            emit signUpAddUserSignal(userName);
+
+        QSqlQuery newUserQuery = signUpDatabaseManager.userDataBaseRetrieve(userName, password);
+        newUserQuery.first();
+        int id = newUserQuery.value(0).toInt();
+        if (insertSucceed){
+            emit signUpAddUserSignal(id);
             qDebug() << "SignUpWindow::insertNewUser - USER ADDED SUCC";
         }else{
             ui->signUpOutPutLabel->setText(signUpDatabaseManager.USER_ADDED_FAIL);
