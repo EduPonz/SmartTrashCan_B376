@@ -29,20 +29,23 @@ SOURCES += main.cpp\
     optionswindow.cpp \
     userdatabasemanager.cpp \
     datawindow.cpp \
-    signupwindow.cpp
+    signupwindow.cpp \
+    extrapickupwindow.cpp
 
 HEADERS  += mainwindow.h \
     loginwindow.h \
     optionswindow.h \
     userdatabasemanager.h \
     datawindow.h \
-    signupwindow.h
+    signupwindow.h \
+    extrapickupwindow.h
 
 FORMS    += mainwindow.ui \
     loginwindow.ui \
     optionswindow.ui \
     datawindow.ui \
-    signupwindow.ui
+    signupwindow.ui \
+    extrapickupwindow.ui
 
 RESOURCES += \
     resources.qrc
