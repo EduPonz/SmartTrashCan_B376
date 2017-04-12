@@ -2,6 +2,7 @@
 #define EXTRAPICKUPWINDOW_H
 
 #include <QWidget>
+#include <QString>
 
 namespace Ui {
 class ExtraPickupWindow;
@@ -20,6 +21,14 @@ private slots:
 
     void mailSent(QString);
 private:
+
+    QString EMAIL_USER_NAME;
+    QString EMAIL_PASSWORD;
+    QString EMAIL_SERVER;
+    int EMAIL_PORT;
+    QString EMAIL_SUBJECT;
+
+    //Message to be sent variables
     Ui::ExtraPickupWindow *ui;
 };
 
