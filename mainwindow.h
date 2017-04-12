@@ -6,6 +6,7 @@
 #include "datawindow.h"
 #include "signupwindow.h"
 #include "userdatabasemanager.h"
+#include "extrapickupwindow.h"
 #include <QMainWindow>
 #include <QMenu>
 #include <QAbstractButton>
@@ -41,6 +42,7 @@ private slots:
      void normalUnitSlot();
      void americanUnitSlot();
      void updateWindowName(QString fullName);
+     void extraPickUpSlot(int id);
 
 private:
     void createActions();
@@ -81,6 +83,7 @@ private:
     DataWindow *dataWindow;
     LoginWindow *loginWindow;
     SignUpWindow *signUpWindow;
+    ExtraPickupWindow *extraPickupWindow;
     UserDataBaseManager mainWindowUserDatabaseManager;
     QSqlQuery mainWindowQuery;
 };

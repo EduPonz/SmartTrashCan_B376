@@ -12,7 +12,7 @@ class ExtraPickupWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit ExtraPickupWindow(QWidget *parent = 0);
+    ExtraPickupWindow(QWidget *parent = 0, int id = 0);
     ~ExtraPickupWindow();
 
 private:

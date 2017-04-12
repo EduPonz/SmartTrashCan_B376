@@ -6,6 +6,9 @@
 #include "ui_loginwindow.h"
 #include "signupwindow.h"
 #include "ui_signupwindow.h"
+#include "extrapickupwindow.h"
+#include "ui_extrapickupwindow.h"
+
 #include <QtGui>
 #include <QString>
 #include <QToolBar>
@@ -20,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
     loginWindow = new LoginWindow;
     signUpWindow = new SignUpWindow;
+    dataWindow = new DataWindow;
     this->setCentralWidget(loginWindow);
     createActions();
     createToolBars(ENGLISH_LANGUAGE);
@@ -143,7 +147,8 @@ void MainWindow::createMenu()
     unitsButton->setPopupMode(QToolButton::InstantPopup);
 }
 
-void MainWindow::setNameWindowName(){
+void MainWindow::setNameWindowName()
+{
     QString fullName;
     fullName = mainWindowUserDatabaseManager.userDataBaseRetrieveFullName(id);
     userNameButton->setText(fullName);
@@ -194,7 +199,6 @@ void MainWindow::personalInfoSlot()
     QString idString;
     qDebug() << "MainWindow::personalInfoSlot - ID: " << idString.number(id);
     optionsWindow = new OptionsWindow (this, id);
-    //connect(personalInfo, &QAction::triggered, this, &MainWindow::personalInfoSlot);
     connect(optionsWindow, &OptionsWindow::apply_changes, this, &MainWindow::updateWindowName);
     this->setCentralWidget(optionsWindow);
     mainToolBar->setVisible(true);
@@ -227,18 +231,31 @@ void MainWindow::homeButtonActionSlot()
     mainToolBar->setVisible(true);
     setNameWindowName();
     this->setWindowTitle("Personal Data");
+    connect(dataWindow, &DataWindow::openExtraPickup, this, &MainWindow::extraPickUpSlot);
 }
 
-void MainWindow::accessDataSlot(int userId){
+void MainWindow::accessDataSlot(int userId)
+{
     id = userId;
     QString idString;
     qDebug() << "MainWindow::accessDataSlot - ID: " << idString.number(id);
-    dataWindow = new DataWindow;
+    dataWindow = new DataWindow (this, id);
     this->setCentralWidget(dataWindow);
     mainToolBar->setVisible(true);
     setNameWindowName();
     this->setWindowTitle("Personal Data");
+    connect(dataWindow, &DataWindow::openExtraPickup, this, &MainWindow::extraPickUpSlot);
 }
+
+void MainWindow::extraPickUpSlot(int id)
+{
+    extraPickupWindow = new ExtraPickupWindow (this, id);
+    this->setCentralWidget(extraPickupWindow);
+    mainToolBar->setVisible(true);
+    setNameWindowName();
+    this->setWindowTitle("Personal Data");
+}
+
 
 MainWindow::~MainWindow()
 {
