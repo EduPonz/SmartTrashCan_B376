@@ -23,9 +23,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-188</y>
-        <width>688</width>
-        <height>789</height>
+        <y>0</y>
+        <width>703</width>
+        <height>790</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0">
@@ -268,6 +268,11 @@
                <layout class="QGridLayout" name="gridLayout">
                 <item row="2" column="0">
                  <widget class="QLabel" name="signUpOutPutLabel">
+                  <property name="font">
+                   <font>
+                    <pointsize>20</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>

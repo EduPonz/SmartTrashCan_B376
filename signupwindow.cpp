@@ -38,7 +38,7 @@ void SignUpWindow::on_signUpSingUpButton_clicked()
         if (signUpDatabaseManager.availableUserName(userName))
             insertNewUser();
         else
-            ui->signUpOutPutLabel->setText("Username not avilable. Try another one");
+            ui->signUpOutPutLabel->setText("Username not available. Try another one");
     }else{
             ui->signUpOutPutLabel->setText("Some key fields are missing");
     }
