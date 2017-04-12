@@ -2,14 +2,14 @@
 #include "ui_extrapickupwindow.h"
 #include "smtp.h"
 
+#include <QDebug>
+
 ExtraPickupWindow::ExtraPickupWindow(QWidget *parent, int id) :
     QWidget(parent),
     ui(new Ui::ExtraPickupWindow)
 {
     ui->setupUi(this);
 }
-
-
 
 ExtraPickupWindow::~ExtraPickupWindow()
 {
@@ -25,16 +25,16 @@ void ExtraPickupWindow::on_extrapickupConfirmButton_clicked()
     Smtp* smtp = new Smtp(username, password, server, port.toInt());
     connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
 
-    QString rcpt = "daviccs@gmail.com";
+    QString rcpt = "e.ponzs@gmail.com";
     QString subject = "another test";
     QString msg = "testerino";
-
 
     smtp->sendMail(username, rcpt, subject, msg);
 }
 
 void ExtraPickupWindow::mailSent(QString status)
 {
-    if(status == "Message sent")
-        QMessageBox::warning( 0, tr( "Qt Simple SMTP client" ), tr( "Message sent!\n\n" ) );
+    if(status == "Message sent"){
+        ui->extraPickUpUOutputLabel->setText("Your message has been sent!");
+    }
 }
