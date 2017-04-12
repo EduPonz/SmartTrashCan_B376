@@ -29,6 +29,14 @@ private:
     QString EMAIL_SUBJECT;
 
     //Message to be sent variables
+
+    bool TRASH_SIZE_SMALL;
+    bool TRASH_SIZE_MEDIUM;
+    bool TRASH_SIZE_BIG;
+
+    QString TRASH_QUANTITY;
+    QString TRASH_PICK_UP_TIME;
+
     Ui::ExtraPickupWindow *ui;
 };
 

@@ -23,7 +23,7 @@ void ExtraPickupWindow::on_extrapickupConfirmButton_clicked()
     Smtp* smtp = new Smtp(EMAIL_USER_NAME, EMAIL_PASSWORD, EMAIL_SERVER, EMAIL_PORT);
     connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
 
-    QString rcpt = "e.ponzs@gmail.com";    
+    QString rcpt = "e.ponzs@gmail.com";
     QString commentMsg = ui->extrapickupCommentText->toPlainText();
 
     smtp->sendMail(EMAIL_USER_NAME, rcpt, EMAIL_SUBJECT, commentMsg);

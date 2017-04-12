@@ -154,8 +154,11 @@
                 <pointsize>15</pointsize>
                </font>
               </property>
+              <property name="toolTip">
+               <string/>
+              </property>
               <property name="text">
-               <string>Trash bag</string>
+               <string>Small item</string>
               </property>
              </widget>
             </item>
