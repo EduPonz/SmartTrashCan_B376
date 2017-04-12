@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>567</width>
+    <width>847</width>
     <height>519</height>
    </rect>
   </property>
@@ -23,23 +23,26 @@
    <item>
     <widget class="QWidget" name="widget" native="true">
      <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="topMargin">
+       <number>0</number>
+      </property>
       <item>
        <widget class="QWidget" name="widget_7" native="true">
         <property name="layoutDirection">
          <enum>Qt::LeftToRight</enum>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,0">
+        <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,0">
          <property name="leftMargin">
-          <number>0</number>
+          <number>12</number>
          </property>
          <property name="topMargin">
           <number>0</number>
          </property>
          <property name="rightMargin">
-          <number>0</number>
+          <number>12</number>
          </property>
          <property name="bottomMargin">
-          <number>0</number>
+          <number>12</number>
          </property>
          <item>
           <widget class="QWidget" name="widget_2" native="true">
@@ -174,8 +177,15 @@
           </widget>
          </item>
          <item>
-          <widget class="QWidget" name="widget_8" native="true">
-           <layout class="QHBoxLayout" name="horizontalLayout_6"/>
+          <widget class="QLabel" name="label_3">
+           <property name="font">
+            <font>
+             <pointsize>20</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>££££</string>
+           </property>
           </widget>
          </item>
         </layout>
@@ -183,7 +193,7 @@
       </item>
       <item>
        <widget class="QWidget" name="widget_3" native="true">
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
           <widget class="QLabel" name="extrapickupSizeLabel_2">
            <property name="font">
@@ -199,14 +209,14 @@
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_5">
+          <widget class="QCheckBox" name="checkBox_4">
            <property name="font">
             <font>
              <pointsize>15</pointsize>
             </font>
            </property>
            <property name="text">
-            <string>Today</string>
+            <string>5 days</string>
            </property>
           </widget>
          </item>
@@ -223,14 +233,14 @@
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_4">
+          <widget class="QCheckBox" name="checkBox_5">
            <property name="font">
             <font>
              <pointsize>15</pointsize>
             </font>
            </property>
            <property name="text">
-            <string>5 days</string>
+            <string>Today</string>
            </property>
           </widget>
          </item>
@@ -283,38 +293,38 @@
         </layout>
        </widget>
       </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="widget_8" native="true">
+     <layout class="QVBoxLayout" name="verticalLayout_5">
       <item>
-       <widget class="QWidget" name="widget_4" native="true">
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>250</height>
-         </size>
+       <widget class="QLabel" name="extrapickupCommentLabel">
+        <property name="font">
+         <font>
+          <pointsize>20</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <widget class="QLabel" name="extrapickupCommentLabel">
-           <property name="font">
-            <font>
-             <pointsize>20</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Item description and other comments</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextEdit" name="extrapickupCommentText"/>
-         </item>
-        </layout>
+        <property name="text">
+         <string>Item description and other comments</string>
+        </property>
        </widget>
+      </item>
+      <item>
+       <widget class="QTextEdit" name="extrapickupCommentText"/>
       </item>
       <item>
        <widget class="QWidget" name="widget_5" native="true">
         <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
          <item>
           <widget class="QPushButton" name="pushButton">
            <property name="font">
