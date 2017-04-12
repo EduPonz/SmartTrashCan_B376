@@ -2,7 +2,7 @@
     <qresource prefix="/new/Icons">
         <file>Resources/SettingsIcos.png</file>
         <file>Resources/homeButton.png</file>
-        <file>Resources/danishFlag.png</file>
         <file>Resources/ukFlak.png</file>
+        <file>Resources/danishFlag.jpg</file>
     </qresource>
 </RCC>

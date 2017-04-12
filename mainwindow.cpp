@@ -36,7 +36,7 @@ void MainWindow::createActions()
     settingButton->setStatusTip(tr("Settings"));
     connect(settingButton, &QAction::triggered, this, &MainWindow::personalInfoSlot);
 
-    danishAction = new QAction (QIcon(":/new/Icons/Resources/danishFlag.png"), tr("Danish"), this);
+    danishAction = new QAction (QIcon(":/new/Icons/Resources/danishFlag.jpg"), tr("Danish"), this);
     danishAction->setStatusTip(tr("Danish"));
     connect(danishAction, &QAction::triggered, this, &MainWindow::danishSlot);
 
@@ -89,7 +89,7 @@ void MainWindow::createToolBars(int language)
         languageButton->setIcon(QIcon(":/new/Icons/Resources/ukFlak.png"));
         break;
     case DANISH_LANGUAGE:
-        languageButton->setIcon(QIcon("::/new/Icons/Resources/danishFlag.png"));
+        languageButton->setIcon(QIcon(":/new/Icons/Resources/danishFlag.jpg"));
         break;
     default:
         languageButton->setIcon(QIcon(":/new/Icons/Resources/ukFlak.png"));
@@ -168,7 +168,7 @@ void MainWindow::englishSlot()
 
 void MainWindow::danishSlot()
 {
-    languageButton->setIcon(QIcon(":/new/Icons/Resources/DanishFlag.GIF"));
+    languageButton->setIcon(QIcon(":/new/Icons/Resources/danishFlag.jpg"));
     mainToolBar->clear();
     createToolBars(DANISH_LANGUAGE);
     setNameWindowName();
@@ -255,7 +255,6 @@ void MainWindow::extraPickUpSlot(int id)
     setNameWindowName();
     this->setWindowTitle("Personal Data");
 }
-
 
 MainWindow::~MainWindow()
 {
