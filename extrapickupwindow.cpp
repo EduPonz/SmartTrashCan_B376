@@ -24,18 +24,32 @@ ExtraPickupWindow::ExtraPickupWindow(QWidget *parent, int id) :
 
 void ExtraPickupWindow::on_extrapickupConfirmButton_clicked()
 {
-    QString trashTextSmall = "";
-    QString trashQuantitySmall = "";
+    trashTextSmall = "";
+    trashTextMedium = "";
+    trashTextBig = "";
 
-    TRASH_SIZE_SMALL = ui->itemSmallCheckBox->checkState();
+    trashQuantitySmall = "";
+    trashQuantityMedium = "";
+    trashQuantityBig = "";
+
+    trashSizeSmallBool = ui->itemSmallCheckBox->checkState();
+    trashMediumSmallBool = ui->itemMediumCheckBox->checkState();
+    trashSizeBigBool = ui->itemBigCheckBox->checkState();
+
     trashQuantitySmall = ui->spinBox->cleanText();
+    trashQuantityMedium = ui->spinBox_2->cleanText();
+    trashQuantityBig = ui->spinBox_3->cleanText();
 
     Smtp* smtp = new Smtp(EMAIL_USER_NAME, EMAIL_PASSWORD, EMAIL_SERVER, EMAIL_PORT);
     connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
 
-    if(TRASH_SIZE_SMALL == true){
+    if(trashBigSmallBool == true)
         trashTextSmall = "small";
-    }
+    if(trashBigMediumBool == true)
+        trashTextMedium = "medium";
+    if(trashBigBigBool == true)
+        trashTextBig = "big";
+
 
     QString trashEmailMessage = "You have choosen " + trashTextSmall + " item(s) to be pick up with the quantity of "
             + trashQuantitySmall + ".\n";
@@ -44,11 +58,6 @@ void ExtraPickupWindow::on_extrapickupConfirmButton_clicked()
     QString commentMsg = trashEmailMessage + " Other comments;'" + ui->extrapickupCommentText->toPlainText() + "'";
 
     smtp->sendMail(EMAIL_USER_NAME, rcpt, EMAIL_SUBJECT, commentMsg);
-}
-
-QString ExtraPickupWindow::returnConstString(QString body)
-{
-    return body;
 }
 
 void ExtraPickupWindow::mailSent(QString status)

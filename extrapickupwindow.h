@@ -32,13 +32,18 @@ private:
 
     //QString trashEmailMessage;
 
-    bool TRASH_SIZE_SMALL;
-    bool TRASH_SIZE_MEDIUM;
-    bool TRASH_SIZE_BIG;
+    bool trashSizeSmallBool;
+    bool trashMediumSmallBool;
+    bool trashSizeBigBool;
 
     //QString trashTextSmall;
-    QString TRASH_SIZE_TEXT_MEDIUM;
-    QString TRASH_SIZE_TEXT_BIG;
+    QString trashTextSmall;
+    QString trashTextMedium;
+    QString trashTextBig;
+
+    QString trashQuantitySmall;
+    QString trashQuantityMedium;
+    QString trashQuantityBig;
 
 
     bool TRASH_TIME_ONE;
