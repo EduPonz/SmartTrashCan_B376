@@ -194,7 +194,7 @@ void MainWindow::personalInfoSlot()
     QString idString;
     qDebug() << "MainWindow::personalInfoSlot - ID: " << idString.number(id);
     optionsWindow = new OptionsWindow (this, id);
-    connect(personalInfo, &QAction::triggered, this, &MainWindow::personalInfoSlot);
+    //connect(personalInfo, &QAction::triggered, this, &MainWindow::personalInfoSlot);
     connect(optionsWindow, &OptionsWindow::apply_changes, this, &MainWindow::updateWindowName);
     this->setCentralWidget(optionsWindow);
     mainToolBar->setVisible(true);
