@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql
+QT       += core gui sql network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     userdatabasemanager.cpp \
     datawindow.cpp \
     signupwindow.cpp \
-    extrapickupwindow.cpp
+    extrapickupwindow.cpp \
+    smtp.cpp
 
 HEADERS  += mainwindow.h \
     loginwindow.h \
@@ -38,7 +39,8 @@ HEADERS  += mainwindow.h \
     userdatabasemanager.h \
     datawindow.h \
     signupwindow.h \
-    extrapickupwindow.h
+    extrapickupwindow.h \
+    smtp.h
 
 FORMS    += mainwindow.ui \
     loginwindow.ui \
