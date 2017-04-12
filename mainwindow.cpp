@@ -26,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     dataWindow = new DataWindow;
     this->setCentralWidget(loginWindow);
     createActions();
+    mainToolBar = addToolBar(tr("mainToolBar"));
     createToolBars(ENGLISH_LANGUAGE);
     mainToolBar->setVisible(false);
 }
@@ -76,7 +77,6 @@ void MainWindow::createActions()
 
 void MainWindow::createToolBars(int language)
  {
-    mainToolBar = addToolBar(tr("mainToolBar"));
     mainToolBar->setMovable(false);
     createMenu();
 
