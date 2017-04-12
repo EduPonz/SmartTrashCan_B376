@@ -106,7 +106,7 @@
              </widget>
             </item>
             <item row="7" column="0">
-             <widget class="QCheckBox" name="checkBox_3">
+             <widget class="QCheckBox" name="itemBigCheckBox">
               <property name="maximumSize">
                <size>
                 <width>100</width>
@@ -124,7 +124,7 @@
              </widget>
             </item>
             <item row="5" column="0">
-             <widget class="QCheckBox" name="checkBox_2">
+             <widget class="QCheckBox" name="itemMediumCheckBox">
               <property name="maximumSize">
                <size>
                 <width>125</width>
@@ -142,7 +142,7 @@
              </widget>
             </item>
             <item row="3" column="0">
-             <widget class="QCheckBox" name="checkBox_7">
+             <widget class="QCheckBox" name="itemSmallCheckBox">
               <property name="maximumSize">
                <size>
                 <width>100</width>

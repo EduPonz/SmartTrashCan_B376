@@ -38,18 +38,19 @@ void Smtp::sendMail(const QString &from, const QString &to, const QString &subje
     message.append("From: " + from + "\n");
     message.append("Subject: " + subject + "\n");
     message.append(body);
-    message.replace( QString::fromLatin1( "\n" ), QString::fromLatin1( "\r\n" ) );
-    message.replace( QString::fromLatin1( "\r\n.\r\n" ),
-    QString::fromLatin1( "\r\n..\r\n" ) );
+    message.replace(QString::fromLatin1( "\n" ), QString::fromLatin1( "\r\n" ) );
+    message.replace(QString::fromLatin1( "\r\n.\r\n" ), QString::fromLatin1( "\r\n..\r\n" ));
+    qDebug() << "Smtp::sendMail - The message is:" << message;
+
     this->from = from;
     rcpt = to;
     state = Init;
     socket->connectToHostEncrypted(host, port); //"smtp.gmail.com" and 465 for gmail TLS
     if (!socket->waitForConnected(timeout)) {
-         qDebug() << socket->errorString();
+         qDebug() << "Smtp::sendMail" << socket->errorString();
      }
 
-    t = new QTextStream( socket );
+    t = new QTextStream(socket);
 
 
 

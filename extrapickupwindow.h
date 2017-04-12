@@ -30,12 +30,26 @@ private:
 
     //Message to be sent variables
 
+    //QString trashEmailMessage;
+
     bool TRASH_SIZE_SMALL;
     bool TRASH_SIZE_MEDIUM;
     bool TRASH_SIZE_BIG;
 
-    QString TRASH_QUANTITY;
-    QString TRASH_PICK_UP_TIME;
+    //QString trashTextSmall;
+    QString TRASH_SIZE_TEXT_MEDIUM;
+    QString TRASH_SIZE_TEXT_BIG;
+
+
+    bool TRASH_TIME_ONE;
+    bool TRASH_TIME_TWO;
+    bool TRASH_TIME_FIVE;
+
+    //QString trashQuantitySmall;
+    int TRASH_QUANTITY_MEDIUM;
+    int TRASH_QUANTITY_BIG;
+
+    QString returnConstString(QString body);
 
     Ui::ExtraPickupWindow *ui;
 };
