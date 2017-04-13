@@ -33,7 +33,7 @@ private:
     //QString trashEmailMessage;
 
     bool trashSizeSmallBool;
-    bool trashMediumSmallBool;
+    bool trashSizeMediumBool;
     bool trashSizeBigBool;
 
     //QString trashTextSmall;

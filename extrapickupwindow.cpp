@@ -16,10 +16,6 @@ ExtraPickupWindow::ExtraPickupWindow(QWidget *parent, int id) :
     EMAIL_PORT = 465;
 
     EMAIL_SUBJECT = "Smart Trash Can pick up order confirmed!";
-
-    TRASH_SIZE_TEXT_MEDIUM = "medium";
-    TRASH_SIZE_TEXT_BIG = "big";
-
 }
 
 void ExtraPickupWindow::on_extrapickupConfirmButton_clicked()
@@ -33,7 +29,7 @@ void ExtraPickupWindow::on_extrapickupConfirmButton_clicked()
     trashQuantityBig = "";
 
     trashSizeSmallBool = ui->itemSmallCheckBox->checkState();
-    trashMediumSmallBool = ui->itemMediumCheckBox->checkState();
+    trashSizeMediumBool = ui->itemMediumCheckBox->checkState();
     trashSizeBigBool = ui->itemBigCheckBox->checkState();
 
     trashQuantitySmall = ui->spinBox->cleanText();
@@ -43,19 +39,20 @@ void ExtraPickupWindow::on_extrapickupConfirmButton_clicked()
     Smtp* smtp = new Smtp(EMAIL_USER_NAME, EMAIL_PASSWORD, EMAIL_SERVER, EMAIL_PORT);
     connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
 
-    if(trashBigSmallBool == true)
+    if(trashSizeSmallBool == true)
         trashTextSmall = "small";
-    if(trashBigMediumBool == true)
+    if(trashSizeMediumBool == true)
         trashTextMedium = "medium";
-    if(trashBigBigBool == true)
+    if(trashSizeBigBool == true)
         trashTextBig = "big";
 
 
-    QString trashEmailMessage = "You have choosen " + trashTextSmall + " item(s) to be pick up with the quantity of "
-            + trashQuantitySmall + ".\n";
+    QString trashEmailMessage = "You have requested " + trashQuantitySmall + " " + trashTextSmall
+            + " item(s) to be pick up " + ".\n";
 
-    QString rcpt = "daviccs@gmail.com"; //get the email from the database
-    QString commentMsg = trashEmailMessage + " Other comments;'" + ui->extrapickupCommentText->toPlainText() + "'";
+    QString rcpt = "e.ponzs@gmail.com"; //get the email from the database
+    QString commentMsg = trashEmailMessage + "You have added the following comments; '"
+            + ui->extrapickupCommentText->toPlainText() + "'";
 
     smtp->sendMail(EMAIL_USER_NAME, rcpt, EMAIL_SUBJECT, commentMsg);
 }
