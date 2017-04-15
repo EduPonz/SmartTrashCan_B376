@@ -40,17 +40,19 @@ void ExtraPickupWindow::on_extrapickupConfirmButton_clicked()
     connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
 
     if(trashSizeSmallBool == true)
-        trashTextSmall = "small";
+        trashTextSmall = "small size";
     if(trashSizeMediumBool == true)
-        trashTextMedium = "medium";
+        trashTextMedium = "medium size";
     if(trashSizeBigBool == true)
-        trashTextBig = "big";
+        trashTextBig = "big size";
 
 
-    QString trashEmailMessage = "You have requested " + trashQuantitySmall + " " + trashTextSmall
+    QString trashEmailMessage = "You have requested " + trashQuantitySmall + " "  + trashTextSmall + ", "
+            + trashQuantityMedium + " " + trashTextMedium + ", "
+            + trashQuantityBig    + " " + trashTextBig    + " "
             + " item(s) to be pick up " + ".\n";
 
-    QString rcpt = "e.ponzs@gmail.com"; //get the email from the database
+    QString rcpt = "daviccs@gmail.com"; //get the email from the database
     QString commentMsg = trashEmailMessage + "You have added the following comments; '"
             + ui->extrapickupCommentText->toPlainText() + "'";
 
