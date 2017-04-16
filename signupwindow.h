@@ -35,6 +35,7 @@ private:
     QString full_name;
     QString address;
     QString phone_number;
+    QString email;
     QString payment_method;
     QString card_number;
     QString cvv;

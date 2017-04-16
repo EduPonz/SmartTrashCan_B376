@@ -21,6 +21,7 @@ void SignUpWindow::on_signUpSingUpButton_clicked()
     full_name = ui->signUpFullNameLineEdit->text();
     address = ui->signUpAddressLineEdit->text();
     phone_number = ui->signUpPhoneNumberLineEdit->text();
+    email = ui->signUpEmailLineEdit->text();
     card_number = ui->signUpCardNumberLineEdit->text();
     cvv = ui->signUpCvvLineEdit->text();
     expiration_date = ui->signUpExpirationDateLineEdit->text();
@@ -34,7 +35,8 @@ void SignUpWindow::on_signUpSingUpButton_clicked()
         payment_method = signUpDatabaseManager.PAYMENT_METHOD_UNKNOWN;
     }
 
-    if ((!userName.isEmpty()) && (!password.isEmpty()) && (!full_name.isEmpty()) && (!address.isEmpty())){
+    if ((!userName.isEmpty()) && (!password.isEmpty()) && (!full_name.isEmpty())
+            && (!address.isEmpty()) && (!email.isEmpty())){
         if (signUpDatabaseManager.availableUserName(userName))
             insertNewUser();
         else
@@ -52,7 +54,7 @@ void SignUpWindow::insertNewUser()
     {
        bool insertSucceed;
        insertSucceed = signUpDatabaseManager.userDatabaseInsert(userName, password, full_name,
-                                                                address, phone_number, payment_method,
+                                                                address, phone_number, email, payment_method,
                                                                 card_number, cvv, expiration_date);
 
         QSqlQuery newUserQuery = signUpDatabaseManager.userDataBaseRetrieve(userName, password);

@@ -137,7 +137,7 @@
                 <item>
                  <widget class="QLabel" name="label_6">
                   <property name="text">
-                   <string>Email</string>
+                   <string>Email*</string>
                   </property>
                  </widget>
                 </item>

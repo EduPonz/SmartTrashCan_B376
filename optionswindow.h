@@ -20,9 +20,11 @@ public:
 
 signals:
     void apply_changes(QString fullName);
+    void user_deleted();
 
 private slots:
     void on_optionsApplyChangesButton_clicked();
+    void on_optionsDeleteUserButton_clicked();
 
 private:
     Ui::OptionsWindow *ui;

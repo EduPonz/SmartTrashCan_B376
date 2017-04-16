@@ -154,7 +154,8 @@ void MainWindow::setNameWindowName()
     userNameButton->setText(fullName);
 }
 
-void MainWindow::updateWindowName(QString fullName){
+void MainWindow::updateWindowName(QString fullName)
+{
     userNameButton->setText(fullName);
 }
 
@@ -200,6 +201,7 @@ void MainWindow::personalInfoSlot()
     qDebug() << "MainWindow::personalInfoSlot - ID: " << idString.number(id);
     optionsWindow = new OptionsWindow (this, id);
     connect(optionsWindow, &OptionsWindow::apply_changes, this, &MainWindow::updateWindowName);
+    connect(optionsWindow, &OptionsWindow::user_deleted, this, &MainWindow::logOutSlot);
     this->setCentralWidget(optionsWindow);
     mainToolBar->setVisible(true);
     this->setWindowTitle("Personal Information");
@@ -208,7 +210,6 @@ void MainWindow::personalInfoSlot()
 void MainWindow::logOutSlot()
 {
     loginWindow = new LoginWindow;
-    qDebug() << "MainWindow::logOutSlot - creating actions";
     connect(loginWindow, &LoginWindow::correctUser, this, &MainWindow::accessDataSlot);
     connect(loginWindow, &LoginWindow::signUpSignal, this, &MainWindow::signUpSlot);
     this->setCentralWidget(loginWindow);

@@ -27,6 +27,7 @@ UserDataBaseManager::UserDataBaseManager()
     COLUMN_FULL_NAME = "full_name";
     COLUMN_ADDRESS = "address";
     COLUMN_PHONE_NUMBER = "phone_number";
+    COLUMN_EMAIL = "email";
     COLUMN_PAYMENT_METHOD = "payment_method";
     COLUMN_CARD_NUMBER = "card_number";
     COLUMN_CVV = "cvv";
@@ -82,6 +83,7 @@ void UserDataBaseManager::userDatabaseInit()
             + COLUMN_FULL_NAME + " TEXT, "
             + COLUMN_ADDRESS + " TEXT NOT NULL, "
             + COLUMN_PHONE_NUMBER + " TEXT, "
+            + COLUMN_EMAIL + " TEXT, "
             + COLUMN_PAYMENT_METHOD + " TEXT, "
             + COLUMN_CARD_NUMBER + " TEXT, "
             + COLUMN_CVV + " TEXT, "
@@ -146,7 +148,7 @@ bool UserDataBaseManager::availableUpdateUserName(int id, QString userNewName){
 }
 
 bool UserDataBaseManager::userDataBaseUpdate(int userId, QString userName, QString password, QString full_name,
-                                              QString address, QString phone_number, QString payment_method,
+                                              QString address, QString phone_number, QString email, QString payment_method,
                                               QString card_number, QString cvv, QString expiration_date)
 {
     QSqlQuery query;
@@ -161,6 +163,7 @@ bool UserDataBaseManager::userDataBaseUpdate(int userId, QString userName, QStri
             + COLUMN_FULL_NAME       + " = '" + full_name       + "', "
             + COLUMN_ADDRESS         + " = '" + address         + "', "
             + COLUMN_PHONE_NUMBER    + " = '" + phone_number    + "', "
+            + COLUMN_EMAIL           + " = '" + email           + "', "
             + COLUMN_PAYMENT_METHOD  + " = '" + payment_method  + "', "
             + COLUMN_CARD_NUMBER     + " = '" + card_number     + "', "
             + COLUMN_CVV             + " = '" + cvv             + "', "
@@ -180,6 +183,7 @@ bool UserDataBaseManager::userDataBaseUpdate(int userId, QString userName, QStri
                  << " Full_name: "      << full_name      << "\n"
                  << " Address: "        << address        << "\n"
                  << " Phone_number: "   << phone_number   << "\n"
+                 << " Email: "          << email          << "\n"
                  << " Payment_method: " << payment_method << "\n"
                  << " Card_number: "    << card_number    << "\n"
                  << " CVV: "            << cvv            << "\n"
@@ -189,18 +193,20 @@ bool UserDataBaseManager::userDataBaseUpdate(int userId, QString userName, QStri
 }
 
 bool UserDataBaseManager::userDatabaseInsert(QString userName, QString password, QString full_name,
-                                             QString address, QString phone_number, QString payment_method,
+                                             QString address, QString phone_number, QString email, QString payment_method,
                                              QString card_number, QString cvv, QString expiration_date)
 {
     QSqlQuery query;
     QString SQL_POPULATE_USER_DATABASE_TABLE = "INSERT INTO " + TABLE_NAME
-            + "("   + COLUMN_USERNAME    + ", " + COLUMN_PASSWORD     + ", " + COLUMN_FULL_NAME
-            + ", "  + COLUMN_ADDRESS     + ", " + COLUMN_PHONE_NUMBER + ", " + COLUMN_PAYMENT_METHOD
-            + ", "  + COLUMN_CARD_NUMBER + ", " + COLUMN_CVV          + ", " + COLUMN_EXPIRATION_DATE
+            + "("  + COLUMN_USERNAME       + ", " + COLUMN_PASSWORD     + ", " + COLUMN_FULL_NAME
+            + ", " + COLUMN_ADDRESS        + ", " + COLUMN_PHONE_NUMBER + ", " + COLUMN_EMAIL
+            + ", " + COLUMN_PAYMENT_METHOD + ", " + COLUMN_CARD_NUMBER  + ", " + COLUMN_CVV
+            + ", " + COLUMN_EXPIRATION_DATE
             + ") VALUES ('"
-            + userName    + "', '" + password     + "', '" + full_name       + "', '"
-            + address     + "', '" + phone_number + "', '" + payment_method  + "', '"
-            + card_number + "', '" + cvv          + "', '" + expiration_date + "')";
+            + userName        + "', '" + password     + "', '" + full_name + "', '"
+            + address         + "', '" + phone_number + "', '" + email     + "', '"
+            + payment_method  + "', '" + card_number  + "', '" + cvv       + "', '"
+            + expiration_date + "')";
 
     if(!query.exec(SQL_POPULATE_USER_DATABASE_TABLE)){
         qWarning() << "UserDataBaseManager::userDatabaseInsert - ERROR: " << query.lastError().text();
@@ -225,6 +231,7 @@ QSqlQuery UserDataBaseManager::userDataBaseRetrieve(QString userName, QString pa
             + COLUMN_FULL_NAME       + ", "
             + COLUMN_ADDRESS         + ", "
             + COLUMN_PHONE_NUMBER    + ", "
+            + COLUMN_EMAIL           + ", "
             + COLUMN_PAYMENT_METHOD  + ", "
             + COLUMN_CARD_NUMBER     + ", "
             + COLUMN_CVV             + ", "
@@ -261,6 +268,7 @@ QSqlQuery UserDataBaseManager::userDataBaseRetrieve(int userId)
             + COLUMN_FULL_NAME       + ", "
             + COLUMN_ADDRESS         + ", "
             + COLUMN_PHONE_NUMBER    + ", "
+            + COLUMN_EMAIL           + ", "
             + COLUMN_PAYMENT_METHOD  + ", "
             + COLUMN_CARD_NUMBER     + ", "
             + COLUMN_CVV             + ", "
@@ -333,7 +341,8 @@ QString UserDataBaseManager::userDataBaseRetrieveUserName(int id)
     return username;
 }
 
-void UserDataBaseManager::userDatabaseDeleteAll(){
+void UserDataBaseManager::userDatabaseDeleteAll()
+{
     QSqlQuery query(userDataBase);
     query.clear();
     userDataBase.close();
@@ -343,4 +352,21 @@ void UserDataBaseManager::userDatabaseDeleteAll(){
         qDebug() << "UserDataBaseManager::userDatabaseDeleteAll() - Table" << TABLE_NAME << "NOT removed";
     }
     userDatabaseConnect();
+}
+
+bool UserDataBaseManager::userDatabaseDeleteUser(int id)
+{
+    QSqlQuery query;
+    QString deleteUser = "DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + " = ?";
+    query.prepare(deleteUser);
+    query.addBindValue(id);
+
+    if (!query.exec()){
+        qWarning() << "UserDataBaseManager::userDatabaseDeleteUser - ERROR: "
+                   << query.lastError().text();
+        return false;
+    }else{
+        qDebug() << "UserDataBaseManager::userDatabaseDeleteUser - USER with ID = " << id << " DELETED";
+        return true;
+    }
 }

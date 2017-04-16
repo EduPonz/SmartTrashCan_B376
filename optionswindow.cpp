@@ -25,14 +25,15 @@ void OptionsWindow::populate()
         ui->optionsFullNameLineEdit->setText(optionsQuery.value(2).toString());
         ui->optionsAddressLineEdit->setText(optionsQuery.value(3).toString());
         ui->optionsPhoneNumberLineEdit->setText(optionsQuery.value(4).toString());
-        ui->optionsCardNumberLineEdit->setText(optionsQuery.value(6).toString());
-        ui->optionsCvvLineEdit->setText(optionsQuery.value(7).toString());
-        ui->optionsExpirationDateLineEdit->setText(optionsQuery.value(8).toString());
-        if (!optionsQuery.value(5).toString().compare(optionsDatabaseManager.PAYMENT_METHOD_VISA)){
+        ui->optionsEmailLineEdit->setText(optionsQuery.value(5).toString());
+        ui->optionsCardNumberLineEdit->setText(optionsQuery.value(7).toString());
+        ui->optionsCvvLineEdit->setText(optionsQuery.value(8).toString());
+        ui->optionsExpirationDateLineEdit->setText(optionsQuery.value(9).toString());
+        if (!optionsQuery.value(6).toString().compare(optionsDatabaseManager.PAYMENT_METHOD_VISA)){
             ui->optionsVisaCheckBox->setChecked(1);
-        }else if (!optionsQuery.value(5).toString().compare(optionsDatabaseManager.PAYMENT_METHOD_MASTERCARD)){
+        }else if (!optionsQuery.value(6).toString().compare(optionsDatabaseManager.PAYMENT_METHOD_MASTERCARD)){
             ui->optionsMastercardCheckBox->setChecked(1);
-        }else if (!optionsQuery.value(5).toString().compare(optionsDatabaseManager.PAYMENT_METHOD_BOTTLECAPS)){
+        }else if (!optionsQuery.value(6).toString().compare(optionsDatabaseManager.PAYMENT_METHOD_BOTTLECAPS)){
             ui->optionsBottlecapsCheckBox->setChecked(1);
         }else{
             ui->optionsVisaCheckBox->setChecked(0);
@@ -54,6 +55,7 @@ void OptionsWindow::on_optionsApplyChangesButton_clicked()
     QString full_name = ui->optionsFullNameLineEdit->text();
     QString address =  ui->optionsAddressLineEdit->text();
     QString phone_number = ui->optionsPhoneNumberLineEdit->text();
+    QString email = ui->optionsEmailLineEdit->text();
     QString payment_method;
     QString card_number = ui->optionsCardNumberLineEdit->text();
     QString cvv = ui->optionsCvvLineEdit->text();
@@ -74,7 +76,7 @@ void OptionsWindow::on_optionsApplyChangesButton_clicked()
         qDebug() << "OptionsWindow::on_optionsApplyChangesButton_clicked - ID: " << idString.number(userId);
         if (optionsDatabaseManager.availableUpdateUserName(userId, newUserName)){
             optionsDatabaseManager.userDataBaseUpdate(userId, newUserName, password,
-                                                      full_name, address, phone_number,
+                                                      full_name, address, phone_number, email,
                                                       payment_method, card_number, cvv, expiry_date);
             emit apply_changes(full_name);
             ui->optionsOutPutLabel->setText("Your user has been updated");
@@ -83,5 +85,14 @@ void OptionsWindow::on_optionsApplyChangesButton_clicked()
         }
     }else{
             ui->optionsOutPutLabel->setText("Some fields are missing");
+    }
+}
+
+void OptionsWindow::on_optionsDeleteUserButton_clicked()
+{
+    if (optionsDatabaseManager.userDatabaseDeleteUser(userId)){
+        emit user_deleted();
+    }else{
+        ui->optionsOutPutLabel->setText("The user could not be deleted");
     }
 }
