@@ -6,6 +6,7 @@
 #include "datawindow.h"
 #include "signupwindow.h"
 #include "userdatabasemanager.h"
+#include "trashinfodatabasemanager.h"
 #include "extrapickupwindow.h"
 #include <QMainWindow>
 #include <QMenu>
@@ -85,6 +86,7 @@ private:
     SignUpWindow *signUpWindow;
     ExtraPickupWindow *extraPickupWindow;
     UserDataBaseManager mainWindowUserDatabaseManager;
+    TrashInfoDatabaseManager mainWindowTrashInfoDatabaseManager;
     QSqlQuery mainWindowQuery;
 };
 

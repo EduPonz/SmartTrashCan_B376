@@ -24,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     loginWindow = new LoginWindow;
     signUpWindow = new SignUpWindow;
     dataWindow = new DataWindow;
+    mainWindowTrashInfoDatabaseManager;
     this->setCentralWidget(loginWindow);
     createActions();
     mainToolBar = addToolBar(tr("mainToolBar"));

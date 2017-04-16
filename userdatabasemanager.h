@@ -32,6 +32,8 @@ public:
     QString COLUMN_CVV;
     QString COLUMN_EXPIRATION_DATE;
 
+    QSqlDatabase userDataBase;
+
     bool userDataBaseUpdate(int userId, QString userName, QString password, QString full_name,
                              QString address, QString phone_number, QString email, QString payment_method,
                              QString card_number, QString cvv, QString expiration_date);
@@ -51,8 +53,6 @@ public:
 private:
     QString TABLE_NAME;
     QString userDatabasePath;
-
-    QSqlDatabase userDataBase;
 
     void userDatabaseConnect();
     void userDatabaseInit();

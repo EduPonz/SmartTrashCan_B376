@@ -49,8 +49,8 @@ bool UserDataBaseManager::isExist()
         qWarning() << "UserDataBaseManager::isExist - ERROR: Cannot open the Database";
         return false;
     }else{
-        qDebug() << "UserDataBaseManager::UserDataBaseManager - The database exists";
-        qDebug() << "UserDataBaseManager::UserDataBaseManager - The database has been opened";
+        qDebug() << "UserDataBaseManager::isExist - The database exists";
+        qDebug() << "UserDataBaseManager::isExist - The database has been opened";
         return true;
     }
 }
@@ -104,7 +104,6 @@ bool UserDataBaseManager::availableUserName(QString userName){
     query.exec(SQL_AVAILABLE_USER_NAME);
     query.first();
     bool rtn;
-    int i = 0;
     do {
         if (query.value(0).toString().compare(userName)){
             rtn = true;
