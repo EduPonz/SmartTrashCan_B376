@@ -4,6 +4,7 @@
 #include <QString>
 #include <QSqlDatabase>
 #include "userdatabasemanager.h"
+#include <QSqlQuery>
 
 class TrashInfoDatabaseManager
 {
@@ -19,13 +20,15 @@ public:
 
 private:
     QString TABLE_NAME;
-    QString trashInfoDatabasePath;
 
     UserDataBaseManager userDatabaseManager;
 
    // void trashInfoDatabaseConnect();
     void trashInfoDatabaseInit();
     bool isExist();
+    QSqlQuery trashInfoDatabaseRetrieve(int userID);
+    bool trashInfoDatabaseInsert(int userID, float fullness, float weight, float humidity, float temperature);
+    bool trashInfoDatabaseDelete(int userID);
 
 };
 

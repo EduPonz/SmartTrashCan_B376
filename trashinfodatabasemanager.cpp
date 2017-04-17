@@ -49,3 +49,63 @@ void TrashInfoDatabaseManager::trashInfoDatabaseInit()
     else
         qDebug() << "TrashInfoDatabaseManager::trashInfoDatabaseInit -  The DataBase has been inizialited";
 }
+
+QSqlQuery TrashInfoDatabaseManager::trashInfoDatabaseRetrieve(int userID)
+{
+    QSqlQuery query;
+
+    QString SQL_RETRIEVE_TRASH_INFO_DATABASE_TABLE = "SELECT "
+            + COLUMN_FULLNESS        + ", "
+            + COLUMN_WEIGHT          + ", "
+            + COLUMN_HUMIDITY        + ", "
+            + COLUMN_TEMPERATURE
+            + " FROM "
+            + TABLE_NAME
+            + " WHERE "
+            + COLUMN_USERID + " = '" + userID + "'";
+
+    if(!query.exec(SQL_RETRIEVE_TRASH_INFO_DATABASE_TABLE))
+        qWarning() << "TrashInfoDataBaseManager::trashInfoDatabaseRetrieve - ERROR: " << query.lastError().text();
+
+    return query;
+}
+
+bool TrashInfoDatabaseManager::trashInfoDatabaseInsert(int userID, float fullness, float weight, float humidity, float temperature){
+    QSqlQuery query;
+    QString SQL_POPULATE_TRASH_INFO_DATABASE_TABLE = "INSERT INTO " + TABLE_NAME
+            + "("
+            + COLUMN_USERID       + ", "
+            + COLUMN_FULLNESS     + ", "
+            + COLUMN_WEIGHT       + ", "
+            + COLUMN_HUMIDITY     + ", "
+            + COLUMN_TEMPERATURE
+            + ") VALUES ('"
+            + userID              + "', '"
+            + fullness            + "', '"
+            + weight              + "', '"
+            + humidity            + "')";
+
+    if(!query.exec(SQL_POPULATE_TRASH_INFO_DATABASE_TABLE)){
+        qWarning() << "UserDataBaseManager::userDatabaseInsert - ERROR: " << query.lastError().text();
+        return false;
+    }else{
+        return true;
+    }
+}
+
+bool TrashInfoDatabaseManager::trashInfoDatabaseDelete(int userID)
+{
+    QSqlQuery query;
+    QString deleteUserTrashInfo = "DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_USERID + " = ?";
+    query.prepare(deleteUserTrashInfo);
+    query.addBindValue(userID);
+
+    if (!query.exec()){
+        qWarning() << "TrashInfoDatabaseManager::trashInfoDatabaseDelete - ERROR: "
+                   << query.lastError().text();
+        return false;
+    }else{
+        qDebug() << "TrashInfoDatabaseManager::trashInfoDatabaseDelete - USER with userID = " << userID << " DELETED";
+        return true;
+    }
+}
