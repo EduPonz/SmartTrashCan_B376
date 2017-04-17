@@ -340,6 +340,34 @@ QString UserDataBaseManager::userDataBaseRetrieveUserName(int id)
     return username;
 }
 
+QString UserDataBaseManager::userDataBaseRetrieveUserEmail(int id){
+
+    QSqlQuery query;
+
+    QString SQL_RETRIEVE_USER_DATABASE_EMAIL = "SELECT "
+            + COLUMN_EMAIL
+            + " FROM "
+            + TABLE_NAME
+            + " WHERE "
+            + COLUMN_ID + " = ?";
+
+    query.prepare(SQL_RETRIEVE_USER_DATABASE_EMAIL);
+    query.addBindValue(id);
+    qDebug() << "UserDataBaseManager::userDataBaseRetrieveUserEmail - The ID is: " << id;
+    qDebug() << "UserDataBaseManager::userDataBaseRetrieveUserEmail - ERROR: " << query.lastQuery();
+
+    if(!query.exec())
+        qWarning() << "UserDataBaseManager::userDataBaseRetrieveUserEmail - ERROR: " << query.lastError().text();
+    else{
+        query.first();
+        emailAddress = query.value(0).toString();
+        qDebug() << "UserDataBaseManager::userDataBaseRetrieveUserEmail - RETRIEVED:"
+                 << " User Id: " << id
+                 << " Email Addres: " << emailAddress;
+    }
+    return emailAddress;
+}
+
 void UserDataBaseManager::userDatabaseDeleteAll()
 {
     QSqlQuery query(userDataBase);

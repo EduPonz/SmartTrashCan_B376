@@ -11,6 +11,10 @@ class UserDataBaseManager
 public:
     UserDataBaseManager();
 
+    QString emailAddress;
+
+    QString TABLE_NAME;
+
     QString NOT_PERSON_FOUND;
     QString USER_ADDED_SUCC;
     QString USER_ADDED_FAIL;
@@ -45,13 +49,13 @@ public:
                             QString card_number, QString cvv, QString expiration_date);
     QString userDataBaseRetrieveFullName(int id);
     QString userDataBaseRetrieveUserName(int id);
+    QString userDataBaseRetrieveUserEmail(int id);
     bool availableUserName(QString userName);
     bool availableUpdateUserName(int id, QString userNewName);
     void userDatabaseDeleteAll();
     bool userDatabaseDeleteUser(int id);
 
 private:
-    QString TABLE_NAME;
     QString userDatabasePath;
 
     void userDatabaseConnect();

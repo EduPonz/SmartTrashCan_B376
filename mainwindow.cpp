@@ -252,6 +252,7 @@ void MainWindow::accessDataSlot(int userId)
 void MainWindow::extraPickUpSlot(int id)
 {
     extraPickupWindow = new ExtraPickupWindow (this, id);
+    qDebug() << "MainWindow::extraPickUpSlot: " << id;
     this->setCentralWidget(extraPickupWindow);
     mainToolBar->setVisible(true);
     setNameWindowName();

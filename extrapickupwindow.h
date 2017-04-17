@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QString>
+#include <QSqlDatabase>
+#include "userdatabasemanager.h"
 
 namespace Ui {
 class ExtraPickupWindow;
@@ -14,6 +16,10 @@ class ExtraPickupWindow : public QWidget
 
 public:
     ExtraPickupWindow(QWidget *parent = 0, int id = 0);
+
+    QSqlDatabase userDataBase;
+    int userId;
+
     ~ExtraPickupWindow();
 
 private slots:
@@ -22,15 +28,13 @@ private slots:
     void mailSent(QString);
 private:
 
+    UserDataBaseManager dataBase;
+
     QString EMAIL_USER_NAME;
     QString EMAIL_PASSWORD;
     QString EMAIL_SERVER;
     int EMAIL_PORT;
     QString EMAIL_SUBJECT;
-
-    //Message to be sent variables
-
-    //QString trashEmailMessage;
 
     bool trashSizeSmallBool;
     bool trashSizeMediumBool;
@@ -46,13 +50,9 @@ private:
     QString trashQuantityBig;
 
 
-    bool TRASH_TIME_ONE;
-    bool TRASH_TIME_TWO;
-    bool TRASH_TIME_FIVE;
-
-    //QString trashQuantitySmall;
-    int TRASH_QUANTITY_MEDIUM;
-    int TRASH_QUANTITY_BIG;
+    bool trashTimeOne;
+    bool trashTimeTwo;
+    bool trashTimeFive;
 
     QString returnConstString(QString body);
 
