@@ -24,6 +24,12 @@ public:
     QString PAYMENT_METHOD_MASTERCARD;
     QString PAYMENT_METHOD_BOTTLECAPS;
 
+    QString MONDAY;
+    QString TUESDAY;
+    QString WEDNESDAY;
+    QString THURSDAY;
+    QString FRIDAY;
+
     QString COLUMN_ID;
     QString COLUMN_USERNAME;
     QString COLUMN_PASSWORD;
@@ -35,6 +41,7 @@ public:
     QString COLUMN_CARD_NUMBER;
     QString COLUMN_CVV;
     QString COLUMN_EXPIRATION_DATE;
+    QString COLUMN_PICKUP_DAY;
 
     QSqlDatabase userDataBase;
 
@@ -50,10 +57,12 @@ public:
     QString userDataBaseRetrieveFullName(int id);
     QString userDataBaseRetrieveUserName(int id);
     QString userDataBaseRetrieveUserEmail(int id);
+    int userDataBaseRetrievePickupDay(int id);
     bool availableUserName(QString userName);
     bool availableUpdateUserName(int id, QString userNewName);
     void userDatabaseDeleteAll();
     bool userDatabaseDeleteUser(int id);
+
 
 private:
     QString userDatabasePath;
