@@ -16,6 +16,9 @@
 #include <QLineEdit>
 #include <QString>
 #include <QDir>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 UserDataBaseManager::UserDataBaseManager()
 {
@@ -32,6 +35,7 @@ UserDataBaseManager::UserDataBaseManager()
     COLUMN_CARD_NUMBER = "card_number";
     COLUMN_CVV = "cvv";
     COLUMN_EXPIRATION_DATE = "expiration_date";
+    COLUMN_PICKUP_DAY = "pickup_day";
     PAYMENT_METHOD_UNKNOWN = "unknown";
     PAYMENT_METHOD_VISA = "visa";
     PAYMENT_METHOD_MASTERCARD = "mastercard";
@@ -40,6 +44,11 @@ UserDataBaseManager::UserDataBaseManager()
     USER_ADDED_SUCC = "New user added successfully";
     USER_ADDED_FAIL = "Unable to add the new user";
     USER_EXISTS = "Username not available. Try another username";
+    MONDAY = "monday";
+    TUESDAY = "tuesday";
+    WEDNESDAY = "wednesday";
+    THURSDAY = "thursday";
+    FRIDAY = "friday";
     userDatabaseConnect();
 }
 
@@ -87,7 +96,8 @@ void UserDataBaseManager::userDatabaseInit()
             + COLUMN_PAYMENT_METHOD + " TEXT, "
             + COLUMN_CARD_NUMBER + " TEXT, "
             + COLUMN_CVV + " TEXT, "
-            + COLUMN_EXPIRATION_DATE + " TEXT)";
+            + COLUMN_EXPIRATION_DATE + " TEXT, "
+            + COLUMN_PICKUP_DAY + " TEXT)";
 
     QSqlQuery query(SQL_CREATE_USER_DATABASE_TABLE);
 
@@ -195,25 +205,47 @@ bool UserDataBaseManager::userDatabaseInsert(QString userName, QString password,
                                              QString address, QString phone_number, QString email, QString payment_method,
                                              QString card_number, QString cvv, QString expiration_date)
 {
+    /* generate secret number between 1 and 5: for the day of the week(mon->fri) for trash pickup day*/
+    srand (time(NULL));
+    int pickup_day = rand() % 5 + 1;
+    QString pickup_day_string;
+    switch (pickup_day) {
+    case 1:
+        pickup_day_string = MONDAY;
+        break;
+    case 2:
+        pickup_day_string = TUESDAY;
+        break;
+    case 3:
+        pickup_day_string = WEDNESDAY;
+        break;
+    case 4:
+        pickup_day_string = THURSDAY;
+        break;
+    case 5:
+        pickup_day_string = FRIDAY;
+        break;
+    default:
+        break;
+    }
+
+    qDebug() << "UserDataBaseManager::userDatabaseInsert - RANDOM NUMBER:" << pickup_day;
     QSqlQuery query;
     QString SQL_POPULATE_USER_DATABASE_TABLE = "INSERT INTO " + TABLE_NAME
-            + "("  + COLUMN_USERNAME       + ", " + COLUMN_PASSWORD     + ", " + COLUMN_FULL_NAME
-            + ", " + COLUMN_ADDRESS        + ", " + COLUMN_PHONE_NUMBER + ", " + COLUMN_EMAIL
-            + ", " + COLUMN_PAYMENT_METHOD + ", " + COLUMN_CARD_NUMBER  + ", " + COLUMN_CVV
-            + ", " + COLUMN_EXPIRATION_DATE
+            + "("  + COLUMN_USERNAME        + ", " + COLUMN_PASSWORD     + ", " + COLUMN_FULL_NAME
+            + ", " + COLUMN_ADDRESS         + ", " + COLUMN_PHONE_NUMBER + ", " + COLUMN_EMAIL
+            + ", " + COLUMN_PAYMENT_METHOD  + ", " + COLUMN_CARD_NUMBER  + ", " + COLUMN_CVV
+            + ", " + COLUMN_EXPIRATION_DATE + ", " + COLUMN_PICKUP_DAY
             + ") VALUES ('"
             + userName        + "', '" + password     + "', '" + full_name + "', '"
             + address         + "', '" + phone_number + "', '" + email     + "', '"
             + payment_method  + "', '" + card_number  + "', '" + cvv       + "', '"
-            + expiration_date + "')";
+            + expiration_date + "', '" + pickup_day_string   + "')";
 
     if(!query.exec(SQL_POPULATE_USER_DATABASE_TABLE)){
         qWarning() << "UserDataBaseManager::userDatabaseInsert - ERROR: " << query.lastError().text();
         return false;
     }else{
-        qDebug() << "UserDataBaseManager::userDatabaseInsert - INSERTED:"
-                 << " User Name: "    << userName
-                 << " Password: " << password;
         return true;
     }
 }
@@ -367,6 +399,32 @@ QString UserDataBaseManager::userDataBaseRetrieveUserEmail(int id){
     }
     return emailAddress;
 }
+
+int UserDataBaseManager::userDataBaseRetrievePickupDay(int id)
+{
+
+    QSqlQuery query;
+
+    QString SQL_RETRIEVE_USER_DATABASE_PICKUP_DAY = "SELECT "
+            + COLUMN_PICKUP_DAY
+            + " FROM "
+            + TABLE_NAME
+            + " WHERE "
+            + COLUMN_ID + " = ?";
+
+    query.prepare(SQL_RETRIEVE_USER_DATABASE_PICKUP_DAY);
+    query.addBindValue(id);
+    int pickup_day;
+    if(!query.exec())
+        qWarning() << "UserDataBaseManager::userDataBaseRetrievePickupDay - ERROR: " << query.lastError().text();
+    else{
+        query.first();
+        pickup_day = query.value(0).toInt();
+
+    }
+    return pickup_day;
+}
+
 
 void UserDataBaseManager::userDatabaseDeleteAll()
 {
