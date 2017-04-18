@@ -5,6 +5,8 @@
 
 #include <QDebug>
 #include <QSqlError>
+#include <string>
+#include <string.h>
 
 ExtraPickupWindow::ExtraPickupWindow(QWidget *parent, int id) :
     QWidget(parent),
@@ -13,7 +15,7 @@ ExtraPickupWindow::ExtraPickupWindow(QWidget *parent, int id) :
     ui->setupUi(this);
 
     userId = id;
-    qDebug() << "ExtraPickupWindow::extraPickUpSlot: " << id;
+
 
     EMAIL_USER_NAME = "stcb376";
     EMAIL_PASSWORD = "SimplePassword";
@@ -23,47 +25,45 @@ ExtraPickupWindow::ExtraPickupWindow(QWidget *parent, int id) :
     EMAIL_SUBJECT = "Smart Trash Can pick up order confirmed!";
 }
 
-void ExtraPickupWindow::on_extrapickupConfirmButton_clicked()
-{
-    trashTextSmall = "";
-    trashTextMedium = "";
-    trashTextBig = "";
+void ExtraPickupWindow::sizeTimeMoneyHandler(){
 
-    trashQuantitySmall = "";
-    trashQuantityMedium = "";
-    trashQuantityBig = "";
 
+    //QString moneyHandler[3][3];
     trashSizeSmallBool = ui->itemSmallCheckBox->checkState();
     trashSizeMediumBool = ui->itemMediumCheckBox->checkState();
     trashSizeBigBool = ui->itemBigCheckBox->checkState();
+    request = "";
+    if (trashSizeSmallBool == true || trashSizeMediumBool == true || trashSizeBigBool == true) {
+        request = "You have selected ";
+    }
 
-    Smtp* smtp = new Smtp(EMAIL_USER_NAME, EMAIL_PASSWORD, EMAIL_SERVER, EMAIL_PORT);
-    connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
 
     if(trashSizeSmallBool == true){
-        trashTextSmall = "small size;";
-        trashQuantitySmall = ui->spinBox->cleanText();
+        request = request + "small size item(s) with the quantity of " + ui->spinBox->cleanText() + " for 10 Bottle caps per item";
     }
 
     if(trashSizeMediumBool == true){
-        trashTextMedium = "medium size;";
-        trashQuantityMedium = ui->spinBox_2->cleanText();
+        request = request + ", medium size item(s) with the quantity of " + ui->spinBox_2->cleanText() + " for 20 Bottle caps per item";
     }
+
     if(trashSizeBigBool == true){
-        trashTextBig = "large size;";
-        trashQuantityBig = ui->spinBox_3->cleanText();
+        request = request + ", and large size item(s) with the quantity of " + ui->spinBox_3->cleanText() + " for 30 Bottle caps per item";
     }
 
+    int price = ui->spinBox->cleanText().toInt() * 10 + ui->spinBox_2->cleanText().toInt() * 20 + ui->spinBox_3->cleanText().toInt() * 30;
+    if (trashSizeSmallBool == true || trashSizeMediumBool == true || trashSizeBigBool == true) {
+        request = request + ". The price of the service is; " + QString::number(price) + " Bottle caps. \n";
+    }
+}
 
-    QString trashEmailMessage = "You have requested; "
-            + trashQuantitySmall  + " "  + trashTextSmall + " "
-            + trashQuantityMedium + " " + trashTextMedium + " "
-            + trashQuantityBig    + " " + trashTextBig
-            + " item(s) to be picked up " + ".\n";
+void ExtraPickupWindow::on_extrapickupConfirmButton_clicked()
+{
+    Smtp* smtp = new Smtp(EMAIL_USER_NAME, EMAIL_PASSWORD, EMAIL_SERVER, EMAIL_PORT);
+    connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
 
-    QString rcpt = "daviccs@gmail.com"; //get the email from the database
-    qDebug() << "ExtraPickupWindow::on_extrapickupConfirmButton_clicked: " << dataBase.emailAddress;
-    QString commentMsg = trashEmailMessage + "You have added the following comments; '"
+    sizeTimeMoneyHandler();
+
+    QString commentMsg = request + "You have added the following comments; '"
             + ui->extrapickupCommentText->toPlainText() + "'";
     QString emailAddress = dataBase.userDataBaseRetrieveUserEmail(userId);
 
