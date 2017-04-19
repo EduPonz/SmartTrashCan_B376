@@ -34,7 +34,7 @@ private slots:
     void on_tabWidget_currentChanged(int index);
 
 private:
-    void createFakeChart();
+    void createWeightChart(int tab_index);
 
     Ui::DataWindow *ui;
     int userId;
