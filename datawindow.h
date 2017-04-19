@@ -20,28 +20,22 @@ signals:
 
 private slots:
     void on_datawindowPickupButton_clicked();
-
     void on_fullnessTitleButton_clicked();
-
     void on_fullnessDataButton_clicked();
-
     void on_weigthTitleButton_clicked();
-
     void on_humidityTitleButton_clicked();
-
     void on_temperatureDataButton_clicked();
-
     void on_nextPickUpTitleButton_clicked();
-
     void on_weightDataButton_clicked();
-
     void on_humidityDataButton_clicked();
-
     void on_temperatutureTitleButton_clicked();
-
     void on_nextPickUpDataButton_clicked();
 
+    void on_tabWidget_currentChanged(int index);
+
 private:
+    void createFakeChart();
+
     Ui::DataWindow *ui;
     int userId;
 };
