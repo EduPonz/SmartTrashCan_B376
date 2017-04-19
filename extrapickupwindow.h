@@ -30,6 +30,10 @@ private:
 
     UserDataBaseManager dataBase;
 
+    void sizeTimeMoneyHandler();
+
+    QString trashEmailMessage;
+
     QString EMAIL_USER_NAME;
     QString EMAIL_PASSWORD;
     QString EMAIL_SERVER;
@@ -40,21 +44,18 @@ private:
     bool trashSizeMediumBool;
     bool trashSizeBigBool;
 
-    //QString trashTextSmall;
     QString trashTextSmall;
     QString trashTextMedium;
     QString trashTextBig;
+    QString request;
 
     QString trashQuantitySmall;
     QString trashQuantityMedium;
     QString trashQuantityBig;
 
-
     bool trashTimeOne;
     bool trashTimeTwo;
     bool trashTimeFive;
-
-    QString returnConstString(QString body);
 
     Ui::ExtraPickupWindow *ui;
 };
