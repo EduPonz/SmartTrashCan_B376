@@ -228,7 +228,8 @@ void MainWindow::signUpSlot()
 
 void MainWindow::homeButtonActionSlot()
 {
-    dataWindow = new DataWindow;
+    qDebug ()<< "MainWindow::homeButtonActionSlot - Home Button Fart";
+    dataWindow = new DataWindow(this, id);
     this->setCentralWidget(dataWindow);
     mainToolBar->setVisible(true);
     setNameWindowName();

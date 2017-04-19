@@ -17,7 +17,9 @@ public:
     QString COLUMN_WEIGHT;
     QString COLUMN_HUMIDITY;
     QString COLUMN_TEMPERATURE;
+    QString COLUMN_TIME;
 
+    void fakeTrashInfo(int userId);
 private:
     QString TABLE_NAME;
 

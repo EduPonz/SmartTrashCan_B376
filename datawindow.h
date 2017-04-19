@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QMainWindow>
+#include "trashinfodatabasemanager.h"
 
 
 namespace Ui {
@@ -38,6 +39,7 @@ private:
     void createWeightChart(int tab_index);
     void createHumidityChart(int tab_index);
     void createTemperatureChart(int tab_index);
+    TrashInfoDatabaseManager trashInfoManager;
 
     int typeOfDataSelected;
 

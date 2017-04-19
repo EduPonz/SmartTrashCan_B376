@@ -9,11 +9,13 @@ TrashInfoDatabaseManager::TrashInfoDatabaseManager()
 {
     TABLE_NAME = "trashInfo";
     COLUMN_ID = "id";
+    COLUMN_TIME = "time";
     COLUMN_USERID = "user_id";
     COLUMN_FULLNESS = "fullness";
     COLUMN_WEIGHT = "weight";
     COLUMN_HUMIDITY = "humidity";
     COLUMN_TEMPERATURE = "temperature";
+    COLUMN_TIME = "time";
     if(isExist()) {
         trashInfoDatabaseInit();
     }
@@ -32,14 +34,26 @@ bool TrashInfoDatabaseManager::isExist()
     }
 }
 
+void TrashInfoDatabaseManager::fakeTrashInfo(int userId)
+{
+    srand (time(NULL));
+    int fullness = rand() % 100 + 1;
+    int weight = rand() % 30 + 1;
+    int humidity = rand() % 100 + 1;
+    int temperature = rand() % 50 + 1;
+
+    trashInfoDatabaseInsert(userId, fullness, weight, humidity, temperature);
+}
+
 void TrashInfoDatabaseManager::trashInfoDatabaseInit()
 {
     QString SQL_CREATE_TRASH_INFO_DATABASE_TABLE = "CREATE TABLE " + TABLE_NAME + " ("
-            + COLUMN_ID       + " INTEGER PRIMARY KEY, "
-            + COLUMN_USERID + " INTEGER, "
-            + COLUMN_FULLNESS + " REAL, "
-            + COLUMN_WEIGHT + " REAL, "
-            + COLUMN_HUMIDITY + " REAL, "
+            + COLUMN_ID          + " INTEGER PRIMARY KEY, "
+            + COLUMN_USERID      + " INTEGER, "
+            + COLUMN_TIME        + " TEXT, "
+            + COLUMN_FULLNESS    + " REAL, "
+            + COLUMN_WEIGHT      + " REAL, "
+            + COLUMN_HUMIDITY    + " REAL, "
             + COLUMN_TEMPERATURE + " REAL)";
 
     QSqlQuery query(SQL_CREATE_TRASH_INFO_DATABASE_TABLE);
@@ -73,20 +87,24 @@ QSqlQuery TrashInfoDatabaseManager::trashInfoDatabaseRetrieve(int userID)
 bool TrashInfoDatabaseManager::trashInfoDatabaseInsert(int userID, float fullness, float weight, float humidity, float temperature){
     QSqlQuery query;
     QString SQL_POPULATE_TRASH_INFO_DATABASE_TABLE = "INSERT INTO " + TABLE_NAME
-            + "("
+            + " ("
             + COLUMN_USERID       + ", "
+            + COLUMN_TIME         + ", "
             + COLUMN_FULLNESS     + ", "
             + COLUMN_WEIGHT       + ", "
             + COLUMN_HUMIDITY     + ", "
             + COLUMN_TEMPERATURE
-            + ") VALUES ('"
-            + userID              + "', '"
-            + fullness            + "', '"
-            + weight              + "', '"
-            + humidity            + "')";
+            + ") VALUES (:userID, DATETIME('now', 'localtime'), :fullness, :weight, :humidity, :temperature)";
+    query.prepare(SQL_POPULATE_TRASH_INFO_DATABASE_TABLE);
+    query.addBindValue(userID);
+    query.addBindValue(fullness);
+    query.addBindValue(weight);
+    query.addBindValue(humidity);
+    query.addBindValue(temperature);
 
-    if(!query.exec(SQL_POPULATE_TRASH_INFO_DATABASE_TABLE)){
-        qWarning() << "UserDataBaseManager::userDatabaseInsert - ERROR: " << query.lastError().text();
+    if(!query.exec()){
+        qDebug() << "TrashInfoDatabaseManager::trashInfoDatabaseInsert - : " << query.lastQuery();
+        qWarning() << "TrashInfoDatabaseManager::trashInfoDatabaseInsert - ERROR: " << query.lastError().text();
         return false;
     }else{
         return true;

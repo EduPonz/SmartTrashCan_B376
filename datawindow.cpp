@@ -1,5 +1,6 @@
 #include "datawindow.h"
 #include "ui_datawindow.h"
+#include "trashinfodatabasemanager.h"
 
 #include <QWidget>
 #include <QVBoxLayout>
@@ -16,8 +17,9 @@ DataWindow::DataWindow(QWidget *parent, int id) : QWidget(parent), ui(new Ui::Da
     userId = id;
     ui->setupUi(this);
     ui->tabWidget->setCurrentIndex(0);
+    trashInfoManager.fakeTrashInfo(userId);
     typeOfDataSelected = 0;
-    createWeightChart(0);
+    createFullnessChart(0);
 }
 
 DataWindow::~DataWindow()
