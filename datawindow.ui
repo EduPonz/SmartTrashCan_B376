@@ -81,7 +81,7 @@
         </item>
         <item>
          <widget class="QWidget" name="CurrentDataBoxes" native="true">
-          <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1,1,1">
+          <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1,0,0">
            <property name="spacing">
             <number>1</number>
            </property>
@@ -108,34 +108,66 @@
              <property name="midLineWidth">
               <number>0</number>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_3" stretch="1,8">
+             <layout class="QVBoxLayout" name="verticalLayout_3" stretch="1,2">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
               <item>
-               <widget class="QLabel" name="FullnessTitle">
+               <widget class="QPushButton" name="fullnessTitleButton">
+                <property name="maximumSize">
+                 <size>
+                  <width>16777214</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
                 <property name="font">
                  <font>
-                  <pointsize>16</pointsize>
+                  <pointsize>12</pointsize>
                   <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
                 <property name="text">
-                 <string>Fullness</string>
+                 <string>FULLNESS</string>
                 </property>
-                <property name="scaledContents">
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="flat">
                  <bool>true</bool>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="FullnessData">
-                <property name="autoFillBackground">
-                 <bool>true</bool>
+               <widget class="QPushButton" name="fullnessDataButton">
+                <property name="font">
+                 <font>
+                  <pointsize>16</pointsize>
+                 </font>
                 </property>
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string>83%</string>
                 </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
+                 <bool>false</bool>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -147,28 +179,56 @@
              <property name="frameShape">
               <enum>QFrame::Box</enum>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,8">
+             <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,2">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
               <item>
-               <widget class="QLabel" name="WeightTitle">
+               <widget class="QPushButton" name="weigthTitleButton">
                 <property name="font">
                  <font>
-                  <pointsize>16</pointsize>
                   <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
                 <property name="text">
-                 <string>Weight</string>
+                 <string>WEIGHT</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="WeightData">
-                <property name="text">
-                 <string>TextLabel</string>
+               <widget class="QPushButton" name="weightDataButton">
+                <property name="font">
+                 <font>
+                  <pointsize>16</pointsize>
+                 </font>
                 </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
+                <property name="text">
+                 <string>15kg</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -180,28 +240,117 @@
              <property name="frameShape">
               <enum>QFrame::Box</enum>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_5" stretch="1,8">
+             <layout class="QVBoxLayout" name="verticalLayout_5" stretch="1,2">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
               <item>
-               <widget class="QLabel" name="HumidityTitle">
+               <widget class="QPushButton" name="humidityTitleButton">
                 <property name="font">
                  <font>
-                  <pointsize>16</pointsize>
                   <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
                 <property name="text">
-                 <string>Humidity</string>
+                 <string>HUMIDITY</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="HumidityData">
-                <property name="text">
-                 <string>TextLabel</string>
+               <widget class="QPushButton" name="humidityDataButton">
+                <property name="font">
+                 <font>
+                  <pointsize>16</pointsize>
+                 </font>
                 </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
+                <property name="text">
+                 <string>57%</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="Temperature">
+             <property name="frameShape">
+              <enum>QFrame::Box</enum>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_7" stretch="1,2">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="temperatureDataButton">
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>TEMPERATURE</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="temperatutureTitleButton">
+                <property name="font">
+                 <font>
+                  <pointsize>16</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>21 ºC</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -213,70 +362,56 @@
              <property name="frameShape">
               <enum>QFrame::Box</enum>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_6" stretch="1,8">
+             <layout class="QVBoxLayout" name="verticalLayout_6" stretch="1,2">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
               <item>
-               <widget class="QLabel" name="TimeUntilNextPickUpTitle">
+               <widget class="QPushButton" name="nextPickUpTitleButton">
                 <property name="font">
                  <font>
-                  <pointsize>16</pointsize>
                   <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
                 <property name="text">
-                 <string>Next PickUp</string>
+                 <string>NEXT PICKUP</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="TimeUntilNextPickUpData">
-                <property name="text">
-                 <string>TextLabel</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item>
-            <widget class="QFrame" name="CurrentLocation">
-             <property name="frameShape">
-              <enum>QFrame::Box</enum>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_7" stretch="1,8">
-              <item>
-               <widget class="QLabel" name="CurrentLocationTitle">
+               <widget class="QPushButton" name="nextPickUpDataButton">
                 <property name="font">
                  <font>
                   <pointsize>16</pointsize>
-                  <weight>75</weight>
-                  <bold>true</bold>
                  </font>
                 </property>
                 <property name="text">
-                 <string>Current Location</string>
+                 <string>Thursday the 19th of April</string>
                 </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="CurrentLocationData">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
+                <property name="checkable">
+                 <bool>true</bool>
                 </property>
-                <property name="autoFillBackground">
-                 <bool>false</bool>
-                </property>
-                <property name="text">
-                 <string>TextLabel</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
+                <property name="flat">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -334,7 +469,7 @@
            <enum>QTabWidget::Rounded</enum>
           </property>
           <property name="currentIndex">
-           <number>3</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab">
            <property name="autoFillBackground">
@@ -466,6 +601,9 @@
           </property>
           <property name="text">
            <string>Extra PickUp Services</string>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
           </property>
          </widget>
         </item>
