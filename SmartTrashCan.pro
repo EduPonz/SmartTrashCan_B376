@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui sql network
+QT       += charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -45,6 +46,9 @@ HEADERS  += mainwindow.h \
     smtp.h \
     trashinfodatabasemanager.h \
     historydatabasemanager.h
+
+target.path = $$[QT_INSTALL_EXAMPLES]/charts/barchart
+INSTALLS += target
 
 FORMS    += mainwindow.ui \
     loginwindow.ui \
