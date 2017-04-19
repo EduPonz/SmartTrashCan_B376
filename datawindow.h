@@ -34,7 +34,12 @@ private slots:
     void on_tabWidget_currentChanged(int index);
 
 private:
+    void createFullnessChart(int tab_index);
     void createWeightChart(int tab_index);
+    void createHumidityChart(int tab_index);
+    void createTemperatureChart(int tab_index);
+
+    int typeOfDataSelected;
 
     Ui::DataWindow *ui;
     int userId;
