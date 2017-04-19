@@ -96,6 +96,7 @@ QSqlQuery HistoryDatabaseManager::historyDatabaseRetrieve(int userID)
 bool HistoryDatabaseManager::historyDatabaseInsert(int userID, bool selected_small, bool selected_medium, bool selected_big,
                                                    int small_qty, int medium_qty, int big_qty, QString comms, int pickup_time,
                                                    int item_price, int time_price, int total_price){
+
     QSqlQuery query;
     QString SQL_POPULATE_TRASH_INFO_DATABASE_TABLE = "INSERT INTO " + TABLE_NAME
             + " ("
@@ -111,21 +112,24 @@ bool HistoryDatabaseManager::historyDatabaseInsert(int userID, bool selected_sma
             + COLUMN_ITEM_PRICE           + ", "
             + COLUMN_TIME_PRICE           + ", "
             + COLUMN_TOTAL_PRICE
-            + ") VALUES ("
-            + userID          + ", '"
-            + selected_small  + "', '"
-            + selected_medium + "', '"
-            + selected_big    + "', '"
-            + small_qty       + "', '"
-            + medium_qty      + "', '"
-            + big_qty         + "', '"
-            + comms           + "', '"
-            + pickup_time     + "', '"
-            + item_price      + "', '"
-            + time_price      + "', '"
-            + total_price     + "')";
+            + ") VALUES (:userID, :selected_small, :selected_medium, :selected_big, :small_qty, :medium_qty, :big_qty,"
+              " :comms, :pickup_time, :item_price, :time_price, :total_price)";
 
-    if(!query.exec(SQL_POPULATE_TRASH_INFO_DATABASE_TABLE)){
+    query.prepare(SQL_POPULATE_TRASH_INFO_DATABASE_TABLE);
+    query.addBindValue(userID);
+    query.addBindValue(selected_small);
+    query.addBindValue(selected_medium);
+    query.addBindValue(selected_big);
+    query.addBindValue(small_qty);
+    query.addBindValue(medium_qty);
+    query.addBindValue(big_qty);
+    query.addBindValue(comms);
+    query.addBindValue(pickup_time);
+    query.addBindValue(item_price);
+    query.addBindValue(time_price);
+    query.addBindValue(total_price);
+
+    if(!query.exec()){
         qDebug() << "HistoryDatabaseManager::historyDatabaseInsert - Last Query\n "
                  << query.lastQuery();
         qWarning() << "HistoryDatabaseManager::historyDatabaseInsert - ERROR: " << query.lastError().text();
