@@ -99,6 +99,13 @@ void ExtraPickupWindow::on_extrapickupConfirmButton_clicked()
     smtp->sendMail(EMAIL_USER_NAME, emailAddress, EMAIL_SUBJECT, commentMsg);
 }
 
+void ExtraPickupWindow::saveHistoryData(QString status){
+
+    if(status == "Message sent"){
+        
+    }
+}
+
 void ExtraPickupWindow::mailSent(QString status)
 {
     if(status == "Message sent"){

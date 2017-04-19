@@ -32,7 +32,8 @@ SOURCES += main.cpp\
     signupwindow.cpp \
     extrapickupwindow.cpp \
     smtp.cpp \
-    trashinfodatabasemanager.cpp
+    trashinfodatabasemanager.cpp \
+    historydatabasemanager.cpp
 
 HEADERS  += mainwindow.h \
     loginwindow.h \
@@ -42,7 +43,8 @@ HEADERS  += mainwindow.h \
     signupwindow.h \
     extrapickupwindow.h \
     smtp.h \
-    trashinfodatabasemanager.h
+    trashinfodatabasemanager.h \
+    historydatabasemanager.h
 
 FORMS    += mainwindow.ui \
     loginwindow.ui \

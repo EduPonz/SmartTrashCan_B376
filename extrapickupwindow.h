@@ -29,11 +29,11 @@ private slots:
     void mailSent(QString);
 private:
 
-    QGroupBox *createFirstExclusiveGroup();
     UserDataBaseManager dataBase;
 
     void sizeTimeMoneyHandler();
     void pickupTimeHandler();
+    void saveHistoryData(QString status);
     int timePrice;
     QString trashTime;
 
