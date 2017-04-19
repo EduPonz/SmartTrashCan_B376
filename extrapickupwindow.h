@@ -5,7 +5,7 @@
 #include <QString>
 #include <QSqlDatabase>
 #include "userdatabasemanager.h"
-#include <QGroupBox>
+#include "historydatabasemanager.h"
 
 namespace Ui {
 class ExtraPickupWindow;
@@ -30,11 +30,14 @@ private slots:
 private:
 
     UserDataBaseManager dataBase;
+    HistoryDatabaseManager historyManager;
 
     void sizeTimeMoneyHandler();
     void pickupTimeHandler();
     void saveHistoryData(QString status);
     int timePrice;
+    int intTrashTime;
+    int price;
     QString trashTime;
 
     QString trashEmailMessage;

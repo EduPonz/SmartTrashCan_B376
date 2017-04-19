@@ -7,6 +7,7 @@
 #include <QSqlError>
 #include <string>
 #include <string.h>
+#include <historydatabasemanager.h>
 
 ExtraPickupWindow::ExtraPickupWindow(QWidget *parent, int id) :
     QWidget(parent),
@@ -34,16 +35,19 @@ void ExtraPickupWindow::pickupTimeHandler(){
         ui->timeLabel->setText("Price: 15 Bottle caps");
         timePrice = 15;
         trashTime = "Today";
+        intTrashTime = 1;
     }
     if (trashTimeTwo == true){
         ui->timeLabel->setText("Price: 10 Bottle caps");
         timePrice = 10;
         trashTime = "2 days";
+        intTrashTime = 2;
     }
     if (trashTimeFive == true){
         ui->timeLabel->setText("Price: 5 Bottle caps");
         timePrice = 5;
         trashTime = "5 days";
+        intTrashTime = 5;
     }
 
 }
@@ -71,7 +75,7 @@ void ExtraPickupWindow::sizeTimeMoneyHandler(){
         request = request + ", and large size item(s) with the quantity of " + ui->spinBox_3->cleanText() + " for 30 Bottle caps per item";
     }
 
-    int price = ui->spinBox->cleanText().toInt() * 10 + ui->spinBox_2->cleanText().toInt() * 20 + ui->spinBox_3->cleanText().toInt() * 30;
+    price = ui->spinBox->cleanText().toInt() * 10 + ui->spinBox_2->cleanText().toInt() * 20 + ui->spinBox_3->cleanText().toInt() * 30;
     if (trashSizeSmallBool == true || trashSizeMediumBool == true || trashSizeBigBool == true) {
         request = request + ". The price of the selected (items) is; " + QString::number(price) + " Bottle caps. \n";
         request = request + "The time of pick up is in; " + trashTime + ". For the price of " + QString::number(timePrice)
@@ -102,7 +106,10 @@ void ExtraPickupWindow::on_extrapickupConfirmButton_clicked()
 void ExtraPickupWindow::saveHistoryData(QString status){
 
     if(status == "Message sent"){
-        
+        historyManager.historyDatabaseInsert(userId, trashSizeSmallBool, trashSizeMediumBool, trashSizeBigBool,
+                                             ui->spinBox->cleanText().toInt(), ui->spinBox_2->cleanText().toInt(),
+                                             ui->spinBox_3->cleanText().toInt(), ui->extrapickupCommentText->toPlainText(),
+                                             intTrashTime, price, timePrice, (timePrice+price));
     }
 }
 

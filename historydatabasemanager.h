@@ -2,7 +2,8 @@
 #define HISTORYDATABASEMANAGER_H
 
 #include <QSqlDatabase>
-#include <userdatabasemanager.h>
+#include "userdatabasemanager.h"
+#include "historydatabasemanager.h"
 
 class HistoryDatabaseManager
 {
@@ -26,6 +27,9 @@ public:
     QString COLUMN_TIME_PRICE;
     QString COLUMN_TOTAL_PRICE;
 
+    bool historyDatabaseInsert(int userID, bool selected_small, bool selected_medium, bool selected_big,
+                               int small_qty, int medium_qty, int big_qty, QString comms, int pickup_time,
+                               int item_price, int time_price, int total_price);
 
 private:
     QString TABLE_NAME;
@@ -36,9 +40,6 @@ private:
     void historyDatabaseInit();
     bool isExist();
     QSqlQuery historyDatabaseRetrieve(int userID);
-    bool historyDatabaseInsert(int userID, bool selected_small, bool selected_medium, bool selected_big,
-                               int small_qty, int medium_qty, int big_qty, QString comms, int pickup_time,
-                               int item_price, int time_price, int total_price);
     bool historyDatabaseDelete(int userID);
 };
 
