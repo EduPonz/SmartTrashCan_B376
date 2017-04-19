@@ -34,7 +34,6 @@ private:
 
     void sizeTimeMoneyHandler();
     void pickupTimeHandler();
-    void saveHistoryData(QString status);
     int timePrice;
     int intTrashTime;
     int price;

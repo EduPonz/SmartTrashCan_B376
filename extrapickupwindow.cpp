@@ -99,18 +99,11 @@ void ExtraPickupWindow::on_extrapickupConfirmButton_clicked()
     QString commentMsg = request + "You have added the following comments; '"
             + ui->extrapickupCommentText->toPlainText() + "'";
     QString emailAddress = dataBase.userDataBaseRetrieveUserEmail(userId);
-
+    historyManager.historyDatabaseInsert(userId, trashSizeSmallBool, trashSizeMediumBool, trashSizeBigBool,
+                                         ui->spinBox->cleanText().toInt(), ui->spinBox_2->cleanText().toInt(),
+                                         ui->spinBox_3->cleanText().toInt(), ui->extrapickupCommentText->toPlainText(),
+                                         intTrashTime, price, timePrice, (timePrice+price));
     smtp->sendMail(EMAIL_USER_NAME, emailAddress, EMAIL_SUBJECT, commentMsg);
-}
-
-void ExtraPickupWindow::saveHistoryData(QString status){
-
-    if(status == "Message sent"){
-        historyManager.historyDatabaseInsert(userId, trashSizeSmallBool, trashSizeMediumBool, trashSizeBigBool,
-                                             ui->spinBox->cleanText().toInt(), ui->spinBox_2->cleanText().toInt(),
-                                             ui->spinBox_3->cleanText().toInt(), ui->extrapickupCommentText->toPlainText(),
-                                             intTrashTime, price, timePrice, (timePrice+price));
-    }
 }
 
 void ExtraPickupWindow::mailSent(QString status)

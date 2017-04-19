@@ -98,35 +98,37 @@ bool HistoryDatabaseManager::historyDatabaseInsert(int userID, bool selected_sma
                                                    int item_price, int time_price, int total_price){
     QSqlQuery query;
     QString SQL_POPULATE_TRASH_INFO_DATABASE_TABLE = "INSERT INTO " + TABLE_NAME
-            + "("
-            + COLUMN_USERID       + ", "
-            + COLUMN_SELECTED_ITEM_SMALL     + ", "
-            + COLUMN_SELECTED_ITEM_MEDIUM       + ", "
-            + COLUMN_SELECTED_ITEM_BIG     + ", "
-            + COLUMN_ITEM_SMALL_QUANTITY + ", "
+            + " ("
+            + COLUMN_USERID               + ", "
+            + COLUMN_SELECTED_ITEM_SMALL  + ", "
+            + COLUMN_SELECTED_ITEM_MEDIUM + ", "
+            + COLUMN_SELECTED_ITEM_BIG    + ", "
+            + COLUMN_ITEM_SMALL_QUANTITY  + ", "
             + COLUMN_ITEM_MEDIUM_QUANTITY + ", "
-            + COLUMN_ITEM_BIG_QUANTITY + ", "
-            + COLUMN_COMMENTS + ", "
-            + COLUMN_PICKUP_TIME + ", "
-            + COLUMN_ITEM_PRICE + ", "
-            + COLUMN_TIME_PRICE + ", "
-            + COLUMN_TOTAL_PRICE + ", "
-            + ") VALUES ('"
-            + userID              + "', '"
-            + selected_small            + "', '"
-            + selected_medium            + "', '"
-            + selected_big            + "', '"
-            + small_qty              + "', '"
-            + medium_qty              + "', '"
-            + big_qty              + "', '"
-            + comms              + "', '"
-            + pickup_time              + "', '"
-            + item_price              + "', '"
-            + time_price              + "', '"
-            + total_price              + "')";
+            + COLUMN_ITEM_BIG_QUANTITY    + ", "
+            + COLUMN_COMMENTS             + ", "
+            + COLUMN_PICKUP_TIME          + ", "
+            + COLUMN_ITEM_PRICE           + ", "
+            + COLUMN_TIME_PRICE           + ", "
+            + COLUMN_TOTAL_PRICE
+            + ") VALUES ("
+            + userID          + ", '"
+            + selected_small  + "', '"
+            + selected_medium + "', '"
+            + selected_big    + "', '"
+            + small_qty       + "', '"
+            + medium_qty      + "', '"
+            + big_qty         + "', '"
+            + comms           + "', '"
+            + pickup_time     + "', '"
+            + item_price      + "', '"
+            + time_price      + "', '"
+            + total_price     + "')";
 
     if(!query.exec(SQL_POPULATE_TRASH_INFO_DATABASE_TABLE)){
-        qWarning() << "UserDataBaseManager::userDatabaseInsert - ERROR: " << query.lastError().text();
+        qDebug() << "HistoryDatabaseManager::historyDatabaseInsert - Last Query\n "
+                 << query.lastQuery();
+        qWarning() << "HistoryDatabaseManager::historyDatabaseInsert - ERROR: " << query.lastError().text();
         return false;
     }else{
         return true;
