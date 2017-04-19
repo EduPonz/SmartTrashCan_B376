@@ -85,7 +85,7 @@ void UserDataBaseManager::userDatabaseConnect()
 
 void UserDataBaseManager::userDatabaseInit()
 {
-    QString SQL_CREATE_USER_DATABASE_TABLE = "CREATE TABLE " + TABLE_NAME + " ("
+    QString SQL_CREATE_USER_DATABASE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
             + COLUMN_ID       + " INTEGER PRIMARY KEY, "
             + COLUMN_USERNAME + " TEXT NOT NULL, "
             + COLUMN_PASSWORD + " TEXT NOT NULL, "
@@ -103,8 +103,6 @@ void UserDataBaseManager::userDatabaseInit()
 
     if(!query.isActive())
         qWarning() << "UserDataBaseManager::userDatabaseInit - ERROR: " << query.lastError().text();
-    else
-        qDebug() << "UserDataBaseManager::userDatabaseInit -  The DataBase has been inizialited";
 }
 
 bool UserDataBaseManager::availableUserName(QString userName){

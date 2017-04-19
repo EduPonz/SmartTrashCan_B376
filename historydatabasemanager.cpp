@@ -43,7 +43,7 @@ bool HistoryDatabaseManager::isExist()
 
 void HistoryDatabaseManager::historyDatabaseInit()
 {
-    QString SQL_CREATE_HISTORY_DATABASE_TABLE = "CREATE TABLE " + TABLE_NAME + " ("
+    QString SQL_CREATE_HISTORY_DATABASE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
             + COLUMN_ID       + " INTEGER PRIMARY KEY, "
             + COLUMN_USERID + " INTEGER, "
             + COLUMN_SELECTED_ITEM_SMALL + " BOOLEAN, "
@@ -62,8 +62,6 @@ void HistoryDatabaseManager::historyDatabaseInit()
 
     if(!query.isActive())
         qWarning() << "HistoryDatabaseManager::historyDatabaseInit - ERROR: " << query.lastError().text();
-    else
-        qDebug() << "HistoryDatabaseManager::historyDatabaseInit -  The DataBase has been inizialited";
 }
 
 QSqlQuery HistoryDatabaseManager::historyDatabaseRetrieve(int userID)

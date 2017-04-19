@@ -47,7 +47,7 @@ void TrashInfoDatabaseManager::fakeTrashInfo(int userId)
 
 void TrashInfoDatabaseManager::trashInfoDatabaseInit()
 {
-    QString SQL_CREATE_TRASH_INFO_DATABASE_TABLE = "CREATE TABLE " + TABLE_NAME + " ("
+    QString SQL_CREATE_TRASH_INFO_DATABASE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
             + COLUMN_ID          + " INTEGER PRIMARY KEY, "
             + COLUMN_USERID      + " INTEGER, "
             + COLUMN_TIME        + " TEXT, "
@@ -60,8 +60,6 @@ void TrashInfoDatabaseManager::trashInfoDatabaseInit()
 
     if(!query.isActive())
         qWarning() << "TrashInfoDatabaseManager::trashInfoDatabaseInit - ERROR: " << query.lastError().text();
-    else
-        qDebug() << "TrashInfoDatabaseManager::trashInfoDatabaseInit -  The DataBase has been inizialited";
 }
 
 QSqlQuery TrashInfoDatabaseManager::trashInfoDatabaseRetrieve(int userID)
