@@ -16,7 +16,6 @@ ExtraPickupWindow::ExtraPickupWindow(QWidget *parent, int id) :
 
     userId = id;
 
-
     EMAIL_USER_NAME = "stcb376";
     EMAIL_PASSWORD = "SimplePassword";
     EMAIL_SERVER = "smtp.gmail.com";
@@ -25,18 +24,40 @@ ExtraPickupWindow::ExtraPickupWindow(QWidget *parent, int id) :
     EMAIL_SUBJECT = "Smart Trash Can pick up order confirmed!";
 }
 
+void ExtraPickupWindow::pickupTimeHandler(){
+
+    trashTimeOne = ui->time1CheckBox->checkState();
+    trashTimeTwo = ui->time2CheckBox->checkState();
+    trashTimeFive = ui->time5CheckBox->checkState();
+
+    if (trashTimeOne == true){
+        ui->timeLabel->setText("Price: 15 Bottle caps");
+        timePrice = 15;
+        trashTime = "Today";
+    }
+    if (trashTimeTwo == true){
+        ui->timeLabel->setText("Price: 10 Bottle caps");
+        timePrice = 10;
+        trashTime = "2 days";
+    }
+    if (trashTimeFive == true){
+        ui->timeLabel->setText("Price: 5 Bottle caps");
+        timePrice = 5;
+        trashTime = "5 days";
+    }
+
+}
+
 void ExtraPickupWindow::sizeTimeMoneyHandler(){
 
-
-    //QString moneyHandler[3][3];
     trashSizeSmallBool = ui->itemSmallCheckBox->checkState();
     trashSizeMediumBool = ui->itemMediumCheckBox->checkState();
     trashSizeBigBool = ui->itemBigCheckBox->checkState();
+
     request = "";
     if (trashSizeSmallBool == true || trashSizeMediumBool == true || trashSizeBigBool == true) {
         request = "You have selected ";
     }
-
 
     if(trashSizeSmallBool == true){
         request = request + "small size item(s) with the quantity of " + ui->spinBox->cleanText() + " for 10 Bottle caps per item";
@@ -52,8 +73,15 @@ void ExtraPickupWindow::sizeTimeMoneyHandler(){
 
     int price = ui->spinBox->cleanText().toInt() * 10 + ui->spinBox_2->cleanText().toInt() * 20 + ui->spinBox_3->cleanText().toInt() * 30;
     if (trashSizeSmallBool == true || trashSizeMediumBool == true || trashSizeBigBool == true) {
-        request = request + ". The price of the service is; " + QString::number(price) + " Bottle caps. \n";
+        request = request + ". The price of the selected (items) is; " + QString::number(price) + " Bottle caps. \n";
+        request = request + "The time of pick up is in; " + trashTime + ". For the price of " + QString::number(timePrice)
+                + ".\n"
+                + "The total price of your services is; "
+                + QString::number(timePrice + price)
+                + ". ";
     }
+    ui->totalPriceLabel->setText(QString::number(timePrice + price) + " Bottle caps.");
+    ui->priceLabel->setText("Price of items: " + QString::number(price) + " Bottle caps.");
 }
 
 void ExtraPickupWindow::on_extrapickupConfirmButton_clicked()
@@ -61,6 +89,7 @@ void ExtraPickupWindow::on_extrapickupConfirmButton_clicked()
     Smtp* smtp = new Smtp(EMAIL_USER_NAME, EMAIL_PASSWORD, EMAIL_SERVER, EMAIL_PORT);
     connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
 
+    pickupTimeHandler();
     sizeTimeMoneyHandler();
 
     QString commentMsg = request + "You have added the following comments; '"

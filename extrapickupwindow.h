@@ -5,6 +5,7 @@
 #include <QString>
 #include <QSqlDatabase>
 #include "userdatabasemanager.h"
+#include <QGroupBox>
 
 namespace Ui {
 class ExtraPickupWindow;
@@ -28,9 +29,13 @@ private slots:
     void mailSent(QString);
 private:
 
+    QGroupBox *createFirstExclusiveGroup();
     UserDataBaseManager dataBase;
 
     void sizeTimeMoneyHandler();
+    void pickupTimeHandler();
+    int timePrice;
+    QString trashTime;
 
     QString trashEmailMessage;
 
@@ -44,14 +49,7 @@ private:
     bool trashSizeMediumBool;
     bool trashSizeBigBool;
 
-    QString trashTextSmall;
-    QString trashTextMedium;
-    QString trashTextBig;
     QString request;
-
-    QString trashQuantitySmall;
-    QString trashQuantityMedium;
-    QString trashQuantityBig;
 
     bool trashTimeOne;
     bool trashTimeTwo;
