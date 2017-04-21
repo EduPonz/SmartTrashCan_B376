@@ -25,10 +25,10 @@
         <x>0</x>
         <y>0</y>
         <width>995</width>
-        <height>644</height>
+        <height>824</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0">
+      <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0">
        <item>
         <widget class="QWidget" name="personalPayment" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,1">
@@ -317,7 +317,19 @@
            </widget>
           </item>
           <item>
-           <widget class="QTableWidget" name="tableWidget">
+           <widget class="QTableWidget" name="historyTable">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>250</height>
+             </size>
+            </property>
+            <property name="alternatingRowColors">
+             <bool>true</bool>
+            </property>
+            <attribute name="verticalHeaderCascadingSectionResizes">
+             <bool>true</bool>
+            </attribute>
             <column>
              <property name="text">
               <string>Invoice Number</string>
@@ -325,17 +337,17 @@
             </column>
             <column>
              <property name="text">
-              <string>Small item</string>
+              <string>Small item (Quantity)</string>
              </property>
             </column>
             <column>
              <property name="text">
-              <string>Medium item</string>
+              <string>Medium item (Quantity)</string>
              </property>
             </column>
             <column>
              <property name="text">
-              <string> Big item</string>
+              <string>Big item (Quantity)</string>
              </property>
             </column>
             <column>
@@ -345,7 +357,7 @@
             </column>
             <column>
              <property name="text">
-              <string>Total price</string>
+              <string>Total price (Bottle caps)</string>
              </property>
             </column>
            </widget>

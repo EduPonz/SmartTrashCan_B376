@@ -22,12 +22,13 @@ HistoryDatabaseManager::HistoryDatabaseManager()
     COLUMN_TIME_PRICE = "time_price";
     COLUMN_TOTAL_PRICE = "total_price";
 
+    COLUMN_PICK_UP_DATE = "pickup_date";
+    COLUMN_INVOICE = "invoice";
+
     if(isExist()) {
         historyDatabaseInit();
     }
-
 }
-
 
 bool HistoryDatabaseManager::isExist()
 {
@@ -56,7 +57,9 @@ void HistoryDatabaseManager::historyDatabaseInit()
             + COLUMN_PICKUP_TIME + " INTEGER, "
             + COLUMN_ITEM_PRICE + " INTEGER, "
             + COLUMN_TIME_PRICE + " INTEGER, "
-            + COLUMN_TOTAL_PRICE + " INTEGER)";
+            + COLUMN_TOTAL_PRICE + " INTEGER, "
+            + COLUMN_PICK_UP_DATE + " TEXT, "
+            + COLUMN_INVOICE + " INTEGER)";
 
     QSqlQuery query(SQL_CREATE_HISTORY_DATABASE_TABLE);
 
@@ -79,13 +82,18 @@ QSqlQuery HistoryDatabaseManager::historyDatabaseRetrieve(int userID)
             + COLUMN_PICKUP_TIME + ", "
             + COLUMN_ITEM_PRICE + " , "
             + COLUMN_TIME_PRICE + ", "
-            + COLUMN_TOTAL_PRICE
+            + COLUMN_TOTAL_PRICE + ", "
+            + COLUMN_PICK_UP_DATE + ", "
+            + COLUMN_INVOICE
             + " FROM "
             + TABLE_NAME
             + " WHERE "
-            + COLUMN_USERID + " = '" + userID + "'";
+            + COLUMN_USERID + " = ?";
+    query.prepare(SQL_RETRIEVE_HISTORY_DATABASE_TABLE);
+    query.addBindValue(userID);
 
-    if(!query.exec(SQL_RETRIEVE_HISTORY_DATABASE_TABLE))
+
+    if(!query.exec())
         qWarning() << "HistoryDatabaseManager::historyDatabaseRetrieve - ERROR: " << query.lastError().text();
 
     return query;
@@ -95,7 +103,7 @@ QSqlQuery HistoryDatabaseManager::historyDatabaseRetrieve(int userID)
 QSqlQuery HistoryDatabaseManager::rowNumberRetrieve(int userID)
 {
     QSqlQuery query;
-    int rows = 0;
+    rows = 0;
     QString SQL_RETRIEVE_ROW_NUMBER_TABLE = "SELECT "
             + COLUMN_USERID
             + " FROM "
@@ -121,8 +129,9 @@ QSqlQuery HistoryDatabaseManager::rowNumberRetrieve(int userID)
 }
 bool HistoryDatabaseManager::historyDatabaseInsert(int userID, bool selected_small, bool selected_medium, bool selected_big,
                                                    int small_qty, int medium_qty, int big_qty, QString comms, int pickup_time,
-                                                   int item_price, int time_price, int total_price){
+                                                   int item_price, int time_price, int total_price, QString time, int invoice){
 
+    qDebug() << "HistoryDatabaseManager::historyDatabaseInsert - TIME AND INVOICE: " << time << ", " << invoice;
     QSqlQuery query;
     QString SQL_POPULATE_TRASH_INFO_DATABASE_TABLE = "INSERT INTO " + TABLE_NAME
             + " ("
@@ -137,9 +146,11 @@ bool HistoryDatabaseManager::historyDatabaseInsert(int userID, bool selected_sma
             + COLUMN_PICKUP_TIME          + ", "
             + COLUMN_ITEM_PRICE           + ", "
             + COLUMN_TIME_PRICE           + ", "
-            + COLUMN_TOTAL_PRICE
+            + COLUMN_TOTAL_PRICE          + ", "
+            + COLUMN_PICK_UP_DATE         + ", "
+            + COLUMN_INVOICE
             + ") VALUES (:userID, :selected_small, :selected_medium, :selected_big, :small_qty, :medium_qty, :big_qty,"
-              " :comms, :pickup_time, :item_price, :time_price, :total_price)";
+              " :comms, :pickup_time, :item_price, :time_price, :total_price, :time, :invoice)";
 
     query.prepare(SQL_POPULATE_TRASH_INFO_DATABASE_TABLE);
     query.addBindValue(userID);
@@ -154,6 +165,8 @@ bool HistoryDatabaseManager::historyDatabaseInsert(int userID, bool selected_sma
     query.addBindValue(item_price);
     query.addBindValue(time_price);
     query.addBindValue(total_price);
+    query.addBindValue(time);
+    query.addBindValue(invoice);
 
     if(!query.exec()){
         qDebug() << "HistoryDatabaseManager::historyDatabaseInsert - Last Query\n "

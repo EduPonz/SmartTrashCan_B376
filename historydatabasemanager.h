@@ -5,6 +5,8 @@
 #include "userdatabasemanager.h"
 #include "historydatabasemanager.h"
 
+#include <QStringList>
+
 class HistoryDatabaseManager
 {
 public:
@@ -27,10 +29,20 @@ public:
     QString COLUMN_TIME_PRICE;
     QString COLUMN_TOTAL_PRICE;
 
+    QString COLUMN_PICK_UP_DATE;
+    QString COLUMN_INVOICE;
+
+    int rows;
+
+    QStringList small_item_qty;
+    int medium_item_qty;
+
     bool historyDatabaseInsert(int userID, bool selected_small, bool selected_medium, bool selected_big,
                                int small_qty, int medium_qty, int big_qty, QString comms, int pickup_time,
-                               int item_price, int time_price, int total_price);
+                               int item_price, int time_price, int total_price, QString time, int invoice);
     QSqlQuery rowNumberRetrieve(int userID);
+    QSqlQuery historyDatabaseRetrieve(int userID);
+
 private:
     QString TABLE_NAME;
 
@@ -39,7 +51,6 @@ private:
    // void trashInfoDatabaseConnect();
     void historyDatabaseInit();
     bool isExist();
-    QSqlQuery historyDatabaseRetrieve(int userID);
     bool historyDatabaseDelete(int userID);
 };
 

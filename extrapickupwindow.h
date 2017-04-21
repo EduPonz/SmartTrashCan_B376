@@ -37,6 +37,8 @@ private:
     int timePrice;
     int intTrashTime;
     int price;
+    int invoiceNumber;
+    QString currentDate;
     QString trashTime;
 
     QString trashEmailMessage;
