@@ -96,19 +96,26 @@ QSqlQuery HistoryDatabaseManager::rowNumberRetrieve(int userID)
 {
     QSqlQuery query;
     int rows = 0;
-    QString SQL_RETRIEVE_ROW_NUMBER_TABLE = "SELECT COUNT("
-            + COLUMN_USERID  + ")"
+    QString SQL_RETRIEVE_ROW_NUMBER_TABLE = "SELECT "
+            + COLUMN_USERID
             + " FROM "
             + TABLE_NAME
             + " WHERE "
-            + COLUMN_USERID + " = '" + userID + "'";
+            + COLUMN_USERID + " = ?";
 
+    query.prepare(SQL_RETRIEVE_ROW_NUMBER_TABLE);
+    query.addBindValue(userID);
 
-    if(!query.exec(SQL_RETRIEVE_ROW_NUMBER_TABLE))
+    if(!query.exec())
         qWarning() << "HistoryDatabaseManager::rowNumberRetrieve - ERROR: " << query.lastError().text();
+    else if (query.first()){
+            rows ++;
+        while (query.next()) {
+           rows ++;
+        }
+        qDebug() << "HistoryDatabaseManager::rowNumberRetrieve - NUMBER OF ROWS" << rows;
+    }
 
-    rows = query.value(0).toInt();
-    qDebug() << "HistoryDatabaseManager::rowNumberRetrieve - NUMBER OF ROWS" << rows;
     return query;
 
 }

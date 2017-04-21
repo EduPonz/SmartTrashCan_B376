@@ -19,7 +19,6 @@ OptionsWindow::OptionsWindow(QWidget *parent, int id) : QWidget(parent), ui(new 
 }
 
 void OptionsWindow::populateTable(){
-
     historyManager.rowNumberRetrieve(userId);
 }
 
