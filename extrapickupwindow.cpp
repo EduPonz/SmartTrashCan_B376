@@ -86,6 +86,9 @@ void ExtraPickupWindow::sizeTimeMoneyHandler(){
     }
     ui->totalPriceLabel->setText(QString::number(timePrice + price) + " Bottle caps.");
     ui->priceLabel->setText("Price of items: " + QString::number(price) + " Bottle caps.");
+
+    invoiceNumber = rand() % 10000 + 1000;
+    currentDate = QDateTime::currentDateTime().toString(Qt::ISODate);
 }
 
 void ExtraPickupWindow::on_extrapickupConfirmButton_clicked()
@@ -103,7 +106,7 @@ void ExtraPickupWindow::on_extrapickupConfirmButton_clicked()
     historyManager.historyDatabaseInsert(userId, trashSizeSmallBool, trashSizeMediumBool, trashSizeBigBool,
                                          ui->spinBox->cleanText().toInt(), ui->spinBox_2->cleanText().toInt(),
                                          ui->spinBox_3->cleanText().toInt(), ui->extrapickupCommentText->toPlainText(),
-                                         intTrashTime, price, timePrice, (timePrice+price));
+                                         intTrashTime, price, timePrice, (timePrice+price), currentDate, invoiceNumber);
     smtp->sendMail(EMAIL_USER_NAME, emailAddress, EMAIL_SUBJECT, commentMsg);
 }
 

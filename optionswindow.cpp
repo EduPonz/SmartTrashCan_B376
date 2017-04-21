@@ -19,7 +19,35 @@ OptionsWindow::OptionsWindow(QWidget *parent, int id) : QWidget(parent), ui(new 
 }
 
 void OptionsWindow::populateTable(){
-    historyManager.rowNumberRetrieve(userId);
+    QSqlQuery query = historyManager.rowNumberRetrieve(userId);
+    query = historyManager.historyDatabaseRetrieve(userId);
+
+    ui->historyTable->setRowCount(historyManager.rows); ui->historyTable->setColumnCount(6);
+    ui->historyTable->horizontalHeader()->setStretchLastSection(true);
+    ui->historyTable->horizontalHeader()->setFixedHeight(35);
+    ui->historyTable->horizontalHeader()->setAlternatingRowColors(true);
+
+    //ui->historyTable->horizontalHeader()->setResizeMode(QHeaderView::Fixed);
+    ui->historyTable->horizontalHeader()->resizeSection( 1, 150 );
+    ui->historyTable->horizontalHeader()->resizeSection( 2, 150 );
+    ui->historyTable->horizontalHeader()->resizeSection( 3, 150 );
+    ui->historyTable->horizontalHeader()->resizeSection( 4, 150 );
+
+    int localeRows = historyManager.rows;
+
+    query.first();
+    for (int i = 0; i < localeRows; ++i) {
+        ui->historyTable->setItem(i, 0, new QTableWidgetItem(query.value(12).toString()));
+        ui->historyTable->setItem(i, 1, new QTableWidgetItem(query.value(3).toString()));
+        ui->historyTable->setItem(i, 2, new QTableWidgetItem(query.value(4).toString()));
+        ui->historyTable->setItem(i, 3, new QTableWidgetItem(query.value(5).toString()));
+        ui->historyTable->setItem(i, 4, new QTableWidgetItem(query.value(11).toString()));
+        ui->historyTable->setItem(i, 5, new QTableWidgetItem(query.value(10).toString()));
+        if (!query.next())
+            break;
+    }
+
+    //ui->historyTable->setItem(0, 1, new QTableWidgetItem());
 }
 
 void OptionsWindow::populate()
