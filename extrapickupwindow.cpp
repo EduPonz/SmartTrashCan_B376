@@ -99,11 +99,6 @@ void ExtraPickupWindow::on_extrapickupConfirmButton_clicked()
     QString commentMsg = request + "You have added the following comments; '"
             + ui->extrapickupCommentText->toPlainText() + "'";
     QString emailAddress = dataBase.userDataBaseRetrieveUserEmail(userId);
-    qDebug() << "ExtraPickupWindow::on_extrapickupConfirmButton_clicked VARIABLES: " << trashSizeSmallBool << trashSizeMediumBool <<
-                trashSizeBigBool << ui->spinBox->cleanText().toInt() << ui->spinBox_2->cleanText().toInt() <<
-                ui->spinBox_3->cleanText().toInt() << ui->extrapickupCommentText->toPlainText() <<
-                intTrashTime << price << timePrice << (timePrice+price);
-
 
     historyManager.historyDatabaseInsert(userId, trashSizeSmallBool, trashSizeMediumBool, trashSizeBigBool,
                                          ui->spinBox->cleanText().toInt(), ui->spinBox_2->cleanText().toInt(),

@@ -5,6 +5,7 @@
 #include <QSqlQuery>
 #include <QString>
 #include "userdatabasemanager.h"
+#include "historydatabasemanager.h"
 
 namespace Ui {
 class OptionsWindow;
@@ -29,10 +30,11 @@ private slots:
 private:
     Ui::OptionsWindow *ui;
     UserDataBaseManager optionsDatabaseManager;
+    HistoryDatabaseManager historyManager;
     QSqlQuery optionsQuery;
     int userId;
 
-
+    void populateTable();
     void populate();
 };
 

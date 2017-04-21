@@ -2,9 +2,11 @@
 #include "loginwindow.h"
 #include "mainwindow.h"
 #include "userdatabasemanager.h"
+#include "historydatabasemanager.h"
 #include "ui_optionswindow.h"
 #include <QDebug>
 #include <QSqlQuery>
+#include <QHeaderView>
 
 OptionsWindow::OptionsWindow(QWidget *parent, int id) : QWidget(parent), ui(new Ui::OptionsWindow)
 {
@@ -13,6 +15,12 @@ OptionsWindow::OptionsWindow(QWidget *parent, int id) : QWidget(parent), ui(new 
     QString idString;
     qDebug() << "OptionsWindow::OptionsWindow - ID: " << idString.number(userId);
     populate();
+    populateTable();
+}
+
+void OptionsWindow::populateTable(){
+
+    historyManager.rowNumberRetrieve(userId);
 }
 
 void OptionsWindow::populate()

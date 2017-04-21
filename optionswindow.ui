@@ -24,8 +24,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>1003</width>
-        <height>790</height>
+        <width>995</width>
+        <height>644</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0">
@@ -325,12 +325,17 @@
             </column>
             <column>
              <property name="text">
-              <string>Service Type</string>
+              <string>Small item</string>
              </property>
             </column>
             <column>
              <property name="text">
-              <string>New Column</string>
+              <string>Medium item</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string> Big item</string>
              </property>
             </column>
             <column>
@@ -340,12 +345,7 @@
             </column>
             <column>
              <property name="text">
-              <string>Date Picked UP</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Print</string>
+              <string>Total price</string>
              </property>
             </column>
            </widget>

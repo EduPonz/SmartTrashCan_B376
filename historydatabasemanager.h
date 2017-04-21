@@ -30,7 +30,7 @@ public:
     bool historyDatabaseInsert(int userID, bool selected_small, bool selected_medium, bool selected_big,
                                int small_qty, int medium_qty, int big_qty, QString comms, int pickup_time,
                                int item_price, int time_price, int total_price);
-
+    QSqlQuery rowNumberRetrieve(int userID);
 private:
     QString TABLE_NAME;
 

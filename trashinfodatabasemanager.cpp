@@ -36,7 +36,7 @@ bool TrashInfoDatabaseManager::isExist()
 
 void TrashInfoDatabaseManager::fakeTrashInfo(int userId)
 {
-    srand (time(NULL));
+    //srand (time(NULL));
     int fullness = rand() % 100 + 1;
     int weight = rand() % 30 + 1;
     int humidity = rand() % 100 + 1;

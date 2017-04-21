@@ -91,6 +91,27 @@ QSqlQuery HistoryDatabaseManager::historyDatabaseRetrieve(int userID)
     return query;
 }
 
+
+QSqlQuery HistoryDatabaseManager::rowNumberRetrieve(int userID)
+{
+    QSqlQuery query;
+    int rows = 0;
+    QString SQL_RETRIEVE_ROW_NUMBER_TABLE = "SELECT COUNT("
+            + COLUMN_USERID  + ")"
+            + " FROM "
+            + TABLE_NAME
+            + " WHERE "
+            + COLUMN_USERID + " = '" + userID + "'";
+
+
+    if(!query.exec(SQL_RETRIEVE_ROW_NUMBER_TABLE))
+        qWarning() << "HistoryDatabaseManager::rowNumberRetrieve - ERROR: " << query.lastError().text();
+
+    rows = query.value(0).toInt();
+    qDebug() << "HistoryDatabaseManager::rowNumberRetrieve - NUMBER OF ROWS" << rows;
+    return query;
+
+}
 bool HistoryDatabaseManager::historyDatabaseInsert(int userID, bool selected_small, bool selected_medium, bool selected_big,
                                                    int small_qty, int medium_qty, int big_qty, QString comms, int pickup_time,
                                                    int item_price, int time_price, int total_price){
