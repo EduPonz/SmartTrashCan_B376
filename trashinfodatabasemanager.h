@@ -20,6 +20,8 @@ public:
     QString COLUMN_TIME;
 
     void fakeTrashInfo(int userId);
+    QSqlQuery trashInfoDatabaseRetrieveDaily(int userID);
+
 private:
     QString TABLE_NAME;
 
@@ -28,7 +30,6 @@ private:
    // void trashInfoDatabaseConnect();
     void trashInfoDatabaseInit();
     bool isExist();
-    QSqlQuery trashInfoDatabaseRetrieve(int userID);
     bool trashInfoDatabaseInsert(int userID, float fullness, float weight, float humidity, float temperature);
     bool trashInfoDatabaseDelete(int userID);
 

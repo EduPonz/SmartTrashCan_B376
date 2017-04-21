@@ -4,6 +4,8 @@
 #include <QDebug>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QDateTime>
+
 
 TrashInfoDatabaseManager::TrashInfoDatabaseManager()
 {
@@ -62,11 +64,15 @@ void TrashInfoDatabaseManager::trashInfoDatabaseInit()
         qWarning() << "TrashInfoDatabaseManager::trashInfoDatabaseInit - ERROR: " << query.lastError().text();
 }
 
-QSqlQuery TrashInfoDatabaseManager::trashInfoDatabaseRetrieve(int userID)
+QSqlQuery TrashInfoDatabaseManager::trashInfoDatabaseRetrieveDaily(int userID)
 {
     QSqlQuery query;
 
+    QString time1 = QDateTime::currentDateTime().toString(Qt::ISODate);
+    QString time2 = QDateTime::currentDateTime().addDays(-7).toString(Qt::ISODate);
+
     QString SQL_RETRIEVE_TRASH_INFO_DATABASE_TABLE = "SELECT "
+            + COLUMN_TIME            + ", "
             + COLUMN_FULLNESS        + ", "
             + COLUMN_WEIGHT          + ", "
             + COLUMN_HUMIDITY        + ", "
@@ -74,16 +80,26 @@ QSqlQuery TrashInfoDatabaseManager::trashInfoDatabaseRetrieve(int userID)
             + " FROM "
             + TABLE_NAME
             + " WHERE "
-            + COLUMN_USERID + " = '" + userID + "'";
+            + COLUMN_USERID + " = ?"
+            + " AND "
+            + COLUMN_TIME   + " <= ?"
+            + " AND "
+            + COLUMN_TIME   + " >= ?";
+    query.prepare(SQL_RETRIEVE_TRASH_INFO_DATABASE_TABLE);
+    query.addBindValue(userID);
+    query.addBindValue(time1);
+    query.addBindValue(time2);
 
-    if(!query.exec(SQL_RETRIEVE_TRASH_INFO_DATABASE_TABLE))
+    if(!query.exec())
         qWarning() << "TrashInfoDataBaseManager::trashInfoDatabaseRetrieve - ERROR: " << query.lastError().text();
-
+    else
+        //qDebug() << "TrashInfoDataBaseManager::trashInfoDatabaseRetrieve - TIME 2" << query.lastQuery();
     return query;
 }
 
 bool TrashInfoDatabaseManager::trashInfoDatabaseInsert(int userID, float fullness, float weight, float humidity, float temperature){
     QSqlQuery query;
+    QString date = QDateTime::currentDateTime().toString(Qt::ISODate);
     QString SQL_POPULATE_TRASH_INFO_DATABASE_TABLE = "INSERT INTO " + TABLE_NAME
             + " ("
             + COLUMN_USERID       + ", "
@@ -92,9 +108,10 @@ bool TrashInfoDatabaseManager::trashInfoDatabaseInsert(int userID, float fullnes
             + COLUMN_WEIGHT       + ", "
             + COLUMN_HUMIDITY     + ", "
             + COLUMN_TEMPERATURE
-            + ") VALUES (:userID, DATETIME('now', 'localtime'), :fullness, :weight, :humidity, :temperature)";
+            + ") VALUES (:userID, :date, :fullness, :weight, :humidity, :temperature)";
     query.prepare(SQL_POPULATE_TRASH_INFO_DATABASE_TABLE);
     query.addBindValue(userID);
+    query.addBindValue(date);
     query.addBindValue(fullness);
     query.addBindValue(weight);
     query.addBindValue(humidity);
