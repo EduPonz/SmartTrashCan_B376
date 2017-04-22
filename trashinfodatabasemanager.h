@@ -21,6 +21,7 @@ public:
 
     void fakeTrashInfo(int userId);
     QSqlQuery trashInfoDatabaseRetrieveDaily(int userID);
+    QSqlQuery trashInfoDatabaseRetrieveMonthly(int userID);
 
 private:
     QString TABLE_NAME;

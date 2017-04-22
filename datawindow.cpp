@@ -22,7 +22,6 @@ DataWindow::DataWindow(QWidget *parent, int id) : QWidget(parent), ui(new Ui::Da
     ui->tabWidget->setCurrentIndex(0);
     trashInfoManager.fakeTrashInfo(userId);
     typeOfDataSelected = 0;
-    dateStringsInit();
     createFullnessChart(0);
 }
 
@@ -31,28 +30,17 @@ DataWindow::~DataWindow()
     delete ui;
 }
 
-void DataWindow::dateStringsInit()
-{
-    todayString = QDateTime::fromString(QDate::currentDate().toString(Qt::ISODate), Qt::ISODate).date().toString();
-    today_1String = QDateTime::fromString(QDate::currentDate().addDays(-1).toString(Qt::ISODate), Qt::ISODate).date().toString();
-    today_2String = QDateTime::fromString(QDate::currentDate().addDays(-2).toString(Qt::ISODate), Qt::ISODate).date().toString();
-    today_3String = QDateTime::fromString(QDate::currentDate().addDays(-3).toString(Qt::ISODate), Qt::ISODate).date().toString();
-    today_4String = QDateTime::fromString(QDate::currentDate().addDays(-4).toString(Qt::ISODate), Qt::ISODate).date().toString();
-    today_5String = QDateTime::fromString(QDate::currentDate().addDays(-5).toString(Qt::ISODate), Qt::ISODate).date().toString();
-    today_6String = QDateTime::fromString(QDate::currentDate().addDays(-6).toString(Qt::ISODate), Qt::ISODate).date().toString();
-}
-
 void DataWindow::dailyFullnessInit()
 {
     QSqlQuery query = trashInfoManager.trashInfoDatabaseRetrieveDaily(userId);
     query.first();
-    todayFulness = 0;
-    today_1Fulness = 0;
-    today_2Fulness = 0;
-    today_3Fulness = 0;
-    today_4Fulness = 0;
-    today_5Fulness = 0;
-    today_6Fulness = 0;
+    todayFullness = 0;
+    today_1Fullness = 0;
+    today_2Fullness = 0;
+    today_3Fullness = 0;
+    today_4Fullness = 0;
+    today_5Fullness = 0;
+    today_6Fullness = 0;
     int rowsFullness = 0;
     int rowsFullness_1 = 0;
     int rowsFullness_2 = 0;
@@ -61,71 +49,213 @@ void DataWindow::dailyFullnessInit()
     int rowsFullness_5 = 0;
     int rowsFullness_6 = 0;
 
+    QString todayString = QDateTime::fromString(QDate::currentDate().toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_1String = QDateTime::fromString(QDate::currentDate().addDays(-1).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_2String = QDateTime::fromString(QDate::currentDate().addDays(-2).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_3String = QDateTime::fromString(QDate::currentDate().addDays(-3).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_4String = QDateTime::fromString(QDate::currentDate().addDays(-4).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_5String = QDateTime::fromString(QDate::currentDate().addDays(-5).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_6String = QDateTime::fromString(QDate::currentDate().addDays(-6).toString(Qt::ISODate), Qt::ISODate).date().toString();
+
     do {
         QString databaseDate = QDateTime::fromString(query.value(0).toString(), Qt::ISODate).date().toString();
         if (!databaseDate.compare(todayString))
         {
-            todayFulness += query.value(1).toFloat();
+            todayFullness += query.value(1).toFloat();
             rowsFullness ++;
         }
         if (!databaseDate.compare(today_1String))
         {
-            today_1Fulness += query.value(1).toFloat();
+            today_1Fullness += query.value(1).toFloat();
             rowsFullness_1 ++;
         }
         if (!databaseDate.compare(today_2String))
         {
-            today_2Fulness += query.value(1).toFloat();
+            today_2Fullness += query.value(1).toFloat();
             rowsFullness_2 ++;
         }
         if (!databaseDate.compare(today_3String))
         {
-            today_3Fulness += query.value(1).toFloat();
+            today_3Fullness += query.value(1).toFloat();
             rowsFullness_3 ++;
         }
         if (!databaseDate.compare(today_4String))
         {
-            today_4Fulness += query.value(1).toFloat();
+            today_4Fullness += query.value(1).toFloat();
             rowsFullness_4 ++;
         }
         if (!databaseDate.compare(today_5String))
         {
-            today_5Fulness += query.value(1).toFloat();
+            today_5Fullness += query.value(1).toFloat();
             rowsFullness_5 ++;
         }
         if (!databaseDate.compare(today_6String))
         {
-            today_6Fulness += query.value(1).toFloat();
+            today_6Fullness += query.value(1).toFloat();
             rowsFullness_6 ++;
         }
     }while (query.next());
 
     if (rowsFullness != 0)
-        todayFulness = todayFulness / rowsFullness;
+        todayFullness = todayFullness / rowsFullness;
     if (rowsFullness_1 !=0)
-        today_1Fulness = today_1Fulness / rowsFullness_1;
+        today_1Fullness = today_1Fullness / rowsFullness_1;
     if (rowsFullness_2 !=0)
-        today_2Fulness = today_2Fulness / rowsFullness_2;
+        today_2Fullness = today_2Fullness / rowsFullness_2;
     if (rowsFullness_3 !=0)
-        today_3Fulness = today_3Fulness / rowsFullness_3;
+        today_3Fullness = today_3Fullness / rowsFullness_3;
     if (rowsFullness_4 !=0)
-        today_4Fulness = today_4Fulness / rowsFullness_4;
+        today_4Fullness = today_4Fullness / rowsFullness_4;
     if (rowsFullness_5 !=0)
-        today_5Fulness = today_5Fulness / rowsFullness_5;
+        today_5Fullness = today_5Fullness / rowsFullness_5;
     if (rowsFullness_6 !=0)
-        today_6Fulness = today_6Fulness / rowsFullness_6;
+        today_6Fullness = today_6Fullness / rowsFullness_6;
+}
+
+void DataWindow::monthlyFullnessInit()
+{
+    QSqlQuery query = trashInfoManager.trashInfoDatabaseRetrieveMonthly(userId);
+    query.first();
+
+    monthFullness = 0;
+    month_1Fullness = 0;
+    month_2Fullness = 0;
+    month_3Fullness = 0;
+    month_4Fullness = 0;
+    month_5Fullness = 0;
+    month_6Fullness = 0;
+    month_7Fullness = 0;
+    month_8Fullness = 0;
+    month_9Fullness = 0;
+    month_10Fullness = 0;
+    month_11Fullness = 0;
+    int rowsFullness = 0;
+    int rowsFullness_1 = 0;
+    int rowsFullness_2 = 0;
+    int rowsFullness_3 = 0;
+    int rowsFullness_4 = 0;
+    int rowsFullness_5 = 0;
+    int rowsFullness_6 = 0;
+    int rowsFullness_7 = 0;
+    int rowsFullness_8 = 0;
+    int rowsFullness_9 = 0;
+    int rowsFullness_10 = 0;
+    int rowsFullness_11 = 0;
+
+    int monthInt = QDateTime::fromString(QDate::currentDate().toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_1Int = QDateTime::fromString(QDate::currentDate().addMonths(-1).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_2Int = QDateTime::fromString(QDate::currentDate().addMonths(-2).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_3Int = QDateTime::fromString(QDate::currentDate().addMonths(-3).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_4Int = QDateTime::fromString(QDate::currentDate().addMonths(-4).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_5Int = QDateTime::fromString(QDate::currentDate().addMonths(-5).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_6Int = QDateTime::fromString(QDate::currentDate().addMonths(-6).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_7Int = QDateTime::fromString(QDate::currentDate().addMonths(-7).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_8Int = QDateTime::fromString(QDate::currentDate().addMonths(-8).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_9Int = QDateTime::fromString(QDate::currentDate().addMonths(-9).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_10Int = QDateTime::fromString(QDate::currentDate().addMonths(-10).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_11Int = QDateTime::fromString(QDate::currentDate().addMonths(-11).toString(Qt::ISODate), Qt::ISODate).date().month();
+
+    do {
+        int databaseDate = QDateTime::fromString(query.value(0).toString(), Qt::ISODate).date().month();
+        if (databaseDate == monthInt)
+        {
+            monthFullness += query.value(1).toFloat();
+            rowsFullness ++;
+        }
+        if (databaseDate == month_1Int)
+        {
+            month_1Fullness += query.value(1).toFloat();
+            rowsFullness_1 ++;
+        }
+        if (databaseDate == month_2Int)
+        {
+            month_2Fullness += query.value(1).toFloat();
+            rowsFullness_2 ++;
+        }
+        if (databaseDate == month_3Int)
+        {
+            month_3Fullness += query.value(1).toFloat();
+            rowsFullness_3 ++;
+        }
+        if (databaseDate == month_4Int)
+        {
+            month_4Fullness += query.value(1).toFloat();
+            rowsFullness_4 ++;
+        }
+        if (databaseDate == month_5Int)
+        {
+            month_5Fullness += query.value(1).toFloat();
+            rowsFullness_5 ++;
+        }
+        if (databaseDate == month_6Int)
+        {
+            month_6Fullness += query.value(1).toFloat();
+            rowsFullness_6 ++;
+        }
+        if (databaseDate == month_7Int)
+        {
+            month_7Fullness += query.value(1).toFloat();
+            rowsFullness_7 ++;
+        }
+        if (databaseDate == month_8Int)
+        {
+            month_8Fullness += query.value(1).toFloat();
+            rowsFullness_8 ++;
+        }
+        if (databaseDate == month_9Int)
+        {
+            month_9Fullness += query.value(1).toFloat();
+            rowsFullness_9 ++;
+        }
+        if (databaseDate == month_10Int)
+        {
+            month_10Fullness += query.value(1).toFloat();
+            rowsFullness_10 ++;
+        }
+        if (databaseDate == month_11Int)
+        {
+            month_11Fullness += query.value(1).toFloat();
+            rowsFullness_11 ++;
+        }
+    }while (query.next());
+
+    if (rowsFullness != 0)
+        monthFullness = monthFullness / rowsFullness;
+    if (rowsFullness_1 !=0)
+        month_1Fullness = month_1Fullness / rowsFullness_1;
+    if (rowsFullness_2 !=0)
+        month_2Fullness = month_2Fullness / rowsFullness_2;
+    if (rowsFullness_3 !=0)
+        month_3Fullness = month_3Fullness / rowsFullness_3;
+    if (rowsFullness_4 !=0)
+        month_4Fullness = month_4Fullness / rowsFullness_4;
+    if (rowsFullness_5 !=0)
+        month_5Fullness = month_5Fullness / rowsFullness_5;
+    if (rowsFullness_6 !=0)
+        month_6Fullness = month_6Fullness / rowsFullness_6;
+    if (rowsFullness_7 !=0)
+        month_7Fullness = month_7Fullness / rowsFullness_7;
+    if (rowsFullness_8 !=0)
+        month_8Fullness = month_8Fullness / rowsFullness_8;
+    if (rowsFullness_9 !=0)
+        month_9Fullness = month_9Fullness / rowsFullness_9;
+    if (rowsFullness_10 !=0)
+        month_10Fullness = month_10Fullness / rowsFullness_10;
+    if (rowsFullness_11 !=0)
+        month_11Fullness = month_11Fullness / rowsFullness_11;
 }
 
 void DataWindow::createFullnessChart(int tab_index)
 {
     dailyFullnessInit();
+    monthlyFullnessInit();
 
     switch (tab_index)
     {
     case 0:
     {
         QtCharts::QBarSet *set0 = new QtCharts::QBarSet("Fullness Percentage");
-           *set0 << today_6Fulness << today_5Fulness << today_4Fulness << today_3Fulness << today_2Fulness << today_1Fulness << todayFulness;
+           *set0 << today_6Fullness << today_5Fullness << today_4Fullness << today_3Fullness << today_2Fullness << today_1Fullness << todayFullness;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
         series->append(set0);
@@ -197,7 +327,9 @@ void DataWindow::createFullnessChart(int tab_index)
     {
         QtCharts::QBarSet *set0 = new QtCharts::QBarSet("Fullness Percentage");
 
-        *set0 << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12;
+        *set0 << month_11Fullness << month_10Fullness << month_9Fullness << month_8Fullness << month_7Fullness
+              << month_6Fullness  << month_5Fullness  << month_4Fullness << month_3Fullness << month_2Fullness
+              << month_1Fullness  << monthFullness;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
         series->append(set0);
@@ -208,8 +340,8 @@ void DataWindow::createFullnessChart(int tab_index)
         chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
 
         QStringList categories;
-        categories << "January" << "February" << "March" << "April" << "May" << "June" << "July"
-                   << "August" << "September" << "October" << "November" << "December";
+        categories << "Month -11" << "Month -10" << "Month -9" << "Month -8" << "Month -7" << "Month -6"
+                   << "Month -5"  << "Month -4"  << "Month -3" << "Month -2" << "Month -1" << "Current Month";
         QtCharts::QBarCategoryAxis *axis = new QtCharts::QBarCategoryAxis();
         axis->append(categories);
         chart->createDefaultAxes();

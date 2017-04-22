@@ -64,12 +64,12 @@ void TrashInfoDatabaseManager::trashInfoDatabaseInit()
         qWarning() << "TrashInfoDatabaseManager::trashInfoDatabaseInit - ERROR: " << query.lastError().text();
 }
 
-QSqlQuery TrashInfoDatabaseManager::trashInfoDatabaseRetrieveDaily(int userID)
+QSqlQuery TrashInfoDatabaseManager::trashInfoDatabaseRetrieveMonthly(int userID)
 {
     QSqlQuery query;
 
     QString time1 = QDateTime::currentDateTime().toString(Qt::ISODate);
-    QString time2 = QDateTime::currentDateTime().addDays(-7).toString(Qt::ISODate);
+    QString time2 = QDateTime::currentDateTime().addMonths(-11).toString(Qt::ISODate);
 
     QString SQL_RETRIEVE_TRASH_INFO_DATABASE_TABLE = "SELECT "
             + COLUMN_TIME            + ", "
@@ -92,8 +92,37 @@ QSqlQuery TrashInfoDatabaseManager::trashInfoDatabaseRetrieveDaily(int userID)
 
     if(!query.exec())
         qWarning() << "TrashInfoDataBaseManager::trashInfoDatabaseRetrieve - ERROR: " << query.lastError().text();
-    else
-        //qDebug() << "TrashInfoDataBaseManager::trashInfoDatabaseRetrieve - TIME 2" << query.lastQuery();
+    return query;
+}
+
+QSqlQuery TrashInfoDatabaseManager::trashInfoDatabaseRetrieveDaily(int userID)
+{
+    QSqlQuery query;
+
+    QString time1 = QDateTime::currentDateTime().toString(Qt::ISODate);
+    QString time2 = QDateTime::currentDateTime().addDays(-6).toString(Qt::ISODate);
+
+    QString SQL_RETRIEVE_TRASH_INFO_DATABASE_TABLE = "SELECT "
+            + COLUMN_TIME            + ", "
+            + COLUMN_FULLNESS        + ", "
+            + COLUMN_WEIGHT          + ", "
+            + COLUMN_HUMIDITY        + ", "
+            + COLUMN_TEMPERATURE
+            + " FROM "
+            + TABLE_NAME
+            + " WHERE "
+            + COLUMN_USERID + " = ?"
+            + " AND "
+            + COLUMN_TIME   + " <= ?"
+            + " AND "
+            + COLUMN_TIME   + " >= ?";
+    query.prepare(SQL_RETRIEVE_TRASH_INFO_DATABASE_TABLE);
+    query.addBindValue(userID);
+    query.addBindValue(time1);
+    query.addBindValue(time2);
+
+    if(!query.exec())
+        qWarning() << "TrashInfoDataBaseManager::trashInfoDatabaseRetrieve - ERROR: " << query.lastError().text();
     return query;
 }
 

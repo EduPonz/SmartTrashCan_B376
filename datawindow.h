@@ -36,23 +36,27 @@ private slots:
     void on_tabWidget_currentChanged(int index);
 
 private:
-    QString todayString;
-    QString today_1String;
-    QString today_2String;
-    QString today_3String;
-    QString today_4String;
-    QString today_5String;
-    QString today_6String;
 
-    float todayFulness;
-    float today_1Fulness;
-    float today_2Fulness;
-    float today_3Fulness;
-    float today_4Fulness;
-    float today_5Fulness;
-    float today_6Fulness;
+    float todayFullness;
+    float today_1Fullness;
+    float today_2Fullness;
+    float today_3Fullness;
+    float today_4Fullness;
+    float today_5Fullness;
+    float today_6Fullness;
 
-    void dateStringsInit();
+    float monthFullness;
+    float month_1Fullness;
+    float month_2Fullness;
+    float month_3Fullness;
+    float month_4Fullness;
+    float month_5Fullness;
+    float month_6Fullness;
+    float month_7Fullness;
+    float month_8Fullness;
+    float month_9Fullness;
+    float month_10Fullness;
+    float month_11Fullness;
 
     void createFullnessChart(int tab_index);
     void createWeightChart(int tab_index);
@@ -65,6 +69,7 @@ private:
     Ui::DataWindow *ui;
     int userId;
     void dailyFullnessInit();
+    void monthlyFullnessInit();
 };
 
 #endif // DATAWINDOW_H
