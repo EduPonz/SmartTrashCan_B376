@@ -58,6 +58,12 @@ private:
     float month_10Fullness;
     float month_11Fullness;
 
+    float yearFullness;
+    float year_1Fullness;
+    float year_2Fullness;
+    float year_3Fullness;
+    float year_4Fullness;
+
     void createFullnessChart(int tab_index);
     void createWeightChart(int tab_index);
     void createHumidityChart(int tab_index);
@@ -69,7 +75,9 @@ private:
     Ui::DataWindow *ui;
     int userId;
     void dailyFullnessInit();
+    void weeklyFullnessInit();
     void monthlyFullnessInit();
+    void yearlyFullnessInit();
 };
 
 #endif // DATAWINDOW_H

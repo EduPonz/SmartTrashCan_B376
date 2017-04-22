@@ -245,10 +245,76 @@ void DataWindow::monthlyFullnessInit()
         month_11Fullness = month_11Fullness / rowsFullness_11;
 }
 
+void DataWindow::yearlyFullnessInit()
+{
+    QSqlQuery query = trashInfoManager.trashInfoDatabaseRetrieveMonthly(userId);
+    query.first();
+
+    yearFullness = 0;
+    year_1Fullness = 0;
+    year_2Fullness = 0;
+    year_3Fullness = 0;
+    year_4Fullness = 0;
+
+    int rowsFullness = 0;
+    int rowsFullness_1 = 0;
+    int rowsFullness_2 = 0;
+    int rowsFullness_3 = 0;
+    int rowsFullness_4 = 0;
+
+    int yearInt = QDateTime::fromString(QDate::currentDate().toString(Qt::ISODate), Qt::ISODate).date().year();
+    int year_1Int = QDateTime::fromString(QDate::currentDate().addYears(-1).toString(Qt::ISODate), Qt::ISODate).date().year();
+    int year_2Int = QDateTime::fromString(QDate::currentDate().addYears(-2).toString(Qt::ISODate), Qt::ISODate).date().year();
+    int year_3Int = QDateTime::fromString(QDate::currentDate().addYears(-3).toString(Qt::ISODate), Qt::ISODate).date().year();
+    int year_4Int = QDateTime::fromString(QDate::currentDate().addYears(-4).toString(Qt::ISODate), Qt::ISODate).date().year();
+
+    do {
+        int databaseDate = QDateTime::fromString(query.value(0).toString(), Qt::ISODate).date().year();
+        if (databaseDate == yearInt)
+        {
+            yearFullness += query.value(1).toFloat();
+            rowsFullness ++;
+        }
+        if (databaseDate == year_1Int)
+        {
+            year_1Fullness += query.value(1).toFloat();
+            rowsFullness_1 ++;
+        }
+        if (databaseDate == year_2Int)
+        {
+            year_2Fullness += query.value(1).toFloat();
+            rowsFullness_2 ++;
+        }
+        if (databaseDate == year_3Int)
+        {
+            year_3Fullness += query.value(1).toFloat();
+            rowsFullness_3 ++;
+        }
+        if (databaseDate == year_4Int)
+        {
+            year_4Fullness += query.value(1).toFloat();
+            rowsFullness_4 ++;
+        }
+    }while (query.next());
+
+    if (rowsFullness != 0)
+        yearFullness = yearFullness / rowsFullness;
+    if (rowsFullness_1 !=0)
+        year_1Fullness = year_1Fullness / rowsFullness_1;
+    if (rowsFullness_2 !=0)
+        year_2Fullness = year_2Fullness / rowsFullness_2;
+    if (rowsFullness_3 !=0)
+        year_3Fullness = year_3Fullness / rowsFullness_3;
+    if (rowsFullness_4 !=0)
+        year_4Fullness = year_4Fullness / rowsFullness_4;
+}
+
+
 void DataWindow::createFullnessChart(int tab_index)
 {
     dailyFullnessInit();
     monthlyFullnessInit();
+    yearlyFullnessInit();
 
     switch (tab_index)
     {
@@ -341,7 +407,7 @@ void DataWindow::createFullnessChart(int tab_index)
 
         QStringList categories;
         categories << "Month -11" << "Month -10" << "Month -9" << "Month -8" << "Month -7" << "Month -6"
-                   << "Month -5"  << "Month -4"  << "Month -3" << "Month -2" << "Month -1" << "Current Month";
+                   << "Month -5"  << "Month -4"  << "Month -3" << "Month -2" << "Month -1" << "Month";
         QtCharts::QBarCategoryAxis *axis = new QtCharts::QBarCategoryAxis();
         axis->append(categories);
         chart->createDefaultAxes();
@@ -366,7 +432,7 @@ void DataWindow::createFullnessChart(int tab_index)
     {
         QtCharts::QBarSet *set0 = new QtCharts::QBarSet("Fullness Percentage");
 
-        *set0 << 1 << 2 << 3 << 4 << 5;
+        *set0 << year_4Fullness << year_3Fullness << year_2Fullness << year_1Fullness << yearFullness;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
         series->append(set0);
@@ -377,7 +443,7 @@ void DataWindow::createFullnessChart(int tab_index)
         chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
 
         QStringList categories;
-        categories << "2017" << "2018" << "2019" << "2020" << "2021";
+        categories << "Year 4" << "Year -3" << "Year -2" << "Year -1" << "Year";
         QtCharts::QBarCategoryAxis *axis = new QtCharts::QBarCategoryAxis();
         axis->append(categories);
         chart->createDefaultAxes();

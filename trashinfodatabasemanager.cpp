@@ -64,6 +64,68 @@ void TrashInfoDatabaseManager::trashInfoDatabaseInit()
         qWarning() << "TrashInfoDatabaseManager::trashInfoDatabaseInit - ERROR: " << query.lastError().text();
 }
 
+QSqlQuery TrashInfoDatabaseManager::trashInfoDatabaseRetrieveDaily(int userID)
+{
+    QSqlQuery query;
+
+    QString time1 = QDateTime::currentDateTime().toString(Qt::ISODate);
+    QString time2 = QDateTime::currentDateTime().addDays(-6).toString(Qt::ISODate);
+
+    QString SQL_RETRIEVE_TRASH_INFO_DATABASE_TABLE = "SELECT "
+            + COLUMN_TIME            + ", "
+            + COLUMN_FULLNESS        + ", "
+            + COLUMN_WEIGHT          + ", "
+            + COLUMN_HUMIDITY        + ", "
+            + COLUMN_TEMPERATURE
+            + " FROM "
+            + TABLE_NAME
+            + " WHERE "
+            + COLUMN_USERID + " = ?"
+            + " AND "
+            + COLUMN_TIME   + " <= ?"
+            + " AND "
+            + COLUMN_TIME   + " >= ?";
+    query.prepare(SQL_RETRIEVE_TRASH_INFO_DATABASE_TABLE);
+    query.addBindValue(userID);
+    query.addBindValue(time1);
+    query.addBindValue(time2);
+
+    if(!query.exec())
+        qWarning() << "TrashInfoDataBaseManager::trashInfoDatabaseRetrieve - ERROR: " << query.lastError().text();
+    return query;
+}
+
+QSqlQuery TrashInfoDatabaseManager::trashInfoDatabaseRetrieveWeekly(int userID)
+{
+    QSqlQuery query;
+
+    QString time1 = QDateTime::currentDateTime().toString(Qt::ISODate);
+    QString time2 = QDateTime::currentDateTime().addDays(-48).toString(Qt::ISODate);
+
+    QString SQL_RETRIEVE_TRASH_INFO_DATABASE_TABLE = "SELECT "
+            + COLUMN_TIME            + ", "
+            + COLUMN_FULLNESS        + ", "
+            + COLUMN_WEIGHT          + ", "
+            + COLUMN_HUMIDITY        + ", "
+            + COLUMN_TEMPERATURE
+            + " FROM "
+            + TABLE_NAME
+            + " WHERE "
+            + COLUMN_USERID + " = ?"
+            + " AND "
+            + COLUMN_TIME   + " <= ?"
+            + " AND "
+            + COLUMN_TIME   + " >= ?";
+    query.prepare(SQL_RETRIEVE_TRASH_INFO_DATABASE_TABLE);
+    query.addBindValue(userID);
+    query.addBindValue(time1);
+    query.addBindValue(time2);
+
+    if(!query.exec())
+        qWarning() << "TrashInfoDataBaseManager::trashInfoDatabaseRetrieve - ERROR: " << query.lastError().text();
+    return query;
+}
+
 QSqlQuery TrashInfoDatabaseManager::trashInfoDatabaseRetrieveMonthly(int userID)
 {
     QSqlQuery query;
@@ -95,12 +157,12 @@ QSqlQuery TrashInfoDatabaseManager::trashInfoDatabaseRetrieveMonthly(int userID)
     return query;
 }
 
-QSqlQuery TrashInfoDatabaseManager::trashInfoDatabaseRetrieveDaily(int userID)
+QSqlQuery TrashInfoDatabaseManager::trashInfoDatabaseRetrieveYearly(int userID)
 {
     QSqlQuery query;
 
     QString time1 = QDateTime::currentDateTime().toString(Qt::ISODate);
-    QString time2 = QDateTime::currentDateTime().addDays(-6).toString(Qt::ISODate);
+    QString time2 = QDateTime::currentDateTime().addYears(-4).toString(Qt::ISODate);
 
     QString SQL_RETRIEVE_TRASH_INFO_DATABASE_TABLE = "SELECT "
             + COLUMN_TIME            + ", "
