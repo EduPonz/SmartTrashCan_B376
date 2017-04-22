@@ -24,11 +24,11 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>703</width>
-        <height>790</height>
+        <width>688</width>
+        <height>582</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0">
+      <layout class="QVBoxLayout" name="verticalLayout" stretch="1">
        <item>
         <widget class="QWidget" name="personalPayment" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,1">
@@ -40,6 +40,13 @@
              </property>
              <item>
               <widget class="QWidget" name="widget_8" native="true">
+               <property name="font">
+                <font>
+                 <pointsize>20</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
                <layout class="QHBoxLayout" name="horizontalLayout_3">
                 <item>
                  <widget class="QLabel" name="label">
@@ -143,22 +150,6 @@
                 </item>
                 <item>
                  <widget class="QLineEdit" name="signUpEmailLineEdit"/>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QWidget" name="widget" native="true">
-               <layout class="QVBoxLayout" name="verticalLayout_9">
-                <item>
-                 <widget class="QLabel" name="label_7">
-                  <property name="text">
-                   <string>Other Peopler Registered at this Address</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLineEdit" name="signUpOtherPeopleLineEdit"/>
                 </item>
                </layout>
               </widget>
@@ -301,53 +292,6 @@
               </widget>
              </item>
             </layout>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QWidget" name="widget_11" native="true">
-         <layout class="QVBoxLayout" name="verticalLayout_13">
-          <item>
-           <widget class="QLabel" name="label_14">
-            <property name="text">
-             <string>History</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QTableWidget" name="tableWidget">
-            <column>
-             <property name="text">
-              <string>Invoice Number</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Service Type</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>New Column</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Date Picked Up</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Date Picked UP</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Print</string>
-             </property>
-            </column>
            </widget>
           </item>
          </layout>

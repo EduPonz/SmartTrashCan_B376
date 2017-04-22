@@ -24,8 +24,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>995</width>
-        <height>824</height>
+        <width>988</width>
+        <height>890</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0">
@@ -43,6 +43,13 @@
                <layout class="QHBoxLayout" name="horizontalLayout_3">
                 <item>
                  <widget class="QLabel" name="label">
+                  <property name="font">
+                   <font>
+                    <pointsize>20</pointsize>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Personal Info</string>
                   </property>
@@ -143,22 +150,6 @@
                 </item>
                 <item>
                  <widget class="QLineEdit" name="optionsEmailLineEdit"/>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QWidget" name="widget" native="true">
-               <layout class="QVBoxLayout" name="verticalLayout_9">
-                <item>
-                 <widget class="QLabel" name="label_7">
-                  <property name="text">
-                   <string>Other Peopler Registered at this Address</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLineEdit" name="optionsOtherPeopleLineEdit"/>
                 </item>
                </layout>
               </widget>
