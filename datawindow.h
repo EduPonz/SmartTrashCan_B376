@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QMainWindow>
+#include <QString>
 #include "trashinfodatabasemanager.h"
 
 
@@ -35,6 +36,24 @@ private slots:
     void on_tabWidget_currentChanged(int index);
 
 private:
+    QString todayString;
+    QString today_1String;
+    QString today_2String;
+    QString today_3String;
+    QString today_4String;
+    QString today_5String;
+    QString today_6String;
+
+    float todayFulness;
+    float today_1Fulness;
+    float today_2Fulness;
+    float today_3Fulness;
+    float today_4Fulness;
+    float today_5Fulness;
+    float today_6Fulness;
+
+    void dateStringsInit();
+
     void createFullnessChart(int tab_index);
     void createWeightChart(int tab_index);
     void createHumidityChart(int tab_index);
@@ -45,6 +64,7 @@ private:
 
     Ui::DataWindow *ui;
     int userId;
+    void dailyFullnessInit();
 };
 
 #endif // DATAWINDOW_H

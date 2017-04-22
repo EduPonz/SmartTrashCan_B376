@@ -22,6 +22,7 @@ DataWindow::DataWindow(QWidget *parent, int id) : QWidget(parent), ui(new Ui::Da
     ui->tabWidget->setCurrentIndex(0);
     trashInfoManager.fakeTrashInfo(userId);
     typeOfDataSelected = 0;
+    dateStringsInit();
     createFullnessChart(0);
 }
 
@@ -30,17 +31,28 @@ DataWindow::~DataWindow()
     delete ui;
 }
 
-void DataWindow::createFullnessChart(int tab_index)
+void DataWindow::dateStringsInit()
+{
+    todayString = QDateTime::fromString(QDate::currentDate().toString(Qt::ISODate), Qt::ISODate).date().toString();
+    today_1String = QDateTime::fromString(QDate::currentDate().addDays(-1).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    today_2String = QDateTime::fromString(QDate::currentDate().addDays(-2).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    today_3String = QDateTime::fromString(QDate::currentDate().addDays(-3).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    today_4String = QDateTime::fromString(QDate::currentDate().addDays(-4).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    today_5String = QDateTime::fromString(QDate::currentDate().addDays(-5).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    today_6String = QDateTime::fromString(QDate::currentDate().addDays(-6).toString(Qt::ISODate), Qt::ISODate).date().toString();
+}
+
+void DataWindow::dailyFullnessInit()
 {
     QSqlQuery query = trashInfoManager.trashInfoDatabaseRetrieveDaily(userId);
     query.first();
-    float todayFulness = 0;
-    float today_1Fulness = 0;
-    float today_2Fulness = 0;
-    float today_3Fulness = 0;
-    float today_4Fulness = 0;
-    float today_5Fulness = 0;
-    float today_6Fulness = 0;
+    todayFulness = 0;
+    today_1Fulness = 0;
+    today_2Fulness = 0;
+    today_3Fulness = 0;
+    today_4Fulness = 0;
+    today_5Fulness = 0;
+    today_6Fulness = 0;
     int rowsFullness = 0;
     int rowsFullness_1 = 0;
     int rowsFullness_2 = 0;
@@ -48,15 +60,8 @@ void DataWindow::createFullnessChart(int tab_index)
     int rowsFullness_4 = 0;
     int rowsFullness_5 = 0;
     int rowsFullness_6 = 0;
-    QString todayString = QDateTime::fromString(QDate::currentDate().toString(Qt::ISODate), Qt::ISODate).date().toString();
-    QString today_1String = QDateTime::fromString(QDate::currentDate().addDays(-1).toString(Qt::ISODate), Qt::ISODate).date().toString();
-    QString today_2String = QDateTime::fromString(QDate::currentDate().addDays(-2).toString(Qt::ISODate), Qt::ISODate).date().toString();
-    QString today_3String = QDateTime::fromString(QDate::currentDate().addDays(-3).toString(Qt::ISODate), Qt::ISODate).date().toString();
-    QString today_4String = QDateTime::fromString(QDate::currentDate().addDays(-4).toString(Qt::ISODate), Qt::ISODate).date().toString();
-    QString today_5String = QDateTime::fromString(QDate::currentDate().addDays(-5).toString(Qt::ISODate), Qt::ISODate).date().toString();
-    QString today_6String = QDateTime::fromString(QDate::currentDate().addDays(-6).toString(Qt::ISODate), Qt::ISODate).date().toString();
 
-    do { 
+    do {
         QString databaseDate = QDateTime::fromString(query.value(0).toString(), Qt::ISODate).date().toString();
         if (!databaseDate.compare(todayString))
         {
@@ -109,6 +114,11 @@ void DataWindow::createFullnessChart(int tab_index)
         today_5Fulness = today_5Fulness / rowsFullness_5;
     if (rowsFullness_6 !=0)
         today_6Fulness = today_6Fulness / rowsFullness_6;
+}
+
+void DataWindow::createFullnessChart(int tab_index)
+{
+    dailyFullnessInit();
 
     switch (tab_index)
     {
