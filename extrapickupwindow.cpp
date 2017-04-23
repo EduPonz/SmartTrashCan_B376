@@ -90,7 +90,8 @@ bool ExtraPickupWindow::sizeTimeMoneyHandler(){
         ui->priceLabel->setText("Item price: " + QString::number(price) + " Bottle caps.");
 
         invoiceNumber = rand() % 10000 + 1000;
-        currentDate = QDateTime::currentDateTime().toString(Qt::ISODate);
+        currentDate = QDate::currentDate().addDays(intTrashTime).toString(Qt::ISODate);
+        return true;
     }
     else{
         ui->extraPickUpUOutputLabel->setText("You have not specified items to be picked up.");
@@ -114,6 +115,7 @@ void ExtraPickupWindow::on_extrapickupConfirmButton_clicked()
                                              ui->spinBox->cleanText().toInt(), ui->spinBox_2->cleanText().toInt(),
                                              ui->spinBox_3->cleanText().toInt(), ui->extrapickupCommentText->toPlainText(),
                                              intTrashTime, price, timePrice, (timePrice+price), currentDate, invoiceNumber);
+
         smtp->sendMail(EMAIL_USER_NAME, emailAddress, EMAIL_SUBJECT, commentMsg);
     }
     else{
