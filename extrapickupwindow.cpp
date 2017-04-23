@@ -52,7 +52,7 @@ void ExtraPickupWindow::pickupTimeHandler(){
 
 }
 
-void ExtraPickupWindow::sizeTimeMoneyHandler(){
+bool ExtraPickupWindow::sizeTimeMoneyHandler(){
 
     trashSizeSmallBool = ui->itemSmallCheckBox->checkState();
     trashSizeMediumBool = ui->itemMediumCheckBox->checkState();
@@ -77,18 +77,26 @@ void ExtraPickupWindow::sizeTimeMoneyHandler(){
 
     price = ui->spinBox->cleanText().toInt() * 10 + ui->spinBox_2->cleanText().toInt() * 20 + ui->spinBox_3->cleanText().toInt() * 30;
     if (trashSizeSmallBool == true || trashSizeMediumBool == true || trashSizeBigBool == true) {
-        request = request + ". The price of the selected (items) is; " + QString::number(price) + " Bottle caps. \n";
-        request = request + "The time of pick up is in; " + trashTime + ". For the price of " + QString::number(timePrice)
-                + ".\n"
+        request = request + ". The price of the selected item(s) is; " + QString::number(price) + " Bottle caps.";
+        request = request + "The time of pick up is in; " + trashTime + ". The collection will arrive on; " + QDate::currentDate().addDays(intTrashTime).toString(Qt::ISODate)
+                + ". For the price of " + QString::number(timePrice)
+                + ". "
                 + "The total price of your services is; "
                 + QString::number(timePrice + price)
                 + ". ";
-    }
-    ui->totalPriceLabel->setText(QString::number(timePrice + price) + " Bottle caps.");
-    ui->priceLabel->setText("Price of items: " + QString::number(price) + " Bottle caps.");
 
-    invoiceNumber = rand() % 10000 + 1000;
-    currentDate = QDateTime::currentDateTime().toString(Qt::ISODate);
+
+        ui->totalPriceLabel->setText(QString::number(timePrice + price) + " Bottle caps.");
+        ui->priceLabel->setText("Item price: " + QString::number(price) + " Bottle caps.");
+
+        invoiceNumber = rand() % 10000 + 1000;
+        currentDate = QDateTime::currentDateTime().toString(Qt::ISODate);
+    }
+    else{
+        ui->extraPickUpUOutputLabel->setText("You have not specified items to be picked up.");
+        return false;
+    }
+
 }
 
 void ExtraPickupWindow::on_extrapickupConfirmButton_clicked()
@@ -97,23 +105,39 @@ void ExtraPickupWindow::on_extrapickupConfirmButton_clicked()
     connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
 
     pickupTimeHandler();
-    sizeTimeMoneyHandler();
+    if(sizeTimeMoneyHandler() ==  true){
+        QString commentMsg = request + "You have added the following comments; '"
+                + ui->extrapickupCommentText->toPlainText() + "'";
+        QString emailAddress = dataBase.userDataBaseRetrieveUserEmail(userId);
 
-    QString commentMsg = request + "You have added the following comments; '"
-            + ui->extrapickupCommentText->toPlainText() + "'";
-    QString emailAddress = dataBase.userDataBaseRetrieveUserEmail(userId);
-
-    historyManager.historyDatabaseInsert(userId, trashSizeSmallBool, trashSizeMediumBool, trashSizeBigBool,
-                                         ui->spinBox->cleanText().toInt(), ui->spinBox_2->cleanText().toInt(),
-                                         ui->spinBox_3->cleanText().toInt(), ui->extrapickupCommentText->toPlainText(),
-                                         intTrashTime, price, timePrice, (timePrice+price), currentDate, invoiceNumber);
-    smtp->sendMail(EMAIL_USER_NAME, emailAddress, EMAIL_SUBJECT, commentMsg);
+        historyManager.historyDatabaseInsert(userId, trashSizeSmallBool, trashSizeMediumBool, trashSizeBigBool,
+                                             ui->spinBox->cleanText().toInt(), ui->spinBox_2->cleanText().toInt(),
+                                             ui->spinBox_3->cleanText().toInt(), ui->extrapickupCommentText->toPlainText(),
+                                             intTrashTime, price, timePrice, (timePrice+price), currentDate, invoiceNumber);
+        smtp->sendMail(EMAIL_USER_NAME, emailAddress, EMAIL_SUBJECT, commentMsg);
+    }
+    else{
+        sizeTimeMoneyHandler();
+    }
 }
 
 void ExtraPickupWindow::mailSent(QString status)
 {
     if(status == "Message sent"){
-        ui->extraPickUpUOutputLabel->setText("Your message has been sent!");
+        ui->extraPickUpUOutputLabel->setText("We've sent you a confirmation email of your purchase.");
+
+        ui->extrapickupCommentText->setText("");
+        ui->itemSmallCheckBox->setChecked(false);
+        ui->itemMediumCheckBox->setChecked(false);
+        ui->itemBigCheckBox->setChecked(false);
+
+        ui->time1CheckBox->setChecked(false);
+        ui->time2CheckBox->setChecked(false);
+        ui->time5CheckBox->setChecked(false);
+
+        ui->spinBox->setValue(0);
+        ui->spinBox_2->setValue(0);
+        ui->spinBox_3->setValue(0);
     }
 }
 

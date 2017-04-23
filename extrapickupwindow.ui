@@ -71,7 +71,7 @@
                </size>
               </property>
               <property name="value">
-               <number>1</number>
+               <number>0</number>
               </property>
              </widget>
             </item>
@@ -84,7 +84,7 @@
                </size>
               </property>
               <property name="value">
-               <number>1</number>
+               <number>0</number>
               </property>
              </widget>
             </item>
@@ -97,7 +97,7 @@
                </size>
               </property>
               <property name="value">
-               <number>1</number>
+               <number>0</number>
               </property>
              </widget>
             </item>
@@ -176,8 +176,8 @@
               <property name="font">
                <font>
                 <pointsize>14</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
+                <weight>50</weight>
+                <bold>false</bold>
                </font>
               </property>
               <property name="text">
@@ -211,8 +211,8 @@
            <property name="font">
             <font>
              <pointsize>14</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
+             <weight>50</weight>
+             <bold>false</bold>
             </font>
            </property>
            <property name="text">
@@ -291,14 +291,14 @@
       </item>
       <item>
        <widget class="QWidget" name="widget_6" native="true">
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
           <widget class="QLabel" name="label">
            <property name="font">
             <font>
              <pointsize>14</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
+             <weight>50</weight>
+             <bold>false</bold>
             </font>
            </property>
            <property name="text">
@@ -334,12 +334,12 @@
         <property name="font">
          <font>
           <pointsize>20</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="text">
-         <string>Item description and other comments</string>
+         <string>Item description and other comments:</string>
         </property>
        </widget>
       </item>
@@ -386,9 +386,9 @@
        <widget class="QLabel" name="extraPickUpUOutputLabel">
         <property name="font">
          <font>
-          <pointsize>24</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
+          <pointsize>20</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="text">

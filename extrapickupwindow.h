@@ -32,7 +32,7 @@ private:
     UserDataBaseManager dataBase;
     HistoryDatabaseManager historyManager;
 
-    void sizeTimeMoneyHandler();
+    bool sizeTimeMoneyHandler();
     void pickupTimeHandler();
     int timePrice;
     int intTrashTime;
