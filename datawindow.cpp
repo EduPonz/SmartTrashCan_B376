@@ -20,7 +20,9 @@ DataWindow::DataWindow(QWidget *parent, int id) : QWidget(parent), ui(new Ui::Da
     userId = id;
     ui->setupUi(this);
     ui->tabWidget->setCurrentIndex(0);
-    trashInfoManager.fakeTrashInfo(userId);
+    if (userId > 0){
+        trashInfoManager.fakeTrashInfo(userId);
+    }
     typeOfDataSelected = 0;
     createFullnessChart(0);
 }
