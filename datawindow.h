@@ -4,6 +4,9 @@
 #include <QWidget>
 #include <QMainWindow>
 #include <QString>
+#include <QSerialPort>
+#include <QSerialPortInfo>
+#include <QByteArray>
 #include "trashinfodatabasemanager.h"
 
 
@@ -16,9 +19,13 @@ class DataWindow : public QWidget
 public:
     DataWindow(QWidget *parent = 0, int id = 0);
     ~DataWindow();
+    void readTrashData();
 
 signals:
     void openExtraPickup(int id);
+
+public slots:
+    void readSerial();
 
 private slots:
     void on_datawindowPickupButton_clicked();
@@ -36,6 +43,16 @@ private slots:
     void on_tabWidget_currentChanged(int index);
 
 private:
+    QSerialPort *arduino;
+
+    static const quint16 arduino_uno_vendor_id = 9025;
+    static const quint16 arduino_uno_product_id = 67;
+    QByteArray serialData;
+    QString serialBuffer;
+    QString parsed_data_1;
+    QString parsed_data_2;
+    QString parsed_data_3;
+    QString parsed_data_4;
 
     float todayFullness;
     float today_1Fullness;
@@ -206,6 +223,7 @@ private:
     void weeklyTemperatureInit();
     void monthlyTemperatureInit();
     void yearlyTemperatureInit();
+
 };
 
 #endif // DATAWINDOW_H

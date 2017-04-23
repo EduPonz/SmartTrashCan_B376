@@ -24,6 +24,7 @@ public:
     QSqlQuery trashInfoDatabaseRetrieveWeekly(int userID);
     QSqlQuery trashInfoDatabaseRetrieveMonthly(int userID);
     QSqlQuery trashInfoDatabaseRetrieveYearly(int userID);
+    bool trashInfoDatabaseInsert(int userID, float fullness, float weight, float humidity, float temperature);
 
 private:
     QString TABLE_NAME;
@@ -33,7 +34,6 @@ private:
    // void trashInfoDatabaseConnect();
     void trashInfoDatabaseInit();
     bool isExist();
-    bool trashInfoDatabaseInsert(int userID, float fullness, float weight, float humidity, float temperature);
     bool trashInfoDatabaseDelete(int userID);
 
 };

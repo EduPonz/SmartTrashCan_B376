@@ -49,6 +49,7 @@ private:
     void createActions();
     void createToolBars(int language);
     void createMenu();
+    void readTrashData();
 
     static const int ENGLISH_LANGUAGE = 1;
     static const int DANISH_LANGUAGE = 2;

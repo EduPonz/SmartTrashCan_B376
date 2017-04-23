@@ -21,7 +21,7 @@ DataWindow::DataWindow(QWidget *parent, int id) : QWidget(parent), ui(new Ui::Da
     ui->setupUi(this);
     ui->tabWidget->setCurrentIndex(0);
     if (userId > 0){
-        trashInfoManager.fakeTrashInfo(userId);
+        readTrashData();
     }
     typeOfDataSelected = 0;
     createFullnessChart(0);
@@ -30,6 +30,102 @@ DataWindow::DataWindow(QWidget *parent, int id) : QWidget(parent), ui(new Ui::Da
 DataWindow::~DataWindow()
 {
     delete ui;
+}
+
+void DataWindow::readTrashData()
+{
+    arduino = new QSerialPort(this);
+
+    /*
+    //  Testing code, prints the description, vendor id, and product id of all ports.
+    //  Used it to determine the values for the arduino uno.
+
+    qDebug() << "Number of ports: " << QSerialPortInfo::availablePorts().length() << "\n";
+    foreach(const QSerialPortInfo &serialPortInfo, QSerialPortInfo::availablePorts()){
+        qDebug() << "Description: " << serialPortInfo.description() << "\n";
+        qDebug() << "Has vendor id?: " << serialPortInfo.hasVendorIdentifier() << "\n";
+        qDebug() << "Vendor ID: " << serialPortInfo.vendorIdentifier() << "\n";
+        qDebug() << "Has product id?: " << serialPortInfo.hasProductIdentifier() << "\n";
+        qDebug() << "Product ID: " << serialPortInfo.productIdentifier() << "\n";
+    }
+    */
+
+    serialBuffer = "";
+    parsed_data_1 = "";
+    parsed_data_2 = "";
+    parsed_data_3 = "";
+    parsed_data_4 = "";
+
+    //   Identify the port the arduino uno is on.
+
+    bool arduino_is_available = false;
+    QString arduino_uno_port_name;
+
+    //  For each available serial port
+    foreach(const QSerialPortInfo &serialPortInfo, QSerialPortInfo::availablePorts()){
+    //  check if the serialport has both a product identifier and a vendor identifier
+        if(serialPortInfo.hasProductIdentifier() && serialPortInfo.hasVendorIdentifier()){
+        //  check if the product ID and the vendor ID match those of the arduino uno
+            if((serialPortInfo.productIdentifier() == arduino_uno_product_id)
+                    && (serialPortInfo.vendorIdentifier() == arduino_uno_vendor_id)){
+                       arduino_is_available = true; //    arduino uno is available on this port
+                       arduino_uno_port_name = serialPortInfo.portName();
+             }
+         }
+    }
+
+
+    //Open and configure the arduino port if available
+
+    if(arduino_is_available){
+        arduino->setPortName(arduino_uno_port_name);
+        arduino->open(QSerialPort::ReadOnly);
+        arduino->setBaudRate(QSerialPort::Baud9600);
+        arduino->setDataBits(QSerialPort::Data8);
+        arduino->setFlowControl(QSerialPort::NoFlowControl);
+        arduino->setParity(QSerialPort::NoParity);
+        arduino->setStopBits(QSerialPort::OneStop);
+        QObject::connect(arduino, SIGNAL(readyRead()), this, SLOT(readSerial()));
+    }else{
+        qDebug() << "Couldn't find the correct port for the arduino.\n";
+    }
+}
+
+void DataWindow::readSerial()
+{
+    /*
+     * readyRead() doesn't guarantee that the entire message will be received all at once.
+     * The message can arrive split into parts.  Need to buffer the serial data and then parse for the temperature value.
+     *
+     */
+    QStringList buffer_split = serialBuffer.split(", "); //  split the serialBuffer string, parsing with ',' as the separator
+
+    //  Check to see if there less than 3 tokens in buffer_split.
+    //  If there are at least 3 then this means there were 2 commas,
+    //  means there is a parsed temperature value as the second token (between 2 commas)
+    if(buffer_split.length() < 6){
+        // no parsed value yet so continue accumulating bytes from serial in the buffer.
+        serialData = arduino->readAll();
+        serialBuffer = serialBuffer + QString::fromStdString(serialData.toStdString());
+        serialData.clear();
+    }else{
+        // the second element of buffer_split is parsed correctly, update the temperature value on temp_lcdNumber
+        serialBuffer = "";
+        qDebug() << buffer_split << "\n";
+        parsed_data_1 = buffer_split[1];
+        parsed_data_2 = buffer_split[2];
+        parsed_data_3 = buffer_split[3];
+        parsed_data_4 = buffer_split[4];
+        qDebug() << "Fullness: " << parsed_data_1;
+        qDebug() << "Weight: " << parsed_data_2;
+        qDebug() << "Humidity: " << parsed_data_3;
+        qDebug() << "Temperature: " << parsed_data_4;
+        float fullness = parsed_data_1.toFloat();
+        float weigth = parsed_data_2.toFloat();
+        float humidity = parsed_data_3.toFloat();
+        float temperature = parsed_data_4.toFloat();
+        trashInfoManager.trashInfoDatabaseInsert(userId, fullness, weigth, humidity, temperature);
+    }
 }
 
 void DataWindow::dailyFullnessInit()
