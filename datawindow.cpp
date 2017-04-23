@@ -1683,15 +1683,20 @@ void DataWindow::createFullnessChart(int tab_index)
 
 void DataWindow::createWeightChart(int tab_index)
 {
+    dailyWeightInit();
+    weeklyWeightInit();
+    monthlyWeightInit();
+    yearlyWeightInit();
+
     switch (tab_index) {
     case 0:
     {
-        QtCharts::QBarSet *set0 = new QtCharts::QBarSet("Weight");
+        QtCharts::QBarSet *set1 = new QtCharts::QBarSet("Weight");
 
-        *set0 << 1 << 2 << 3 << 4 << 5 << 6 << 7;
+        *set1 << 1 << 2 << 3 << 4 << 5 << 6 << 7;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
-        series->append(set0);
+        series->append(set1);
 
         QtCharts::QChart *chart = new QtCharts::QChart();
         chart->addSeries(series);
@@ -1699,7 +1704,7 @@ void DataWindow::createWeightChart(int tab_index)
         chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
 
         QStringList categories;
-        categories << "Monday" << "Tuesday" << "Wednesday" << "Thursday" << "Friday" << "Saturday" << "Sunday";
+        categories << "Day -6" << "Day -5" << "Day -4" << "Day -3" << "Day -2" << "Day -1" << "Today";
         QtCharts::QBarCategoryAxis *axis = new QtCharts::QBarCategoryAxis();
         axis->append(categories);
         chart->createDefaultAxes();
@@ -1722,12 +1727,12 @@ void DataWindow::createWeightChart(int tab_index)
     }
     case 1:
     {
-        QtCharts::QBarSet *set0 = new QtCharts::QBarSet("Weight");
+        QtCharts::QBarSet *set1 = new QtCharts::QBarSet("Weight");
 
-        *set0 << 1 << 2 << 3 << 4 << 5 << 6 << 7;
+        *set1 << 1 << 2 << 3 << 4 << 5 << 6 << 7;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
-        series->append(set0);
+        series->append(set1);
 
         QtCharts::QChart *chart = new QtCharts::QChart();
         chart->addSeries(series);
@@ -1735,7 +1740,7 @@ void DataWindow::createWeightChart(int tab_index)
         chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
 
         QStringList categories;
-        categories << "Week 1" << "Week 2" << "Week 3" << "Week 4" << "Week 5" << "Week 6" << "Week 7";
+        categories << "Week -6" << "Week -5" << "Week -4" << "Week -3" << "Week -2" << "Week -1" << "Week";
         QtCharts::QBarCategoryAxis *axis = new QtCharts::QBarCategoryAxis();
         axis->append(categories);
         chart->createDefaultAxes();
@@ -1758,12 +1763,12 @@ void DataWindow::createWeightChart(int tab_index)
     }
     case 2:
     {
-        QtCharts::QBarSet *set0 = new QtCharts::QBarSet("Weight");
+        QtCharts::QBarSet *set1 = new QtCharts::QBarSet("Weight");
 
-        *set0 << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12;
+        *set1 << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
-        series->append(set0);
+        series->append(set1);
 
         QtCharts::QChart *chart = new QtCharts::QChart();
         chart->addSeries(series);
@@ -1771,8 +1776,8 @@ void DataWindow::createWeightChart(int tab_index)
         chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
 
         QStringList categories;
-        categories << "January" << "February" << "March" << "April" << "May" << "June" << "July"
-                   << "August" << "September" << "October" << "November" << "December";
+        categories << "Month -11" << "Month -10" << "Month -9" << "Month -8" << "Month -7" << "Month -6"
+                   << "Month -5"  << "Month -4"  << "Month -3" << "Month -2" << "Month -1" << "Month";
         QtCharts::QBarCategoryAxis *axis = new QtCharts::QBarCategoryAxis();
         axis->append(categories);
         chart->createDefaultAxes();
@@ -1795,12 +1800,12 @@ void DataWindow::createWeightChart(int tab_index)
     }
     case 3:
     {
-        QtCharts::QBarSet *set0 = new QtCharts::QBarSet("Weight");
+        QtCharts::QBarSet *set1 = new QtCharts::QBarSet("Weight");
 
-        *set0 << 1 << 2 << 3 << 4 << 5;
+        *set1 << 1 << 2 << 3 << 4 << 5;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
-        series->append(set0);
+        series->append(set1);
 
         QtCharts::QChart *chart = new QtCharts::QChart();
         chart->addSeries(series);
@@ -1808,7 +1813,7 @@ void DataWindow::createWeightChart(int tab_index)
         chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
 
         QStringList categories;
-        categories << "2017" << "2018" << "2019" << "2020" << "2021";
+        categories << "Year 4" << "Year -3" << "Year -2" << "Year -1" << "Year";
         QtCharts::QBarCategoryAxis *axis = new QtCharts::QBarCategoryAxis();
         axis->append(categories);
         chart->createDefaultAxes();
@@ -1836,15 +1841,20 @@ void DataWindow::createWeightChart(int tab_index)
 
 void DataWindow::createHumidityChart(int tab_index)
 {
+    dailyHumidityInit();
+    weeklyHumidityInit();
+    monthlyHumidityInit();
+    yearlyHumidityInit();
+
     switch (tab_index) {
     case 0:
     {
-        QtCharts::QBarSet *set0 = new QtCharts::QBarSet("Humidity Percentage");
+        QtCharts::QBarSet *set2 = new QtCharts::QBarSet("Humidity Percentage");
 
-        *set0 << 1 << 2 << 3 << 4 << 5 << 6 << 7;
+        *set2 << 1 << 2 << 3 << 4 << 5 << 6 << 7;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
-        series->append(set0);
+        series->append(set2);
 
         QtCharts::QChart *chart = new QtCharts::QChart();
         chart->addSeries(series);
@@ -1852,7 +1862,7 @@ void DataWindow::createHumidityChart(int tab_index)
         chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
 
         QStringList categories;
-        categories << "Monday" << "Tuesday" << "Wednesday" << "Thursday" << "Friday" << "Saturday" << "Sunday";
+        categories << "Day -6" << "Day -5" << "Day -4" << "Day -3" << "Day -2" << "Day -1" << "Today";
         QtCharts::QBarCategoryAxis *axis = new QtCharts::QBarCategoryAxis();
         axis->append(categories);
         chart->createDefaultAxes();
@@ -1875,12 +1885,12 @@ void DataWindow::createHumidityChart(int tab_index)
     }
     case 1:
     {
-        QtCharts::QBarSet *set0 = new QtCharts::QBarSet("Humidity Percentage");
+        QtCharts::QBarSet *set2 = new QtCharts::QBarSet("Humidity Percentage");
 
-        *set0 << 1 << 2 << 3 << 4 << 5 << 6 << 7;
+        *set2 << 1 << 2 << 3 << 4 << 5 << 6 << 7;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
-        series->append(set0);
+        series->append(set2);
 
         QtCharts::QChart *chart = new QtCharts::QChart();
         chart->addSeries(series);
@@ -1888,7 +1898,7 @@ void DataWindow::createHumidityChart(int tab_index)
         chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
 
         QStringList categories;
-        categories << "Week 1" << "Week 2" << "Week 3" << "Week 4" << "Week 5" << "Week 6" << "Week 7";
+        categories << "Week -6" << "Week -5" << "Week -4" << "Week -3" << "Week -2" << "Week -1" << "Week";
         QtCharts::QBarCategoryAxis *axis = new QtCharts::QBarCategoryAxis();
         axis->append(categories);
         chart->createDefaultAxes();
@@ -1911,12 +1921,12 @@ void DataWindow::createHumidityChart(int tab_index)
     }
     case 2:
     {
-        QtCharts::QBarSet *set0 = new QtCharts::QBarSet("Humidity Percentage");
+        QtCharts::QBarSet *set2 = new QtCharts::QBarSet("Humidity Percentage");
 
-        *set0 << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12;
+        *set2 << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
-        series->append(set0);
+        series->append(set2);
 
         QtCharts::QChart *chart = new QtCharts::QChart();
         chart->addSeries(series);
@@ -1924,8 +1934,8 @@ void DataWindow::createHumidityChart(int tab_index)
         chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
 
         QStringList categories;
-        categories << "January" << "February" << "March" << "April" << "May" << "June" << "July"
-                   << "August" << "September" << "October" << "November" << "December";
+        categories << "Month -11" << "Month -10" << "Month -9" << "Month -8" << "Month -7" << "Month -6"
+                   << "Month -5"  << "Month -4"  << "Month -3" << "Month -2" << "Month -1" << "Month";
         QtCharts::QBarCategoryAxis *axis = new QtCharts::QBarCategoryAxis();
         axis->append(categories);
         chart->createDefaultAxes();
@@ -1948,12 +1958,12 @@ void DataWindow::createHumidityChart(int tab_index)
     }
     case 3:
     {
-        QtCharts::QBarSet *set0 = new QtCharts::QBarSet("Humidity Percentage");
+        QtCharts::QBarSet *set2 = new QtCharts::QBarSet("Humidity Percentage");
 
-        *set0 << 1 << 2 << 3 << 4 << 5;
+        *set2 << 1 << 2 << 3 << 4 << 5;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
-        series->append(set0);
+        series->append(set2);
 
         QtCharts::QChart *chart = new QtCharts::QChart();
         chart->addSeries(series);
@@ -1961,7 +1971,7 @@ void DataWindow::createHumidityChart(int tab_index)
         chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
 
         QStringList categories;
-        categories << "2017" << "2018" << "2019" << "2020" << "2021";
+        categories << "Year 4" << "Year -3" << "Year -2" << "Year -1" << "Year";
         QtCharts::QBarCategoryAxis *axis = new QtCharts::QBarCategoryAxis();
         axis->append(categories);
         chart->createDefaultAxes();
@@ -1989,15 +1999,20 @@ void DataWindow::createHumidityChart(int tab_index)
 
 void DataWindow::createTemperatureChart(int tab_index)
 {
+    dailyTemperatureInit();
+    weeklyTemperatureInit();
+    monthlyTemperatureInit();
+    yearlyTemperatureInit();
+
     switch (tab_index) {
     case 0:
     {
-        QtCharts::QBarSet *set0 = new QtCharts::QBarSet("Temperature");
+        QtCharts::QBarSet *set3 = new QtCharts::QBarSet("Temperature");
 
-        *set0 << 1 << 2 << 3 << 4 << 5 << 6 << 7;
+        *set3 << 1 << 2 << 3 << 4 << 5 << 6 << 7;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
-        series->append(set0);
+        series->append(set3);
 
         QtCharts::QChart *chart = new QtCharts::QChart();
         chart->addSeries(series);
@@ -2005,7 +2020,7 @@ void DataWindow::createTemperatureChart(int tab_index)
         chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
 
         QStringList categories;
-        categories << "Monday" << "Tuesday" << "Wednesday" << "Thursday" << "Friday" << "Saturday" << "Sunday";
+        categories << "Day -6" << "Day -5" << "Day -4" << "Day -3" << "Day -2" << "Day -1" << "Today";
         QtCharts::QBarCategoryAxis *axis = new QtCharts::QBarCategoryAxis();
         axis->append(categories);
         chart->createDefaultAxes();
@@ -2028,12 +2043,12 @@ void DataWindow::createTemperatureChart(int tab_index)
     }
     case 1:
     {
-        QtCharts::QBarSet *set0 = new QtCharts::QBarSet("Temperature");
+        QtCharts::QBarSet *set3 = new QtCharts::QBarSet("Temperature");
 
-        *set0 << 1 << 2 << 3 << 4 << 5 << 6 << 7;
+        *set3 << 1 << 2 << 3 << 4 << 5 << 6 << 7;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
-        series->append(set0);
+        series->append(set3);
 
         QtCharts::QChart *chart = new QtCharts::QChart();
         chart->addSeries(series);
@@ -2041,7 +2056,7 @@ void DataWindow::createTemperatureChart(int tab_index)
         chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
 
         QStringList categories;
-        categories << "Week 1" << "Week 2" << "Week 3" << "Week 4" << "Week 5" << "Week 6" << "Week 7";
+        categories << "Week -6" << "Week -5" << "Week -4" << "Week -3" << "Week -2" << "Week -1" << "Week";
         QtCharts::QBarCategoryAxis *axis = new QtCharts::QBarCategoryAxis();
         axis->append(categories);
         chart->createDefaultAxes();
@@ -2064,12 +2079,12 @@ void DataWindow::createTemperatureChart(int tab_index)
     }
     case 2:
     {
-        QtCharts::QBarSet *set0 = new QtCharts::QBarSet("Temperature");
+        QtCharts::QBarSet *set3 = new QtCharts::QBarSet("Temperature");
 
-        *set0 << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12;
+        *set3 << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
-        series->append(set0);
+        series->append(set3);
 
         QtCharts::QChart *chart = new QtCharts::QChart();
         chart->addSeries(series);
@@ -2077,8 +2092,8 @@ void DataWindow::createTemperatureChart(int tab_index)
         chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
 
         QStringList categories;
-        categories << "January" << "February" << "March" << "April" << "May" << "June" << "July"
-                   << "August" << "September" << "October" << "November" << "December";
+        categories << "Month -11" << "Month -10" << "Month -9" << "Month -8" << "Month -7" << "Month -6"
+                   << "Month -5"  << "Month -4"  << "Month -3" << "Month -2" << "Month -1" << "Month";
         QtCharts::QBarCategoryAxis *axis = new QtCharts::QBarCategoryAxis();
         axis->append(categories);
         chart->createDefaultAxes();
@@ -2101,12 +2116,12 @@ void DataWindow::createTemperatureChart(int tab_index)
     }
     case 3:
     {
-        QtCharts::QBarSet *set0 = new QtCharts::QBarSet("Temperature");
+        QtCharts::QBarSet *set3 = new QtCharts::QBarSet("Temperature");
 
-        *set0 << 1 << 2 << 3 << 4 << 5;
+        *set3 << 1 << 2 << 3 << 4 << 5;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
-        series->append(set0);
+        series->append(set3);
 
         QtCharts::QChart *chart = new QtCharts::QChart();
         chart->addSeries(series);
@@ -2114,7 +2129,7 @@ void DataWindow::createTemperatureChart(int tab_index)
         chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
 
         QStringList categories;
-        categories << "2017" << "2018" << "2019" << "2020" << "2021";
+        categories << "Year 4" << "Year -3" << "Year -2" << "Year -1" << "Year";
         QtCharts::QBarCategoryAxis *axis = new QtCharts::QBarCategoryAxis();
         axis->append(categories);
         chart->createDefaultAxes();
