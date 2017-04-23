@@ -45,6 +45,14 @@ private:
     float today_5Fullness;
     float today_6Fullness;
 
+    float weekFullness;
+    float week_1Fullness;
+    float week_2Fullness;
+    float week_3Fullness;
+    float week_4Fullness;
+    float week_5Fullness;
+    float week_6Fullness;
+
     float monthFullness;
     float month_1Fullness;
     float month_2Fullness;

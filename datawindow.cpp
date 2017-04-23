@@ -112,6 +112,91 @@ void DataWindow::dailyFullnessInit()
         today_6Fullness = today_6Fullness / rowsFullness_6;
 }
 
+void DataWindow::weeklyFullnessInit()
+{
+    QSqlQuery query = trashInfoManager.trashInfoDatabaseRetrieveMonthly(userId);
+    query.first();
+
+    weekFullness = 0;
+    week_1Fullness = 0;
+    week_2Fullness = 0;
+    week_3Fullness = 0;
+    week_4Fullness = 0;
+    week_5Fullness = 0;
+    week_6Fullness = 0;
+
+    int rowsFullness = 0;
+    int rowsFullness_1 = 0;
+    int rowsFullness_2 = 0;
+    int rowsFullness_3 = 0;
+    int rowsFullness_4 = 0;
+    int rowsFullness_5 = 0;
+    int rowsFullness_6 = 0;
+
+    int weekInt = QDateTime::fromString(QDate::currentDate().toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_1Int = QDateTime::fromString(QDate::currentDate().addDays(-7).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_2Int = QDateTime::fromString(QDate::currentDate().addDays(-14).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_3Int = QDateTime::fromString(QDate::currentDate().addDays(-21).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_4Int = QDateTime::fromString(QDate::currentDate().addDays(-28).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_5Int = QDateTime::fromString(QDate::currentDate().addDays(-35).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_6Int = QDateTime::fromString(QDate::currentDate().addDays(-42).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+
+    do {
+        int databaseDate = QDateTime::fromString(query.value(0).toString(), Qt::ISODate).date().weekNumber();
+        if (databaseDate == weekInt)
+        {
+            weekFullness += query.value(1).toFloat();
+            rowsFullness ++;
+        }
+        if (databaseDate == week_1Int)
+        {
+            week_1Fullness += query.value(1).toFloat();
+            rowsFullness_1 ++;
+        }
+        if (databaseDate == week_2Int)
+        {
+            week_2Fullness += query.value(1).toFloat();
+            rowsFullness_2 ++;
+        }
+        if (databaseDate == week_3Int)
+        {
+            week_3Fullness += query.value(1).toFloat();
+            rowsFullness_3 ++;
+        }
+        if (databaseDate == week_4Int)
+        {
+            week_4Fullness += query.value(1).toFloat();
+            rowsFullness_4 ++;
+        }
+        if (databaseDate == week_5Int)
+        {
+            week_5Fullness += query.value(1).toFloat();
+            rowsFullness_5 ++;
+        }
+        if (databaseDate == week_6Int)
+        {
+            week_6Fullness += query.value(1).toFloat();
+            rowsFullness_6 ++;
+        }
+
+    }while (query.next());
+
+    if (rowsFullness != 0)
+        weekFullness = weekFullness / rowsFullness;
+    if (rowsFullness_1 !=0)
+        week_1Fullness = week_1Fullness / rowsFullness_1;
+    if (rowsFullness_2 !=0)
+        week_2Fullness = week_2Fullness / rowsFullness_2;
+    if (rowsFullness_3 !=0)
+        week_3Fullness = week_3Fullness / rowsFullness_3;
+    if (rowsFullness_4 !=0)
+        week_4Fullness = week_4Fullness / rowsFullness_4;
+    if (rowsFullness_5 !=0)
+        week_5Fullness = week_5Fullness / rowsFullness_5;
+    if (rowsFullness_6 !=0)
+        week_6Fullness = week_6Fullness / rowsFullness_6;
+}
+
 void DataWindow::monthlyFullnessInit()
 {
     QSqlQuery query = trashInfoManager.trashInfoDatabaseRetrieveMonthly(userId);
@@ -309,10 +394,10 @@ void DataWindow::yearlyFullnessInit()
         year_4Fullness = year_4Fullness / rowsFullness_4;
 }
 
-
 void DataWindow::createFullnessChart(int tab_index)
 {
     dailyFullnessInit();
+    weeklyFullnessInit();
     monthlyFullnessInit();
     yearlyFullnessInit();
 
@@ -357,7 +442,8 @@ void DataWindow::createFullnessChart(int tab_index)
     {
         QtCharts::QBarSet *set0 = new QtCharts::QBarSet("Fullness Percentage");
 
-        *set0 << 1 << 2 << 3 << 4 << 5 << 6 << 7;
+        *set0 << week_6Fullness << week_5Fullness << week_4Fullness << week_3Fullness
+              << week_2Fullness << week_1Fullness << weekFullness;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
         series->append(set0);
@@ -368,7 +454,7 @@ void DataWindow::createFullnessChart(int tab_index)
         chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
 
         QStringList categories;
-        categories << "Week 1" << "Week 2" << "Week 3" << "Week 4" << "Week 5" << "Week 6" << "Week 7";
+        categories << "Week -6" << "Week -5" << "Week -4" << "Week -3" << "Week -2" << "Week -1" << "Week";
         QtCharts::QBarCategoryAxis *axis = new QtCharts::QBarCategoryAxis();
         axis->append(categories);
         chart->createDefaultAxes();
