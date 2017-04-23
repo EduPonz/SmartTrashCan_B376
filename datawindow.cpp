@@ -394,6 +394,1034 @@ void DataWindow::yearlyFullnessInit()
         year_4Fullness = year_4Fullness / rowsFullness_4;
 }
 
+void DataWindow::dailyWeightInit()
+{
+    QSqlQuery query = trashInfoManager.trashInfoDatabaseRetrieveDaily(userId);
+    query.first();
+    todayWeight = 0;
+    today_1Weight = 0;
+    today_2Weight = 0;
+    today_3Weight = 0;
+    today_4Weight = 0;
+    today_5Weight = 0;
+    today_6Weight = 0;
+    int rowsWeight = 0;
+    int rowsWeight_1 = 0;
+    int rowsWeight_2 = 0;
+    int rowsWeight_3 = 0;
+    int rowsWeight_4 = 0;
+    int rowsWeight_5 = 0;
+    int rowsWeight_6 = 0;
+
+    QString todayString = QDateTime::fromString(QDate::currentDate().toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_1String = QDateTime::fromString(QDate::currentDate().addDays(-1).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_2String = QDateTime::fromString(QDate::currentDate().addDays(-2).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_3String = QDateTime::fromString(QDate::currentDate().addDays(-3).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_4String = QDateTime::fromString(QDate::currentDate().addDays(-4).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_5String = QDateTime::fromString(QDate::currentDate().addDays(-5).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_6String = QDateTime::fromString(QDate::currentDate().addDays(-6).toString(Qt::ISODate), Qt::ISODate).date().toString();
+
+    do {
+        QString databaseDate = QDateTime::fromString(query.value(0).toString(), Qt::ISODate).date().toString();
+        if (!databaseDate.compare(todayString))
+        {
+            todayWeight += query.value(2).toFloat();
+            rowsWeight ++;
+        }
+        if (!databaseDate.compare(today_1String))
+        {
+            today_1Weight += query.value(2).toFloat();
+            rowsWeight_1 ++;
+        }
+        if (!databaseDate.compare(today_2String))
+        {
+            today_2Weight += query.value(2).toFloat();
+            rowsWeight_2 ++;
+        }
+        if (!databaseDate.compare(today_3String))
+        {
+            today_3Weight += query.value(2).toFloat();
+            rowsWeight_3 ++;
+        }
+        if (!databaseDate.compare(today_4String))
+        {
+            today_4Weight += query.value(2).toFloat();
+            rowsWeight_4 ++;
+        }
+        if (!databaseDate.compare(today_5String))
+        {
+            today_5Weight += query.value(2).toFloat();
+            rowsWeight_5 ++;
+        }
+        if (!databaseDate.compare(today_6String))
+        {
+            today_6Weight += query.value(2).toFloat();
+            rowsWeight_6 ++;
+        }
+    }while (query.next());
+}
+
+void DataWindow::weeklyWeightInit()
+{
+    QSqlQuery query = trashInfoManager.trashInfoDatabaseRetrieveMonthly(userId);
+    query.first();
+
+    weekWeight = 0;
+    week_1Weight = 0;
+    week_2Weight = 0;
+    week_3Weight = 0;
+    week_4Weight = 0;
+    week_5Weight = 0;
+    week_6Weight = 0;
+
+    int rowsWeight = 0;
+    int rowsWeight_1 = 0;
+    int rowsWeight_2 = 0;
+    int rowsWeight_3 = 0;
+    int rowsWeight_4 = 0;
+    int rowsWeight_5 = 0;
+    int rowsWeight_6 = 0;
+
+    int weekInt = QDateTime::fromString(QDate::currentDate().toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_1Int = QDateTime::fromString(QDate::currentDate().addDays(-7).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_2Int = QDateTime::fromString(QDate::currentDate().addDays(-14).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_3Int = QDateTime::fromString(QDate::currentDate().addDays(-21).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_4Int = QDateTime::fromString(QDate::currentDate().addDays(-28).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_5Int = QDateTime::fromString(QDate::currentDate().addDays(-35).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_6Int = QDateTime::fromString(QDate::currentDate().addDays(-42).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+
+    do {
+        int databaseDate = QDateTime::fromString(query.value(0).toString(), Qt::ISODate).date().weekNumber();
+        if (databaseDate == weekInt)
+        {
+            weekWeight += query.value(2).toFloat();
+            rowsWeight ++;
+        }
+        if (databaseDate == week_1Int)
+        {
+            week_1Weight += query.value(2).toFloat();
+            rowsWeight_1 ++;
+        }
+        if (databaseDate == week_2Int)
+        {
+            week_2Weight += query.value(2).toFloat();
+            rowsWeight_2 ++;
+        }
+        if (databaseDate == week_3Int)
+        {
+            week_3Weight += query.value(2).toFloat();
+            rowsWeight_3 ++;
+        }
+        if (databaseDate == week_4Int)
+        {
+            week_4Weight += query.value(2).toFloat();
+            rowsWeight_4 ++;
+        }
+        if (databaseDate == week_5Int)
+        {
+            week_5Weight += query.value(2).toFloat();
+            rowsWeight_5 ++;
+        }
+        if (databaseDate == week_6Int)
+        {
+            week_6Weight += query.value(2).toFloat();
+            rowsWeight_6 ++;
+        }
+
+    }while (query.next());
+}
+
+void DataWindow::monthlyWeightInit()
+{
+    QSqlQuery query = trashInfoManager.trashInfoDatabaseRetrieveMonthly(userId);
+    query.first();
+
+    monthWeight = 0;
+    month_1Weight = 0;
+    month_2Weight = 0;
+    month_3Weight = 0;
+    month_4Weight = 0;
+    month_5Weight = 0;
+    month_6Weight = 0;
+    month_7Weight = 0;
+    month_8Weight = 0;
+    month_9Weight = 0;
+    month_10Weight = 0;
+    month_11Weight = 0;
+    int rowsWeight = 0;
+    int rowsWeight_1 = 0;
+    int rowsWeight_2 = 0;
+    int rowsWeight_3 = 0;
+    int rowsWeight_4 = 0;
+    int rowsWeight_5 = 0;
+    int rowsWeight_6 = 0;
+    int rowsWeight_7 = 0;
+    int rowsWeight_8 = 0;
+    int rowsWeight_9 = 0;
+    int rowsWeight_10 = 0;
+    int rowsWeight_11 = 0;
+
+    int monthInt = QDateTime::fromString(QDate::currentDate().toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_1Int = QDateTime::fromString(QDate::currentDate().addMonths(-1).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_2Int = QDateTime::fromString(QDate::currentDate().addMonths(-2).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_3Int = QDateTime::fromString(QDate::currentDate().addMonths(-3).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_4Int = QDateTime::fromString(QDate::currentDate().addMonths(-4).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_5Int = QDateTime::fromString(QDate::currentDate().addMonths(-5).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_6Int = QDateTime::fromString(QDate::currentDate().addMonths(-6).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_7Int = QDateTime::fromString(QDate::currentDate().addMonths(-7).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_8Int = QDateTime::fromString(QDate::currentDate().addMonths(-8).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_9Int = QDateTime::fromString(QDate::currentDate().addMonths(-9).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_10Int = QDateTime::fromString(QDate::currentDate().addMonths(-10).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_11Int = QDateTime::fromString(QDate::currentDate().addMonths(-11).toString(Qt::ISODate), Qt::ISODate).date().month();
+
+    do {
+        int databaseDate = QDateTime::fromString(query.value(0).toString(), Qt::ISODate).date().month();
+        if (databaseDate == monthInt)
+        {
+            monthWeight += query.value(2).toFloat();
+            rowsWeight ++;
+        }
+        if (databaseDate == month_1Int)
+        {
+            month_1Weight += query.value(2).toFloat();
+            rowsWeight_1 ++;
+        }
+        if (databaseDate == month_2Int)
+        {
+            month_2Weight += query.value(2).toFloat();
+            rowsWeight_2 ++;
+        }
+        if (databaseDate == month_3Int)
+        {
+            month_3Weight += query.value(2).toFloat();
+            rowsWeight_3 ++;
+        }
+        if (databaseDate == month_4Int)
+        {
+            month_4Weight += query.value(2).toFloat();
+            rowsWeight_4 ++;
+        }
+        if (databaseDate == month_5Int)
+        {
+            month_5Weight += query.value(2).toFloat();
+            rowsWeight_5 ++;
+        }
+        if (databaseDate == month_6Int)
+        {
+            month_6Weight += query.value(2).toFloat();
+            rowsWeight_6 ++;
+        }
+        if (databaseDate == month_7Int)
+        {
+            month_7Weight += query.value(2).toFloat();
+            rowsWeight_7 ++;
+        }
+        if (databaseDate == month_8Int)
+        {
+            month_8Weight += query.value(2).toFloat();
+            rowsWeight_8 ++;
+        }
+        if (databaseDate == month_9Int)
+        {
+            month_9Weight += query.value(2).toFloat();
+            rowsWeight_9 ++;
+        }
+        if (databaseDate == month_10Int)
+        {
+            month_10Weight += query.value(2).toFloat();
+            rowsWeight_10 ++;
+        }
+        if (databaseDate == month_11Int)
+        {
+            month_11Weight += query.value(2).toFloat();
+            rowsWeight_11 ++;
+        }
+    }while (query.next());
+
+}
+
+void DataWindow::yearlyWeightInit()
+{
+    QSqlQuery query = trashInfoManager.trashInfoDatabaseRetrieveMonthly(userId);
+    query.first();
+
+    yearWeight = 0;
+    year_1Weight = 0;
+    year_2Weight = 0;
+    year_3Weight = 0;
+    year_4Weight = 0;
+
+    int rowsWeight = 0;
+    int rowsWeight_1 = 0;
+    int rowsWeight_2 = 0;
+    int rowsWeight_3 = 0;
+    int rowsWeight_4 = 0;
+
+    int yearInt = QDateTime::fromString(QDate::currentDate().toString(Qt::ISODate), Qt::ISODate).date().year();
+    int year_1Int = QDateTime::fromString(QDate::currentDate().addYears(-1).toString(Qt::ISODate), Qt::ISODate).date().year();
+    int year_2Int = QDateTime::fromString(QDate::currentDate().addYears(-2).toString(Qt::ISODate), Qt::ISODate).date().year();
+    int year_3Int = QDateTime::fromString(QDate::currentDate().addYears(-3).toString(Qt::ISODate), Qt::ISODate).date().year();
+    int year_4Int = QDateTime::fromString(QDate::currentDate().addYears(-4).toString(Qt::ISODate), Qt::ISODate).date().year();
+
+    do {
+        int databaseDate = QDateTime::fromString(query.value(0).toString(), Qt::ISODate).date().year();
+        if (databaseDate == yearInt)
+        {
+            yearWeight += query.value(2).toFloat();
+            rowsWeight ++;
+        }
+        if (databaseDate == year_1Int)
+        {
+            year_1Weight += query.value(2).toFloat();
+            rowsWeight_1 ++;
+        }
+        if (databaseDate == year_2Int)
+        {
+            year_2Weight += query.value(2).toFloat();
+            rowsWeight_2 ++;
+        }
+        if (databaseDate == year_3Int)
+        {
+            year_3Weight += query.value(2).toFloat();
+            rowsWeight_3 ++;
+        }
+        if (databaseDate == year_4Int)
+        {
+            year_4Weight += query.value(2).toFloat();
+            rowsWeight_4 ++;
+        }
+    }while (query.next());
+
+}
+
+void DataWindow::dailyHumidityInit()
+{
+    QSqlQuery query = trashInfoManager.trashInfoDatabaseRetrieveDaily(userId);
+    query.first();
+    todayHumidity = 0;
+    today_1Humidity = 0;
+    today_2Humidity = 0;
+    today_3Humidity = 0;
+    today_4Humidity = 0;
+    today_5Humidity = 0;
+    today_6Humidity = 0;
+    int rowsHumidity = 0;
+    int rowsHumidity_1 = 0;
+    int rowsHumidity_2 = 0;
+    int rowsHumidity_3 = 0;
+    int rowsHumidity_4 = 0;
+    int rowsHumidity_5 = 0;
+    int rowsHumidity_6 = 0;
+
+    QString todayString = QDateTime::fromString(QDate::currentDate().toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_1String = QDateTime::fromString(QDate::currentDate().addDays(-1).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_2String = QDateTime::fromString(QDate::currentDate().addDays(-2).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_3String = QDateTime::fromString(QDate::currentDate().addDays(-3).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_4String = QDateTime::fromString(QDate::currentDate().addDays(-4).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_5String = QDateTime::fromString(QDate::currentDate().addDays(-5).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_6String = QDateTime::fromString(QDate::currentDate().addDays(-6).toString(Qt::ISODate), Qt::ISODate).date().toString();
+
+    do {
+        QString databaseDate = QDateTime::fromString(query.value(0).toString(), Qt::ISODate).date().toString();
+        if (!databaseDate.compare(todayString))
+        {
+            todayHumidity += query.value(3).toFloat();
+            rowsHumidity ++;
+        }
+        if (!databaseDate.compare(today_1String))
+        {
+            today_1Humidity += query.value(3).toFloat();
+            rowsHumidity_1 ++;
+        }
+        if (!databaseDate.compare(today_2String))
+        {
+            today_2Humidity += query.value(3).toFloat();
+            rowsHumidity_2 ++;
+        }
+        if (!databaseDate.compare(today_3String))
+        {
+            today_3Humidity += query.value(3).toFloat();
+            rowsHumidity_3 ++;
+        }
+        if (!databaseDate.compare(today_4String))
+        {
+            today_4Humidity += query.value(3).toFloat();
+            rowsHumidity_4 ++;
+        }
+        if (!databaseDate.compare(today_5String))
+        {
+            today_5Humidity += query.value(3).toFloat();
+            rowsHumidity_5 ++;
+        }
+        if (!databaseDate.compare(today_6String))
+        {
+            today_6Humidity += query.value(3).toFloat();
+            rowsHumidity_6 ++;
+        }
+    }while (query.next());
+
+    if (rowsHumidity != 0)
+        todayHumidity = todayHumidity / rowsHumidity;
+    if (rowsHumidity_1 !=0)
+        today_1Humidity = today_1Humidity / rowsHumidity_1;
+    if (rowsHumidity_2 !=0)
+        today_2Humidity = today_2Humidity / rowsHumidity_2;
+    if (rowsHumidity_3 !=0)
+        today_3Humidity = today_3Humidity / rowsHumidity_3;
+    if (rowsHumidity_4 !=0)
+        today_4Humidity= today_4Humidity / rowsHumidity_4;
+    if (rowsHumidity_5 !=0)
+        today_5Humidity = today_5Humidity / rowsHumidity_5;
+    if (rowsHumidity_6 !=0)
+        today_6Humidity = today_6Humidity / rowsHumidity_6;
+}
+
+void DataWindow::weeklyHumidityInit()
+{
+    QSqlQuery query = trashInfoManager.trashInfoDatabaseRetrieveMonthly(userId);
+    query.first();
+
+    weekHumidity = 0;
+    week_1Humidity = 0;
+    week_2Humidity = 0;
+    week_3Humidity = 0;
+    week_4Humidity = 0;
+    week_5Humidity = 0;
+    week_6Humidity = 0;
+
+    int rowsHumidity = 0;
+    int rowsHumidity_1 = 0;
+    int rowsHumidity_2 = 0;
+    int rowsHumidity_3 = 0;
+    int rowsHumidity_4 = 0;
+    int rowsHumidity_5 = 0;
+    int rowsHumidity_6 = 0;
+
+    int weekInt = QDateTime::fromString(QDate::currentDate().toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_1Int = QDateTime::fromString(QDate::currentDate().addDays(-7).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_2Int = QDateTime::fromString(QDate::currentDate().addDays(-14).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_3Int = QDateTime::fromString(QDate::currentDate().addDays(-21).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_4Int = QDateTime::fromString(QDate::currentDate().addDays(-28).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_5Int = QDateTime::fromString(QDate::currentDate().addDays(-35).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_6Int = QDateTime::fromString(QDate::currentDate().addDays(-42).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+
+    do {
+        int databaseDate = QDateTime::fromString(query.value(0).toString(), Qt::ISODate).date().weekNumber();
+        if (databaseDate == weekInt)
+        {
+            weekHumidity += query.value(3).toFloat();
+            rowsHumidity ++;
+        }
+        if (databaseDate == week_1Int)
+        {
+            week_1Humidity += query.value(3).toFloat();
+            rowsHumidity_1 ++;
+        }
+        if (databaseDate == week_2Int)
+        {
+            week_2Humidity += query.value(3).toFloat();
+            rowsHumidity_2 ++;
+        }
+        if (databaseDate == week_3Int)
+        {
+            week_3Humidity += query.value(3).toFloat();
+            rowsHumidity_3 ++;
+        }
+        if (databaseDate == week_4Int)
+        {
+            week_4Humidity += query.value(3).toFloat();
+            rowsHumidity_4 ++;
+        }
+        if (databaseDate == week_5Int)
+        {
+            week_5Humidity += query.value(3).toFloat();
+            rowsHumidity_5 ++;
+        }
+        if (databaseDate == week_6Int)
+        {
+            week_6Humidity += query.value(3).toFloat();
+            rowsHumidity_6 ++;
+        }
+
+    }while (query.next());
+
+    if (rowsHumidity != 0)
+        weekHumidity = weekHumidity / rowsHumidity;
+    if (rowsHumidity_1 !=0)
+        week_1Humidity = week_1Humidity / rowsHumidity_1;
+    if (rowsHumidity_2 !=0)
+        week_2Humidity = week_2Humidity / rowsHumidity_2;
+    if (rowsHumidity_3 !=0)
+        week_3Humidity = week_3Humidity / rowsHumidity_3;
+    if (rowsHumidity_4 !=0)
+        week_4Humidity = week_4Humidity / rowsHumidity_4;
+    if (rowsHumidity_5 !=0)
+        week_5Humidity = week_5Humidity / rowsHumidity_5;
+    if (rowsHumidity_6 !=0)
+        week_6Humidity = week_6Humidity / rowsHumidity_6;
+}
+
+void DataWindow::monthlyHumidityInit()
+{
+    QSqlQuery query = trashInfoManager.trashInfoDatabaseRetrieveMonthly(userId);
+    query.first();
+
+    monthHumidity = 0;
+    month_1Humidity = 0;
+    month_2Humidity = 0;
+    month_3Humidity = 0;
+    month_4Humidity = 0;
+    month_5Humidity = 0;
+    month_6Humidity = 0;
+    month_7Humidity = 0;
+    month_8Humidity = 0;
+    month_9Humidity = 0;
+    month_10Humidity = 0;
+    month_11Humidity = 0;
+    int rowsHumidity = 0;
+    int rowsHumidity_1 = 0;
+    int rowsHumidity_2 = 0;
+    int rowsHumidity_3 = 0;
+    int rowsHumidity_4 = 0;
+    int rowsHumidity_5 = 0;
+    int rowsHumidity_6 = 0;
+    int rowsHumidity_7 = 0;
+    int rowsHumidity_8 = 0;
+    int rowsHumidity_9 = 0;
+    int rowsHumidity_10 = 0;
+    int rowsHumidity_11 = 0;
+
+    int monthInt = QDateTime::fromString(QDate::currentDate().toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_1Int = QDateTime::fromString(QDate::currentDate().addMonths(-1).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_2Int = QDateTime::fromString(QDate::currentDate().addMonths(-2).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_3Int = QDateTime::fromString(QDate::currentDate().addMonths(-3).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_4Int = QDateTime::fromString(QDate::currentDate().addMonths(-4).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_5Int = QDateTime::fromString(QDate::currentDate().addMonths(-5).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_6Int = QDateTime::fromString(QDate::currentDate().addMonths(-6).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_7Int = QDateTime::fromString(QDate::currentDate().addMonths(-7).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_8Int = QDateTime::fromString(QDate::currentDate().addMonths(-8).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_9Int = QDateTime::fromString(QDate::currentDate().addMonths(-9).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_10Int = QDateTime::fromString(QDate::currentDate().addMonths(-10).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_11Int = QDateTime::fromString(QDate::currentDate().addMonths(-11).toString(Qt::ISODate), Qt::ISODate).date().month();
+
+    do {
+        int databaseDate = QDateTime::fromString(query.value(0).toString(), Qt::ISODate).date().month();
+        if (databaseDate == monthInt)
+        {
+            monthHumidity += query.value(3).toFloat();
+            rowsHumidity ++;
+        }
+        if (databaseDate == month_1Int)
+        {
+            month_1Humidity += query.value(3).toFloat();
+            rowsHumidity_1 ++;
+        }
+        if (databaseDate == month_2Int)
+        {
+            month_2Humidity += query.value(3).toFloat();
+            rowsHumidity_2 ++;
+        }
+        if (databaseDate == month_3Int)
+        {
+            month_3Humidity += query.value(3).toFloat();
+            rowsHumidity_3 ++;
+        }
+        if (databaseDate == month_4Int)
+        {
+            month_4Humidity += query.value(3).toFloat();
+            rowsHumidity_4 ++;
+        }
+        if (databaseDate == month_5Int)
+        {
+            month_5Humidity += query.value(3).toFloat();
+            rowsHumidity_5 ++;
+        }
+        if (databaseDate == month_6Int)
+        {
+            month_6Humidity += query.value(3).toFloat();
+            rowsHumidity_6 ++;
+        }
+        if (databaseDate == month_7Int)
+        {
+            month_7Humidity += query.value(3).toFloat();
+            rowsHumidity_7 ++;
+        }
+        if (databaseDate == month_8Int)
+        {
+            month_8Humidity += query.value(3).toFloat();
+            rowsHumidity_8 ++;
+        }
+        if (databaseDate == month_9Int)
+        {
+            month_9Humidity += query.value(3).toFloat();
+            rowsHumidity_9 ++;
+        }
+        if (databaseDate == month_10Int)
+        {
+            month_10Humidity += query.value(3).toFloat();
+            rowsHumidity_10 ++;
+        }
+        if (databaseDate == month_11Int)
+        {
+            month_11Humidity += query.value(3).toFloat();
+            rowsHumidity_11 ++;
+        }
+    }while (query.next());
+
+    if (rowsHumidity != 0)
+        monthHumidity = monthHumidity / rowsHumidity;
+    if (rowsHumidity_1 !=0)
+        month_1Humidity = month_1Humidity / rowsHumidity_1;
+    if (rowsHumidity_2 !=0)
+        month_2Humidity = month_2Humidity / rowsHumidity_2;
+    if (rowsHumidity_3 !=0)
+        month_3Humidity = month_3Humidity / rowsHumidity_3;
+    if (rowsHumidity_4 !=0)
+        month_4Humidity = month_4Humidity / rowsHumidity_4;
+    if (rowsHumidity_5 !=0)
+        month_5Humidity = month_5Humidity / rowsHumidity_5;
+    if (rowsHumidity_6 !=0)
+        month_6Humidity = month_6Humidity / rowsHumidity_6;
+    if (rowsHumidity_7 !=0)
+        month_7Humidity = month_7Humidity / rowsHumidity_7;
+    if (rowsHumidity_8 !=0)
+        month_8Humidity = month_8Humidity / rowsHumidity_8;
+    if (rowsHumidity_9 !=0)
+        month_9Humidity = month_9Humidity / rowsHumidity_9;
+    if (rowsHumidity_10 !=0)
+        month_10Humidity = month_10Humidity / rowsHumidity_10;
+    if (rowsHumidity_11 !=0)
+        month_11Humidity = month_11Humidity / rowsHumidity_11;
+}
+
+void DataWindow::yearlyHumidityInit()
+{
+    QSqlQuery query = trashInfoManager.trashInfoDatabaseRetrieveMonthly(userId);
+    query.first();
+
+    yearHumidity = 0;
+    year_1Humidity = 0;
+    year_2Humidity = 0;
+    year_3Humidity = 0;
+    year_4Humidity = 0;
+
+    int rowsHumidity = 0;
+    int rowsHumidity_1 = 0;
+    int rowsHumidity_2 = 0;
+    int rowsHumidity_3 = 0;
+    int rowsHumidity_4 = 0;
+
+    int yearInt = QDateTime::fromString(QDate::currentDate().toString(Qt::ISODate), Qt::ISODate).date().year();
+    int year_1Int = QDateTime::fromString(QDate::currentDate().addYears(-1).toString(Qt::ISODate), Qt::ISODate).date().year();
+    int year_2Int = QDateTime::fromString(QDate::currentDate().addYears(-2).toString(Qt::ISODate), Qt::ISODate).date().year();
+    int year_3Int = QDateTime::fromString(QDate::currentDate().addYears(-3).toString(Qt::ISODate), Qt::ISODate).date().year();
+    int year_4Int = QDateTime::fromString(QDate::currentDate().addYears(-4).toString(Qt::ISODate), Qt::ISODate).date().year();
+
+    do {
+        int databaseDate = QDateTime::fromString(query.value(0).toString(), Qt::ISODate).date().year();
+        if (databaseDate == yearInt)
+        {
+            yearHumidity += query.value(3).toFloat();
+            rowsHumidity ++;
+        }
+        if (databaseDate == year_1Int)
+        {
+            year_1Humidity += query.value(3).toFloat();
+            rowsHumidity_1 ++;
+        }
+        if (databaseDate == year_2Int)
+        {
+            year_2Humidity += query.value(3).toFloat();
+            rowsHumidity_2 ++;
+        }
+        if (databaseDate == year_3Int)
+        {
+            year_3Humidity += query.value(3).toFloat();
+            rowsHumidity_3 ++;
+        }
+        if (databaseDate == year_4Int)
+        {
+            year_4Humidity += query.value(3).toFloat();
+            rowsHumidity_4 ++;
+        }
+    }while (query.next());
+
+    if (rowsHumidity != 0)
+        yearHumidity = yearHumidity / rowsHumidity;
+    if (rowsHumidity_1 !=0)
+        year_1Humidity = year_1Humidity / rowsHumidity_1;
+    if (rowsHumidity_2 !=0)
+        year_2Humidity = year_2Humidity / rowsHumidity_2;
+    if (rowsHumidity_3 !=0)
+        year_3Humidity = year_3Humidity / rowsHumidity_3;
+    if (rowsHumidity_4 !=0)
+        year_4Humidity = year_4Humidity / rowsHumidity_4;
+}
+
+void DataWindow::dailyTemperatureInit()
+{
+    QSqlQuery query = trashInfoManager.trashInfoDatabaseRetrieveDaily(userId);
+    query.first();
+    todayTemperature = 0;
+    today_1Temperature = 0;
+    today_2Temperature = 0;
+    today_3Temperature = 0;
+    today_4Temperature = 0;
+    today_5Temperature = 0;
+    today_6Temperature = 0;
+    int rowsTemperature = 0;
+    int rowsTemperature_1 = 0;
+    int rowsTemperature_2 = 0;
+    int rowsTemperature_3 = 0;
+    int rowsTemperature_4 = 0;
+    int rowsTemperature_5 = 0;
+    int rowsTemperature_6 = 0;
+
+    QString todayString = QDateTime::fromString(QDate::currentDate().toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_1String = QDateTime::fromString(QDate::currentDate().addDays(-1).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_2String = QDateTime::fromString(QDate::currentDate().addDays(-2).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_3String = QDateTime::fromString(QDate::currentDate().addDays(-3).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_4String = QDateTime::fromString(QDate::currentDate().addDays(-4).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_5String = QDateTime::fromString(QDate::currentDate().addDays(-5).toString(Qt::ISODate), Qt::ISODate).date().toString();
+    QString today_6String = QDateTime::fromString(QDate::currentDate().addDays(-6).toString(Qt::ISODate), Qt::ISODate).date().toString();
+
+    do {
+        QString databaseDate = QDateTime::fromString(query.value(0).toString(), Qt::ISODate).date().toString();
+        if (!databaseDate.compare(todayString))
+        {
+            todayTemperature += query.value(4).toFloat();
+            rowsTemperature ++;
+        }
+        if (!databaseDate.compare(today_1String))
+        {
+            today_1Temperature += query.value(4).toFloat();
+            rowsTemperature_1 ++;
+        }
+        if (!databaseDate.compare(today_2String))
+        {
+            today_2Temperature += query.value(4).toFloat();
+            rowsTemperature_2 ++;
+        }
+        if (!databaseDate.compare(today_3String))
+        {
+            today_3Temperature += query.value(4).toFloat();
+            rowsTemperature_3 ++;
+        }
+        if (!databaseDate.compare(today_4String))
+        {
+            today_4Temperature += query.value(4).toFloat();
+            rowsTemperature_4 ++;
+        }
+        if (!databaseDate.compare(today_5String))
+        {
+            today_5Temperature += query.value(4).toFloat();
+            rowsTemperature_5 ++;
+        }
+        if (!databaseDate.compare(today_6String))
+        {
+            today_6Temperature += query.value(4).toFloat();
+            rowsTemperature_6 ++;
+        }
+    }while (query.next());
+
+    if (rowsTemperature != 0)
+        todayTemperature = todayTemperature / rowsTemperature;
+    if (rowsTemperature_1 !=0)
+        today_1Temperature = today_1Temperature / rowsTemperature_1;
+    if (rowsTemperature_2 !=0)
+        today_2Temperature = today_2Temperature / rowsTemperature_2;
+    if (rowsTemperature_3 !=0)
+        today_3Temperature = today_3Temperature / rowsTemperature_3;
+    if (rowsTemperature_4 !=0)
+        today_4Temperature= today_4Temperature / rowsTemperature_4;
+    if (rowsTemperature_5 !=0)
+        today_5Temperature = today_5Temperature / rowsTemperature_5;
+    if (rowsTemperature_6 !=0)
+        today_6Temperature = today_6Temperature / rowsTemperature_6;
+}
+
+void DataWindow::weeklyTemperatureInit()
+{
+    QSqlQuery query = trashInfoManager.trashInfoDatabaseRetrieveMonthly(userId);
+    query.first();
+
+    weekTemperature = 0;
+    week_1Temperature = 0;
+    week_2Temperature = 0;
+    week_3Temperature = 0;
+    week_4Temperature = 0;
+    week_5Temperature = 0;
+    week_6Temperature = 0;
+
+    int rowsTemperature = 0;
+    int rowsTemperature_1 = 0;
+    int rowsTemperature_2 = 0;
+    int rowsTemperature_3 = 0;
+    int rowsTemperature_4 = 0;
+    int rowsTemperature_5 = 0;
+    int rowsTemperature_6 = 0;
+
+    int weekInt = QDateTime::fromString(QDate::currentDate().toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_1Int = QDateTime::fromString(QDate::currentDate().addDays(-7).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_2Int = QDateTime::fromString(QDate::currentDate().addDays(-14).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_3Int = QDateTime::fromString(QDate::currentDate().addDays(-21).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_4Int = QDateTime::fromString(QDate::currentDate().addDays(-28).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_5Int = QDateTime::fromString(QDate::currentDate().addDays(-35).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+    int week_6Int = QDateTime::fromString(QDate::currentDate().addDays(-42).toString(Qt::ISODate), Qt::ISODate).date().weekNumber();
+
+    do {
+        int databaseDate = QDateTime::fromString(query.value(0).toString(), Qt::ISODate).date().weekNumber();
+        if (databaseDate == weekInt)
+        {
+            weekTemperature += query.value(4).toFloat();
+            rowsTemperature ++;
+        }
+        if (databaseDate == week_1Int)
+        {
+            week_1Temperature += query.value(4).toFloat();
+            rowsTemperature_1 ++;
+        }
+        if (databaseDate == week_2Int)
+        {
+            week_2Temperature += query.value(4).toFloat();
+            rowsTemperature_2 ++;
+        }
+        if (databaseDate == week_3Int)
+        {
+            week_3Temperature += query.value(4).toFloat();
+            rowsTemperature_3 ++;
+        }
+        if (databaseDate == week_4Int)
+        {
+            week_4Temperature += query.value(4).toFloat();
+            rowsTemperature_4 ++;
+        }
+        if (databaseDate == week_5Int)
+        {
+            week_5Temperature += query.value(4).toFloat();
+            rowsTemperature_5 ++;
+        }
+        if (databaseDate == week_6Int)
+        {
+            week_6Temperature += query.value(4).toFloat();
+            rowsTemperature_6 ++;
+        }
+
+    }while (query.next());
+
+    if (rowsTemperature != 0)
+        weekTemperature = weekTemperature / rowsTemperature;
+    if (rowsTemperature_1 !=0)
+        week_1Temperature = week_1Temperature / rowsTemperature_1;
+    if (rowsTemperature_2 !=0)
+        week_2Temperature = week_2Temperature / rowsTemperature_2;
+    if (rowsTemperature_3 !=0)
+        week_3Temperature = week_3Temperature / rowsTemperature_3;
+    if (rowsTemperature_4 !=0)
+        week_4Temperature = week_4Temperature / rowsTemperature_4;
+    if (rowsTemperature_5 !=0)
+        week_5Temperature = week_5Temperature / rowsTemperature_5;
+    if (rowsTemperature_6 !=0)
+        week_6Temperature = week_6Temperature / rowsTemperature_6;
+}
+
+void DataWindow::monthlyTemperatureInit()
+{
+    QSqlQuery query = trashInfoManager.trashInfoDatabaseRetrieveMonthly(userId);
+    query.first();
+
+    monthTemperature = 0;
+    month_1Temperature = 0;
+    month_2Temperature = 0;
+    month_3Temperature = 0;
+    month_4Temperature = 0;
+    month_5Temperature = 0;
+    month_6Temperature = 0;
+    month_7Temperature = 0;
+    month_8Temperature = 0;
+    month_9Temperature = 0;
+    month_10Temperature = 0;
+    month_11Temperature = 0;
+    int rowsTemperature = 0;
+    int rowsTemperature_1 = 0;
+    int rowsTemperature_2 = 0;
+    int rowsTemperature_3 = 0;
+    int rowsTemperature_4 = 0;
+    int rowsTemperature_5 = 0;
+    int rowsTemperature_6 = 0;
+    int rowsTemperature_7 = 0;
+    int rowsTemperature_8 = 0;
+    int rowsTemperature_9 = 0;
+    int rowsTemperature_10 = 0;
+    int rowsTemperature_11 = 0;
+
+    int monthInt = QDateTime::fromString(QDate::currentDate().toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_1Int = QDateTime::fromString(QDate::currentDate().addMonths(-1).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_2Int = QDateTime::fromString(QDate::currentDate().addMonths(-2).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_3Int = QDateTime::fromString(QDate::currentDate().addMonths(-3).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_4Int = QDateTime::fromString(QDate::currentDate().addMonths(-4).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_5Int = QDateTime::fromString(QDate::currentDate().addMonths(-5).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_6Int = QDateTime::fromString(QDate::currentDate().addMonths(-6).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_7Int = QDateTime::fromString(QDate::currentDate().addMonths(-7).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_8Int = QDateTime::fromString(QDate::currentDate().addMonths(-8).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_9Int = QDateTime::fromString(QDate::currentDate().addMonths(-9).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_10Int = QDateTime::fromString(QDate::currentDate().addMonths(-10).toString(Qt::ISODate), Qt::ISODate).date().month();
+    int month_11Int = QDateTime::fromString(QDate::currentDate().addMonths(-11).toString(Qt::ISODate), Qt::ISODate).date().month();
+
+    do {
+        int databaseDate = QDateTime::fromString(query.value(0).toString(), Qt::ISODate).date().month();
+        if (databaseDate == monthInt)
+        {
+            monthTemperature += query.value(4).toFloat();
+            rowsTemperature ++;
+        }
+        if (databaseDate == month_1Int)
+        {
+            month_1Temperature += query.value(4).toFloat();
+            rowsTemperature_1 ++;
+        }
+        if (databaseDate == month_2Int)
+        {
+            month_2Temperature += query.value(4).toFloat();
+            rowsTemperature_2 ++;
+        }
+        if (databaseDate == month_3Int)
+        {
+            month_3Temperature += query.value(4).toFloat();
+            rowsTemperature_3 ++;
+        }
+        if (databaseDate == month_4Int)
+        {
+            month_4Temperature += query.value(4).toFloat();
+            rowsTemperature_4 ++;
+        }
+        if (databaseDate == month_5Int)
+        {
+            month_5Temperature += query.value(4).toFloat();
+            rowsTemperature_5 ++;
+        }
+        if (databaseDate == month_6Int)
+        {
+            month_6Temperature += query.value(4).toFloat();
+            rowsTemperature_6 ++;
+        }
+        if (databaseDate == month_7Int)
+        {
+            month_7Temperature += query.value(4).toFloat();
+            rowsTemperature_7 ++;
+        }
+        if (databaseDate == month_8Int)
+        {
+            month_8Temperature += query.value(4).toFloat();
+            rowsTemperature_8 ++;
+        }
+        if (databaseDate == month_9Int)
+        {
+            month_9Temperature += query.value(4).toFloat();
+            rowsTemperature_9 ++;
+        }
+        if (databaseDate == month_10Int)
+        {
+            month_10Temperature += query.value(4).toFloat();
+            rowsTemperature_10 ++;
+        }
+        if (databaseDate == month_11Int)
+        {
+            month_11Temperature += query.value(4).toFloat();
+            rowsTemperature_11 ++;
+        }
+    }while (query.next());
+
+    if (rowsTemperature != 0)
+        monthTemperature = monthTemperature / rowsTemperature;
+    if (rowsTemperature_1 !=0)
+        month_1Temperature = month_1Temperature / rowsTemperature_1;
+    if (rowsTemperature_2 !=0)
+        month_2Temperature = month_2Temperature / rowsTemperature_2;
+    if (rowsTemperature_3 !=0)
+        month_3Temperature = month_3Temperature / rowsTemperature_3;
+    if (rowsTemperature_4 !=0)
+        month_4Temperature = month_4Temperature / rowsTemperature_4;
+    if (rowsTemperature_5 !=0)
+        month_5Temperature = month_5Temperature / rowsTemperature_5;
+    if (rowsTemperature_6 !=0)
+        month_6Temperature = month_6Temperature / rowsTemperature_6;
+    if (rowsTemperature_7 !=0)
+        month_7Temperature = month_7Temperature / rowsTemperature_7;
+    if (rowsTemperature_8 !=0)
+        month_8Temperature = month_8Temperature / rowsTemperature_8;
+    if (rowsTemperature_9 !=0)
+        month_9Temperature = month_9Temperature / rowsTemperature_9;
+    if (rowsTemperature_10 !=0)
+        month_10Temperature = month_10Temperature / rowsTemperature_10;
+    if (rowsTemperature_11 !=0)
+        month_11Temperature = month_11Temperature / rowsTemperature_11;
+}
+
+void DataWindow::yearlyTemperatureInit()
+{
+    QSqlQuery query = trashInfoManager.trashInfoDatabaseRetrieveMonthly(userId);
+    query.first();
+
+    yearTemperature = 0;
+    year_1Temperature = 0;
+    year_2Temperature = 0;
+    year_3Temperature = 0;
+    year_4Temperature = 0;
+
+    int rowsTemperature = 0;
+    int rowsTemperature_1 = 0;
+    int rowsTemperature_2 = 0;
+    int rowsTemperature_3 = 0;
+    int rowsTemperature_4 = 0;
+
+    int yearInt = QDateTime::fromString(QDate::currentDate().toString(Qt::ISODate), Qt::ISODate).date().year();
+    int year_1Int = QDateTime::fromString(QDate::currentDate().addYears(-1).toString(Qt::ISODate), Qt::ISODate).date().year();
+    int year_2Int = QDateTime::fromString(QDate::currentDate().addYears(-2).toString(Qt::ISODate), Qt::ISODate).date().year();
+    int year_3Int = QDateTime::fromString(QDate::currentDate().addYears(-3).toString(Qt::ISODate), Qt::ISODate).date().year();
+    int year_4Int = QDateTime::fromString(QDate::currentDate().addYears(-4).toString(Qt::ISODate), Qt::ISODate).date().year();
+
+    do {
+        int databaseDate = QDateTime::fromString(query.value(0).toString(), Qt::ISODate).date().year();
+        if (databaseDate == yearInt)
+        {
+            yearTemperature += query.value(4).toFloat();
+            rowsTemperature ++;
+        }
+        if (databaseDate == year_1Int)
+        {
+            year_1Temperature += query.value(4).toFloat();
+            rowsTemperature_1 ++;
+        }
+        if (databaseDate == year_2Int)
+        {
+            year_2Temperature += query.value(4).toFloat();
+            rowsTemperature_2 ++;
+        }
+        if (databaseDate == year_3Int)
+        {
+            year_3Temperature += query.value(4).toFloat();
+            rowsTemperature_3 ++;
+        }
+        if (databaseDate == year_4Int)
+        {
+            year_4Temperature += query.value(4).toFloat();
+            rowsTemperature_4 ++;
+        }
+    }while (query.next());
+
+    if (rowsTemperature != 0)
+        yearTemperature = yearTemperature / rowsTemperature;
+    if (rowsTemperature_1 !=0)
+        year_1Temperature = year_1Temperature / rowsTemperature_1;
+    if (rowsTemperature_2 !=0)
+        year_2Temperature = year_2Temperature / rowsTemperature_2;
+    if (rowsTemperature_3 !=0)
+        year_3Temperature = year_3Temperature / rowsTemperature_3;
+    if (rowsTemperature_4 !=0)
+        year_4Temperature = year_4Temperature / rowsTemperature_4;
+}
+
 void DataWindow::createFullnessChart(int tab_index)
 {
     dailyFullnessInit();
