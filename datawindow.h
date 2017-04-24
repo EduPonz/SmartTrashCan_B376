@@ -224,6 +224,8 @@ private:
     void monthlyTemperatureInit();
     void yearlyTemperatureInit();
 
+    void currentDataShow();
+
 };
 
 #endif // DATAWINDOW_H
