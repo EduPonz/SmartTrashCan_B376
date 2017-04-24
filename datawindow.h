@@ -43,11 +43,13 @@ private slots:
 
     void on_tabWidget_currentChanged(int index);
 
+    void on_temperatureTitleButton_clicked();
+
 private:
     QSerialPort *arduino;
 
     static const quint16 arduino_uno_vendor_id = 9025;
-    static const quint16 arduino_uno_product_id = 67;
+    static const quint16 arduino_uno_product_id = 66;
     QByteArray serialData;
     QString serialBuffer;
     QString parsed_data_1;

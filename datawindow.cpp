@@ -37,9 +37,12 @@ void DataWindow::currentDataShow()
 {
     QSqlQuery query = trashInfoManager.trashInfoDatabaseRetrieveDaily(userId);
     query.last();
-    QString fullness = query.value(1).toString() + " %";
-    QString weight = query.value(2).toString() + " Kg";
-    QString humidity = query.value(3).toString() + " %";
+    int fullnessInt = query.value(1).toInt();
+    QString fullness = QString::number(fullnessInt) + " %";
+    int weightInt = query.value(2).toInt();
+    QString weight = QString::number(weightInt) + " Kg";
+    int humidityInt = query.value(3).toInt();
+    QString humidity = QString::number(humidityInt)+ " %";
     QString temperature = query.value(4).toString() + " ºC";
 
     ui->fullnessDataButton->setText(fullness);
@@ -140,21 +143,24 @@ void DataWindow::readSerial()
         serialData.clear();
     }else{
         // the second element of buffer_split is parsed correctly, update the temperature value on temp_lcdNumber
-        serialBuffer = "";
         qDebug() << buffer_split << "\n";
-        parsed_data_1 = buffer_split[1];
-        parsed_data_2 = buffer_split[2];
-        parsed_data_3 = buffer_split[3];
-        parsed_data_4 = buffer_split[4];
-        qDebug() << "Fullness: " << parsed_data_1;
-        qDebug() << "Weight: " << parsed_data_2;
-        qDebug() << "Humidity: " << parsed_data_3;
-        qDebug() << "Temperature: " << parsed_data_4;
-        float fullness = parsed_data_1.toFloat();
-        float weigth = parsed_data_2.toFloat();
-        float humidity = parsed_data_3.toFloat();
-        float temperature = parsed_data_4.toFloat();
-        trashInfoManager.trashInfoDatabaseInsert(userId, fullness, weigth, humidity, temperature);
+        serialBuffer = "";
+        if (buffer_split[0] == buffer_split[1]){
+            serialBuffer = "";
+            parsed_data_1 = buffer_split[1];
+            parsed_data_2 = buffer_split[2];
+            parsed_data_3 = buffer_split[3];
+            parsed_data_4 = buffer_split[4];
+            qDebug() << "Fullness: " << parsed_data_1;
+            qDebug() << "Weight: " << parsed_data_2;
+            qDebug() << "Humidity: " << parsed_data_3;
+            qDebug() << "Temperature: " << parsed_data_4;
+            float fullness = parsed_data_1.toFloat();
+            float weigth = parsed_data_2.toFloat();
+            float humidity = parsed_data_3.toFloat();
+            float temperature = parsed_data_4.toFloat();
+            trashInfoManager.trashInfoDatabaseInsert(userId, fullness, weigth, humidity, temperature);
+        }
     }
 }
 
@@ -2280,4 +2286,9 @@ void DataWindow::on_tabWidget_currentChanged(int index)
     default:
         break;
     }
+}
+
+void DataWindow::on_temperatureTitleButton_clicked()
+{
+    on_temperatureDataButton_clicked();
 }
