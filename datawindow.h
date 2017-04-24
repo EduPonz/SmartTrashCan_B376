@@ -8,6 +8,7 @@
 #include <QSerialPortInfo>
 #include <QByteArray>
 #include "trashinfodatabasemanager.h"
+#include "userdatabasemanager.h"
 
 
 namespace Ui {
@@ -199,6 +200,7 @@ private:
     void createHumidityChart(int tab_index);
     void createTemperatureChart(int tab_index);
     TrashInfoDatabaseManager trashInfoManager;
+    UserDataBaseManager userManager;
 
     int typeOfDataSelected;
 

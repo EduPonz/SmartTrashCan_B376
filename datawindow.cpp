@@ -46,8 +46,21 @@ void DataWindow::currentDataShow()
     ui->weightDataButton->setText(weight);
     ui->humidityDataButton->setText(humidity);
     ui->temperatureDataButton->setText(temperature);
-}
 
+    int pickup_day = userManager.userDataBaseRetrievePickupDay(userId);
+    int current_weekDay = QDateTime::currentDateTime().date().dayOfWeek();
+    if (pickup_day <= current_weekDay){
+        int days_to_advance = current_weekDay - pickup_day;
+        QString date_to_show = QDate::fromString(QDate::currentDate().addDays(days_to_advance).
+                                                     toString(Qt::ISODate), Qt::ISODate).toString();
+        ui->nextPickUpDataButton->setText(date_to_show);
+    }else{
+        int days_to_advance = pickup_day - current_weekDay;
+        QString date_to_show = QDate::fromString(QDate::currentDate().addDays(days_to_advance).
+                                                     toString(Qt::ISODate), Qt::ISODate).toString();
+        ui->nextPickUpDataButton->setText(date_to_show);
+    }
+}
 
 void DataWindow::readTrashData()
 {

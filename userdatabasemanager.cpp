@@ -370,7 +370,8 @@ QString UserDataBaseManager::userDataBaseRetrieveUserName(int id)
     return username;
 }
 
-QString UserDataBaseManager::userDataBaseRetrieveUserEmail(int id){
+QString UserDataBaseManager::userDataBaseRetrieveUserEmail(int id)
+{
 
     QSqlQuery query;
 
@@ -412,17 +413,26 @@ int UserDataBaseManager::userDataBaseRetrievePickupDay(int id)
 
     query.prepare(SQL_RETRIEVE_USER_DATABASE_PICKUP_DAY);
     query.addBindValue(id);
-    int pickup_day;
+    int pickup_day = 0;
+    QString pickup_day_str;
     if(!query.exec())
         qWarning() << "UserDataBaseManager::userDataBaseRetrievePickupDay - ERROR: " << query.lastError().text();
     else{
         query.first();
-        pickup_day = query.value(0).toInt();
-
+        pickup_day_str = query.value(0).toString();
+        if (!pickup_day_str.compare(MONDAY))
+            pickup_day = 1;
+        if (!pickup_day_str.compare(TUESDAY))
+            pickup_day = 2;
+        if (!pickup_day_str.compare(WEDNESDAY))
+            pickup_day = 3;
+        if (!pickup_day_str.compare(THURSDAY))
+            pickup_day = 4;
+        if (!pickup_day_str.compare(FRIDAY))
+            pickup_day = 5;
     }
     return pickup_day;
 }
-
 
 void UserDataBaseManager::userDatabaseDeleteAll()
 {
