@@ -23,10 +23,15 @@ public:
 
     ~ExtraPickupWindow();
 
+signals:
+    void cancel_service();
+
 private slots:
     void on_extrapickupConfirmButton_clicked();
 
     void mailSent(QString);
+    void on_pushButton_2_clicked();
+
 private:
 
     UserDataBaseManager dataBase;

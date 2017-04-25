@@ -4,5 +4,7 @@
         <file>Resources/homeButton.png</file>
         <file>Resources/ukFlak.png</file>
         <file>Resources/danishFlag.jpg</file>
+        <file>Resources/home_blue.png</file>
+        <file>Resources/settings_blue.png</file>
     </qresource>
 </RCC>

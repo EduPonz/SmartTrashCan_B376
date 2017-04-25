@@ -147,3 +147,8 @@ ExtraPickupWindow::~ExtraPickupWindow()
 {
     delete ui;
 }
+
+void ExtraPickupWindow::on_pushButton_2_clicked()
+{
+    emit cancel_service();
+}
