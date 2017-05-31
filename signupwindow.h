@@ -17,19 +17,20 @@ class SignUpWindow : public QWidget
     Q_OBJECT
 
 public:
-    SignUpWindow(QWidget *parent = 0);
-    ~SignUpWindow();
+    SignUpWindow(QWidget *parent = 0); /*!<Assigns the UI.*/
+    ~SignUpWindow(); /*!<Deletes the signupwindow.ui UI.*/
 
 signals:
-    void signUpAddUserSignal(int id);
-    void singUpCancelSignUp();
+    void signUpAddUserSignal(int id); /*!<Signal emitted when a new user has been added to the database.*/
+    void singUpCancelSignUp(); /*!<Signal emitted when the signUpCancelButton button has been pressed.*/
 
 private slots:
-    void on_signUpSingUpButton_clicked();
-
-    void on_signUpCancelButton_clicked();
+    void on_signUpSingUpButton_clicked(); /*!<Slot triggered when the signUpSingUpButton has been pressed. Calls to insertNewUser() if all the mandatory fields are filled and the username is available. Otherwise,set a message using signUpOutPutLabel.*/
+    void on_signUpCancelButton_clicked(); /*!<Slot triggered when the signUpCancelButton has been pressed. Emits the signal singUpCancelSignUp().*/
 
 private:
+    void insertNewUser(); /*!<Uses the UserDataBaseManager.userDatabaseInsert method to insert a new user with the data provided in the SignUpWindow.*/
+
     QString userName;
     QString password;
     QString full_name;
@@ -43,9 +44,6 @@ private:
 
     UserDataBaseManager signUpDatabaseManager;
     QSqlQuery signUpQuery;
-
-    void createActions();
-    void insertNewUser();
 
     LoginWindow *loginWindow;
     Ui::SignUpWindow *ui;
