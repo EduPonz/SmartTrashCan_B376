@@ -31,10 +31,10 @@ public:
 
 signals:
     void apply_changes(QString fullName);
-    void user_deleted();
+    void user_deleted(); /*!<Deletes the user's information from the database.*/
 
 private slots:
-    void on_optionsApplyChangesButton_clicked();
+    void on_optionsApplyChangesButton_clicked(); /*!<Reads all the data from the infromation boxes and saves the data changed into the table corresponding to the user's account.*/
     void on_optionsDeleteUserButton_clicked();
 
 private:
@@ -44,8 +44,8 @@ private:
     QSqlQuery optionsQuery;
     int userId;
 
-    void populateTable();
-    void populate();
+    void populateTable(); /*!<Populates the widget with the purchase history information.*/
+    void populate(); /*!<Populates the infromation boxes in the UI from registered data.*/
 };
 
 #endif // OPTIONSWINDOW_H
