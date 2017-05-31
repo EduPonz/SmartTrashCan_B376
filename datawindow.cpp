@@ -1692,7 +1692,7 @@ void DataWindow::createFullnessChart(int tab_index)
         chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
 
         QStringList categories;
-        categories << "Year 4" << "Year -3" << "Year -2" << "Year -1" << "Year";
+        categories << "Year -4" << "Year -3" << "Year -2" << "Year -1" << "Year";
         QtCharts::QBarCategoryAxis *axis = new QtCharts::QBarCategoryAxis();
         axis->append(categories);
         chart->createDefaultAxes();
@@ -1855,7 +1855,7 @@ void DataWindow::createWeightChart(int tab_index)
         chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
 
         QStringList categories;
-        categories << "Year 4" << "Year -3" << "Year -2" << "Year -1" << "Year";
+        categories << "Year -4" << "Year -3" << "Year -2" << "Year -1" << "Year";
         QtCharts::QBarCategoryAxis *axis = new QtCharts::QBarCategoryAxis();
         axis->append(categories);
         chart->createDefaultAxes();
@@ -2017,7 +2017,7 @@ void DataWindow::createHumidityChart(int tab_index)
         chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
 
         QStringList categories;
-        categories << "Year 4" << "Year -3" << "Year -2" << "Year -1" << "Year";
+        categories << "Year -4" << "Year -3" << "Year -2" << "Year -1" << "Year";
         QtCharts::QBarCategoryAxis *axis = new QtCharts::QBarCategoryAxis();
         axis->append(categories);
         chart->createDefaultAxes();
@@ -2179,7 +2179,7 @@ void DataWindow::createTemperatureChart(int tab_index)
         chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
 
         QStringList categories;
-        categories << "Year 4" << "Year -3" << "Year -2" << "Year -1" << "Year";
+        categories << "Year -4" << "Year -3" << "Year -2" << "Year -1" << "Year";
         QtCharts::QBarCategoryAxis *axis = new QtCharts::QBarCategoryAxis();
         axis->append(categories);
         chart->createDefaultAxes();
