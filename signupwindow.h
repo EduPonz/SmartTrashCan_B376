@@ -1,3 +1,7 @@
+/*! \class SignUpWindow
+ *  \brief This class controls the signupwindow.ui UI.
+ * */
+
 #ifndef SIGNUP_H
 #define SIGNUP_H
 
