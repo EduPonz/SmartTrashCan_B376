@@ -1,3 +1,15 @@
+/*! \class LoginWindow class.
+    \brief Hey Vincent whats up
+    THIS IS MY FAVOURITE CLASS yayayaya
+    ldksmdas,mdls;admasdad
+    aksdmaslkdmalksdmalksdmclk lskenfirng
+    askdnmioeneoisfnrwoifneroinoirngdio
+    dklsemnfowienfoinfgeroinetoinboieng
+    dsknfrsoinffeoriniodnmweifnorwingeroinf
+    dkmsfoirengoineroginegoirngeroignergoie
+*/
+
+
 #ifndef LOGINWINDOW_H
 #define LOGINWINDOW_H
 
@@ -24,7 +36,7 @@ signals:
     void signUpSignal();
 
 public slots:
-    void on_loginButton_clicked();
+    void on_loginButton_clicked(); /*!<Hey edu whatsasd up */
     void on_loginSingupButton_clicked();
 
 private slots:

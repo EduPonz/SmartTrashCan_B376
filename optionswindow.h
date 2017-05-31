@@ -1,3 +1,13 @@
+/*! \class OptionsWindow
+ *  \brief The user's personal information
+ *  is shown in the OptionsWindow,
+ *  accessible by clicking the tool
+ *  icon on the top right of the page.
+ *  From where the user can access and
+ *  update his personal information or simply delete his profile.
+ * */
+
+
 #ifndef OPTIONSWINDOW_H
 #define OPTIONSWINDOW_H
 
