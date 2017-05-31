@@ -57,7 +57,7 @@ private:
    // void trashInfoDatabaseConnect();
     void historyDatabaseInit(); /*!<Creates the historyData table in the database with the corresponding colunmns.   */
     bool isExist(); /*!<Check whether the databse is open and can be edited. Returns false if it is closed. */
-    bool historyDatabaseDelete(int userID); /*!< Deletes the user's account and corresponding ID row from the historyData table *if the user chooses to terminate their account.*/
+    bool historyDatabaseDelete(int userID); /*!<Deletes the user's account and corresponding ID row from the historyData table *if the user chooses to terminate their account.*/
 };
 
 #endif // HISTORYDATABASEMANAGER_H

@@ -1,12 +1,8 @@
 /*! \class LoginWindow class.
-    \brief Hey Vincent whats up
-    THIS IS MY FAVOURITE CLASS yayayaya
-    ldksmdas,mdls;admasdad
-    aksdmaslkdmalksdmalksdmclk lskenfirng
-    askdnmioeneoisfnrwoifneroinoirngdio
-    dklsemnfowienfoinfgeroinetoinboieng
-    dsknfrsoinffeoriniodnmweifnorwingeroinf
-    dkmsfoirengoineroginegoirngeroignergoie
+    \brief This class controls the loginwindow.ui UI. I enables the user to introduce their
+    login, load the signupwindow.ui UI and delete the database (for development reasons). It also checks
+    the validity of the login and acts accordingly; emitting a signal to load the datawindow.ui UI or
+    writting into a label.
 */
 
 
@@ -29,7 +25,7 @@ class LoginWindow : public QWidget
 
 public:
     explicit LoginWindow(QWidget *parent = 0); /*!<Assigns the UI. Connects the username and password fields to the loginButton so when return is pressed the button emits signal clicked().*/
-    ~LoginWindow(); /*!<Deletes the UI.*/
+    ~LoginWindow(); /*!<Deletes the loginwindow.ui UI.*/
 
 signals:
     void correctUser(int id); /*!<Signal emitted when the user and password match with an entry on the database. The signal carries the user ID.*/
