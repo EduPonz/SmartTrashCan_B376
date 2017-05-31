@@ -158,7 +158,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>83%</string>
+                 <string/>
                 </property>
                 <property name="checkable">
                  <bool>false</bool>
@@ -318,7 +318,7 @@
                <number>0</number>
               </property>
               <item>
-               <widget class="QPushButton" name="temperatureDataButton">
+               <widget class="QPushButton" name="temperatureTitleButton">
                 <property name="font">
                  <font>
                   <weight>75</weight>
@@ -337,7 +337,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="temperatutureTitleButton">
+               <widget class="QPushButton" name="temperatureDataButton">
                 <property name="font">
                  <font>
                   <pointsize>16</pointsize>

@@ -22,6 +22,7 @@ DataWindow::DataWindow(QWidget *parent, int id) : QWidget(parent), ui(new Ui::Da
     ui->tabWidget->setCurrentIndex(0);
     if (userId > 0){
         readTrashData();
+        currentDataShow();
     }
     typeOfDataSelected = 0;
     createFullnessChart(0);
@@ -30,6 +31,38 @@ DataWindow::DataWindow(QWidget *parent, int id) : QWidget(parent), ui(new Ui::Da
 DataWindow::~DataWindow()
 {
     delete ui;
+}
+
+void DataWindow::currentDataShow()
+{
+    QSqlQuery query = trashInfoManager.trashInfoDatabaseRetrieveDaily(userId);
+    query.last();
+    int fullnessInt = query.value(1).toInt();
+    QString fullness = QString::number(fullnessInt) + " %";
+    int weightInt = query.value(2).toInt();
+    QString weight = QString::number(weightInt) + " Kg";
+    int humidityInt = query.value(3).toInt();
+    QString humidity = QString::number(humidityInt)+ " %";
+    QString temperature = query.value(4).toString() + " ºC";
+
+    ui->fullnessDataButton->setText(fullness);
+    ui->weightDataButton->setText(weight);
+    ui->humidityDataButton->setText(humidity);
+    ui->temperatureDataButton->setText(temperature);
+
+    int pickup_day = userManager.userDataBaseRetrievePickupDay(userId);
+    int current_weekDay = QDateTime::currentDateTime().date().dayOfWeek();
+    if (pickup_day <= current_weekDay){
+        int days_to_advance = current_weekDay - pickup_day;
+        QString date_to_show = QDate::fromString(QDate::currentDate().addDays(days_to_advance).
+                                                     toString(Qt::ISODate), Qt::ISODate).toString();
+        ui->nextPickUpDataButton->setText(date_to_show);
+    }else{
+        int days_to_advance = pickup_day - current_weekDay;
+        QString date_to_show = QDate::fromString(QDate::currentDate().addDays(days_to_advance).
+                                                     toString(Qt::ISODate), Qt::ISODate).toString();
+        ui->nextPickUpDataButton->setText(date_to_show);
+    }
 }
 
 void DataWindow::readTrashData()
@@ -110,21 +143,24 @@ void DataWindow::readSerial()
         serialData.clear();
     }else{
         // the second element of buffer_split is parsed correctly, update the temperature value on temp_lcdNumber
-        serialBuffer = "";
         qDebug() << buffer_split << "\n";
-        parsed_data_1 = buffer_split[1];
-        parsed_data_2 = buffer_split[2];
-        parsed_data_3 = buffer_split[3];
-        parsed_data_4 = buffer_split[4];
-        qDebug() << "Fullness: " << parsed_data_1;
-        qDebug() << "Weight: " << parsed_data_2;
-        qDebug() << "Humidity: " << parsed_data_3;
-        qDebug() << "Temperature: " << parsed_data_4;
-        float fullness = parsed_data_1.toFloat();
-        float weigth = parsed_data_2.toFloat();
-        float humidity = parsed_data_3.toFloat();
-        float temperature = parsed_data_4.toFloat();
-        trashInfoManager.trashInfoDatabaseInsert(userId, fullness, weigth, humidity, temperature);
+        serialBuffer = "";
+        if (buffer_split[0] == buffer_split[1]){
+            serialBuffer = "";
+            parsed_data_1 = buffer_split[1];
+            parsed_data_2 = buffer_split[2];
+            parsed_data_3 = buffer_split[3];
+            parsed_data_4 = buffer_split[4];
+            qDebug() << "Fullness: " << parsed_data_1;
+            qDebug() << "Weight: " << parsed_data_2;
+            qDebug() << "Humidity: " << parsed_data_3;
+            qDebug() << "Temperature: " << parsed_data_4;
+            float fullness = parsed_data_1.toFloat();
+            float weigth = parsed_data_2.toFloat();
+            float humidity = parsed_data_3.toFloat();
+            float temperature = parsed_data_4.toFloat();
+            trashInfoManager.trashInfoDatabaseInsert(userId, fullness, weigth, humidity, temperature);
+        }
     }
 }
 
@@ -1522,6 +1558,7 @@ void DataWindow::yearlyTemperatureInit()
 
 void DataWindow::createFullnessChart(int tab_index)
 {
+
     dailyFullnessInit();
     weeklyFullnessInit();
     monthlyFullnessInit();
@@ -1693,7 +1730,9 @@ void DataWindow::createWeightChart(int tab_index)
     {
         QtCharts::QBarSet *set1 = new QtCharts::QBarSet("Weight");
 
-        *set1 << 1 << 2 << 3 << 4 << 5 << 6 << 7;
+        *set1 <<today_6Weight << today_5Weight << today_4Weight << today_3Weight
+              << today_2Weight << today_1Weight << todayWeight;
+;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
         series->append(set1);
@@ -1729,7 +1768,8 @@ void DataWindow::createWeightChart(int tab_index)
     {
         QtCharts::QBarSet *set1 = new QtCharts::QBarSet("Weight");
 
-        *set1 << 1 << 2 << 3 << 4 << 5 << 6 << 7;
+        *set1 << week_6Weight << week_5Weight << week_4Weight << week_3Weight
+              << week_2Weight << week_1Weight << weekWeight;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
         series->append(set1);
@@ -1765,7 +1805,9 @@ void DataWindow::createWeightChart(int tab_index)
     {
         QtCharts::QBarSet *set1 = new QtCharts::QBarSet("Weight");
 
-        *set1 << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12;
+        *set1 << month_11Weight << month_10Weight << month_9Weight << month_8Weight << month_7Weight
+              << month_6Weight  << month_5Weight  << month_4Weight << month_3Weight << month_2Weight
+              << month_1Weight  << monthWeight;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
         series->append(set1);
@@ -1802,7 +1844,7 @@ void DataWindow::createWeightChart(int tab_index)
     {
         QtCharts::QBarSet *set1 = new QtCharts::QBarSet("Weight");
 
-        *set1 << 1 << 2 << 3 << 4 << 5;
+        *set1 << year_4Weight << year_3Weight << year_2Weight << year_1Weight << yearWeight;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
         series->append(set1);
@@ -1851,7 +1893,8 @@ void DataWindow::createHumidityChart(int tab_index)
     {
         QtCharts::QBarSet *set2 = new QtCharts::QBarSet("Humidity Percentage");
 
-        *set2 << 1 << 2 << 3 << 4 << 5 << 6 << 7;
+        *set2 << today_6Humidity << today_5Humidity << today_4Humidity << today_3Humidity
+              << today_2Humidity << today_1Humidity << todayHumidity;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
         series->append(set2);
@@ -1887,7 +1930,8 @@ void DataWindow::createHumidityChart(int tab_index)
     {
         QtCharts::QBarSet *set2 = new QtCharts::QBarSet("Humidity Percentage");
 
-        *set2 << 1 << 2 << 3 << 4 << 5 << 6 << 7;
+        *set2 << week_6Humidity << week_5Humidity << week_4Humidity << week_3Humidity
+              << week_2Humidity << week_1Humidity << weekHumidity;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
         series->append(set2);
@@ -1923,7 +1967,9 @@ void DataWindow::createHumidityChart(int tab_index)
     {
         QtCharts::QBarSet *set2 = new QtCharts::QBarSet("Humidity Percentage");
 
-        *set2 << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12;
+        *set2 << month_11Humidity << month_10Humidity << month_9Humidity << month_8Humidity << month_7Humidity
+              << month_6Humidity  << month_5Humidity  << month_4Humidity << month_3Humidity << month_2Humidity
+              << month_1Humidity  << monthHumidity;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
         series->append(set2);
@@ -1960,7 +2006,7 @@ void DataWindow::createHumidityChart(int tab_index)
     {
         QtCharts::QBarSet *set2 = new QtCharts::QBarSet("Humidity Percentage");
 
-        *set2 << 1 << 2 << 3 << 4 << 5;
+        *set2 << year_4Humidity << year_3Humidity << year_2Humidity << year_1Humidity << yearHumidity;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
         series->append(set2);
@@ -2009,7 +2055,8 @@ void DataWindow::createTemperatureChart(int tab_index)
     {
         QtCharts::QBarSet *set3 = new QtCharts::QBarSet("Temperature");
 
-        *set3 << 1 << 2 << 3 << 4 << 5 << 6 << 7;
+        *set3 << today_6Temperature << today_5Temperature << today_4Temperature << today_3Temperature
+              << today_2Temperature << today_1Temperature << todayTemperature;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
         series->append(set3);
@@ -2045,7 +2092,8 @@ void DataWindow::createTemperatureChart(int tab_index)
     {
         QtCharts::QBarSet *set3 = new QtCharts::QBarSet("Temperature");
 
-        *set3 << 1 << 2 << 3 << 4 << 5 << 6 << 7;
+        *set3 << week_6Temperature << week_5Temperature << week_4Temperature << week_3Temperature
+              << week_2Temperature << week_1Temperature << weekTemperature;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
         series->append(set3);
@@ -2081,7 +2129,9 @@ void DataWindow::createTemperatureChart(int tab_index)
     {
         QtCharts::QBarSet *set3 = new QtCharts::QBarSet("Temperature");
 
-        *set3 << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12;
+        *set3 << month_11Temperature << month_10Temperature << month_9Temperature << month_8Temperature << month_7Temperature
+              << month_6Temperature  << month_5Temperature  << month_4Temperature << month_3Temperature << month_2Temperature
+              << month_1Temperature  << monthTemperature;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
         series->append(set3);
@@ -2118,7 +2168,7 @@ void DataWindow::createTemperatureChart(int tab_index)
     {
         QtCharts::QBarSet *set3 = new QtCharts::QBarSet("Temperature");
 
-        *set3 << 1 << 2 << 3 << 4 << 5;
+        *set3 << year_4Temperature << year_3Temperature << year_2Temperature << year_1Temperature << yearTemperature;
 
         QtCharts::QBarSeries *series = new QtCharts::QBarSeries();
         series->append(set3);
@@ -2236,4 +2286,9 @@ void DataWindow::on_tabWidget_currentChanged(int index)
     default:
         break;
     }
+}
+
+void DataWindow::on_temperatureTitleButton_clicked()
+{
+    on_temperatureDataButton_clicked();
 }

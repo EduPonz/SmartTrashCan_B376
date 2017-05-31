@@ -8,6 +8,7 @@
 #include <QSerialPortInfo>
 #include <QByteArray>
 #include "trashinfodatabasemanager.h"
+#include "userdatabasemanager.h"
 
 
 namespace Ui {
@@ -42,11 +43,13 @@ private slots:
 
     void on_tabWidget_currentChanged(int index);
 
+    void on_temperatureTitleButton_clicked();
+
 private:
     QSerialPort *arduino;
 
     static const quint16 arduino_uno_vendor_id = 9025;
-    static const quint16 arduino_uno_product_id = 67;
+    static const quint16 arduino_uno_product_id = 66;
     QByteArray serialData;
     QString serialBuffer;
     QString parsed_data_1;
@@ -199,6 +202,7 @@ private:
     void createHumidityChart(int tab_index);
     void createTemperatureChart(int tab_index);
     TrashInfoDatabaseManager trashInfoManager;
+    UserDataBaseManager userManager;
 
     int typeOfDataSelected;
 
@@ -223,6 +227,8 @@ private:
     void weeklyTemperatureInit();
     void monthlyTemperatureInit();
     void yearlyTemperatureInit();
+
+    void currentDataShow();
 
 };
 

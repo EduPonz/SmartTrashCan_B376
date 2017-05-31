@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
 void MainWindow::createActions()
 {
-    settingButton = new QAction (QIcon(":/new/Icons/Resources/SettingsIcos.png"), tr(""), this);
+    settingButton = new QAction (QIcon(":/new/Icons/Resources/settings_blue.png"), tr(""), this);
     settingButton->setStatusTip(tr("Settings"));
     connect(settingButton, &QAction::triggered, this, &MainWindow::personalInfoSlot);
 
@@ -66,7 +66,7 @@ void MainWindow::createActions()
     logOut->setStatusTip(tr("Log Out"));
     connect(logOut, &QAction::triggered, this, &MainWindow::logOutSlot);
 
-    homeButtonAction = new QAction (QIcon(":/new/Icons/Resources/homeButton.png"), tr(""), this);
+    homeButtonAction = new QAction (QIcon(":/new/Icons/Resources/home_blue.png"), tr(""), this);
     homeButtonAction->setStatusTip(tr("Home"));
     connect(homeButtonAction, &QAction::triggered, this, &MainWindow::homeButtonActionSlot);
 
@@ -99,9 +99,9 @@ void MainWindow::createToolBars(int language)
 
     mainToolBar->addAction(homeButtonAction);
     mainToolBar->addWidget(spacerWidget);
-    mainToolBar->addWidget(unitsButton);
-    mainToolBar->addWidget(themeButton);
-    mainToolBar->addWidget(languageButton);
+    //mainToolBar->addWidget(unitsButton);
+    //mainToolBar->addWidget(themeButton);
+    //mainToolBar->addWidget(languageButton);
     mainToolBar->addWidget(userNameButton);
     mainToolBar->addAction(settingButton);
 }
@@ -254,6 +254,7 @@ void MainWindow::extraPickUpSlot(int id)
 {
     extraPickupWindow = new ExtraPickupWindow (this, id);
     qDebug() << "MainWindow::extraPickUpSlot: " << id;
+    connect(extraPickupWindow, &ExtraPickupWindow::cancel_service, this, &MainWindow::homeButtonActionSlot);
     this->setCentralWidget(extraPickupWindow);
     mainToolBar->setVisible(true);
     setNameWindowName();
