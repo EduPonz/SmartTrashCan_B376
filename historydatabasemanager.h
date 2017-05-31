@@ -39,7 +39,7 @@ public:
 
     bool historyDatabaseInsert(int userID, bool selected_small, bool selected_medium, bool selected_big,
                                int small_qty, int medium_qty, int big_qty, QString comms, int pickup_time,
-                               int item_price, int time_price, int total_price, QString time, int invoice);
+                               int item_price, int time_price, int total_price, QString time, int invoice);   /*!<Insterts the   */
     QSqlQuery rowNumberRetrieve(int userID);
     QSqlQuery historyDatabaseRetrieve(int userID);
 
@@ -49,9 +49,9 @@ private:
     UserDataBaseManager userDatabaseManager;
 
    // void trashInfoDatabaseConnect();
-    void historyDatabaseInit();
-    bool isExist();
-    bool historyDatabaseDelete(int userID);
+    void historyDatabaseInit(); /*!<Creates the historyData table in the database with the corresponidng colunmns.   */
+    bool isExist(); /*!<Check whether the databse is open and can be edited. Returns false if it is closed. */
+    bool historyDatabaseDelete(int userID); /*!< Deletes the user's account and corresponding ID row from the historyData table *if the user chooses to terminate their account./
 };
 
 #endif // HISTORYDATABASEMANAGER_H
