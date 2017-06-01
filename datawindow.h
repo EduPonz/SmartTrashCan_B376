@@ -18,32 +18,32 @@ class DataWindow : public QWidget
 {
     Q_OBJECT
 public:
-    DataWindow(QWidget *parent = 0, int id = 0);
-    ~DataWindow();
-    void readTrashData();
+    DataWindow(QWidget *parent = 0, int id = 0); /*!<Sets the UI to datawindow.ui. Creates objects of (...). Creates a sets the application Toolbar.*/
+    ~DataWindow(); /*!<Deletes the datawindow.ui UI.*/
+    void readTrashData(); /*!<Slot triggered when Arduino is connected. Check if Arduino is available and identify the port the arduino uno is on. Accesses the serial port and reads values for the 4 trash data from the connected Arduino. */
 
 signals:
-    void openExtraPickup(int id);
+    void openExtraPickup(int id); /*!<Opens extra pickup window for the logged in user ID. */
 
 public slots:
-    void readSerial();
+    void readSerial(); /*!<Slot triggered when Arduino is connected. Identifies the data coming from the Arduino through the Serial Port. Reads the serial port to obtain a Unicode, then convert the parsed data to floats and print theses values for each of the 4 data types received from the Arduino. */
 
 private slots:
-    void on_datawindowPickupButton_clicked();
-    void on_fullnessTitleButton_clicked();
-    void on_fullnessDataButton_clicked();
-    void on_weigthTitleButton_clicked();
-    void on_humidityTitleButton_clicked();
-    void on_temperatureDataButton_clicked();
-    void on_nextPickUpTitleButton_clicked();
-    void on_weightDataButton_clicked();
-    void on_humidityDataButton_clicked();
-    void on_temperatutureTitleButton_clicked();
-    void on_nextPickUpDataButton_clicked();
+    void on_datawindowPickupButton_clicked(); /*!<Slot triggered when the user clicks Extra Pickup Services button. Emits a signal to open the extra pickup window using openExtraPickup(userId);. */
+    void on_fullnessTitleButton_clicked(); /*!<Slot triggered when the user clicks on fullness title widget. Calls for on_tabWidget_currentChanged(0); for the fullness data to be shown in the chart widget.*/
+    void on_fullnessDataButton_clicked(); /*!<Slot triggered when the user clicks on fullness data widget. Calls for on_tabWidget_currentChanged(0); for the fullness data to be shown in the chart widget.*/
+    void on_weigthTitleButton_clicked(); /*!<Slot triggered when the user clicks on weight title widget. Calls for on_tabWidget_currentChanged(0); for the weigth data to be shown in the chart widget.*/
+    void on_humidityTitleButton_clicked(); /*!<Slot triggered when the user clicks on humidity title widget. Calls for on_tabWidget_currentChanged(0); for the humidity data to be shown in the chart widget.*/
+    void on_temperatureDataButton_clicked(); /*!<Slot triggered when the user clicks on temperature data widget. Calls for on_tabWidget_currentChanged(0); for the temperature data to be shown in the chart widget.*/
+    void on_nextPickUpTitleButton_clicked(); /*!<Slot triggered when the user clicks on next pickup title widget but does not change the data chart shown .*/
+    void on_weightDataButton_clicked(); /*!<Slot triggered when the user clicks on weight data widget. Calls for on_tabWidget_currentChanged(0); for the weight data to be shown in the chart widget.*/
+    void on_humidityDataButton_clicked(); /*!<Slot triggered when the user clicks on humidity data widget. Calls for on_tabWidget_currentChanged(0); for the humidity data to be shown in the chart widget.*/
+    void on_temperatutureTitleButton_clicked(); /*!<Slot triggered when the user clicks on temperature title widget. Calls for on_tabWidget_currentChanged(0); for the temperature data to be shown in the chart widget.*/
+    void on_nextPickUpDataButton_clicked(); /*!<Slot triggered when the user clicks on next pickup data widget but does not change the data chart shown .*/
 
-    void on_tabWidget_currentChanged(int index);
+    void on_tabWidget_currentChanged(int index); /*!<Receives the case number which determines the data to be shown in the chart widget.*/
 
-    void on_temperatureTitleButton_clicked();
+    void on_temperatureTitleButton_clicked(); /*!<Selects temperature title button and calls for on_tabWidget_currentChanged(0); for the temperatuture data to be shown in the chart widget.*/
 
 private:
     QSerialPort *arduino;
@@ -197,10 +197,10 @@ private:
     float year_3Temperature;
     float year_4Temperature;
 
-    void createFullnessChart(int tab_index);
-    void createWeightChart(int tab_index);
-    void createHumidityChart(int tab_index);
-    void createTemperatureChart(int tab_index);
+    void createFullnessChart(int tab_index);  /*!<Creates fullness chart ready to receive data for that user;.  */
+    void createWeightChart(int tab_index);  /*!<Creates weight chart to receive data for that user;.  */
+    void createHumidityChart(int tab_index);  /*!<Creates humidity chart to receive data for that user;.  */
+    void createTemperatureChart(int tab_index);  /*!<Creates temperature chart to receive data for that user;.  */
     TrashInfoDatabaseManager trashInfoManager;
     UserDataBaseManager userManager;
 
@@ -208,27 +208,27 @@ private:
 
     Ui::DataWindow *ui;
     int userId;
-    void dailyFullnessInit();
-    void weeklyFullnessInit();
-    void monthlyFullnessInit();
-    void yearlyFullnessInit();
+    void dailyFullnessInit(); /*!<Initializes the daily fullness chart for that user from the data collected in the database using trashInfoManager.trashInfoDatabaseRetrieveDaily(userId);.   */
+    void weeklyFullnessInit(); /*!<Initializes the weekly fullness chart for that user from the data collected in the database using trashInfoManager.trashInfoDatabaseRetrieveWeekly(userId);.   */
+    void monthlyFullnessInit(); /*!<Initializes the monthly fullness chart for that user from the data collected in the database using trashInfoManager.trashInfoDatabaseRetrieveMonthly(userId);.   */
+    void yearlyFullnessInit(); /*!<Initializes the yearly fullness chart for that user from the data collected in the database using trashInfoManager.trashInfoDatabaseRetrieveYearly(userId);.   */
 
-    void dailyWeightInit();
-    void weeklyWeightInit();
-    void monthlyWeightInit();
-    void yearlyWeightInit();
+    void dailyWeightInit(); /*!<Initializes the daily weight chart for that user from the data collected in the database using trashInfoManager.trashInfoDatabaseRetrieveDaily(userId);.   */
+    void weeklyWeightInit(); /*!<Initializes the weekly weight chart for that user from the data collected in the database using trashInfoManager.trashInfoDatabaseRetrieveWeekly(userId);.   */
+    void monthlyWeightInit(); /*!<Initializes the monthly weight chart for that user from the data collected in the database using trashInfoManager.trashInfoDatabaseRetrieveMonthly(userId);.   */
+    void yearlyWeightInit(); /*!<Initializes the yearly weight chart for that user from the data collected in the database using trashInfoManager.trashInfoDatabaseRetrieveYearly(userId);.   */
 
-    void dailyHumidityInit();
-    void weeklyHumidityInit();
-    void monthlyHumidityInit();
-    void yearlyHumidityInit();
+    void dailyHumidityInit(); /*!<Initializes the daily humidity chart for that user from the data collected in the database using trashInfoManager.trashInfoDatabaseRetrieveDaily(userId);.   */
+    void weeklyHumidityInit(); /*!<Initializes the weekly humidity chart for that user from the data collected in the database using trashInfoManager.trashInfoDatabaseRetrieveWeekly(userId);.   */
+    void monthlyHumidityInit(); /*!<Initializes the monthly humidity chart for that user from the data collected in the database using trashInfoManager.trashInfoDatabaseRetrieveMonthly(userId);.   */
+    void yearlyHumidityInit(); /*!<Initializes the yearly humidity chart for that user from the data collected in the database using trashInfoManager.trashInfoDatabaseRetrieveYearly(userId);.   */
 
-    void dailyTemperatureInit();
-    void weeklyTemperatureInit();
-    void monthlyTemperatureInit();
-    void yearlyTemperatureInit();
+    void dailyTemperatureInit();/*!<Initializes the daily temperature chart for that user from the data collected in the database using trashInfoManager.trashInfoDatabaseRetrieveDaily(userId);.   */
+    void weeklyTemperatureInit(); /*!<Initializes the weekly temperature chart for that user from the data collected in the database using trashInfoManager.trashInfoDatabaseRetrieveWeekly(userId);.   */
+    void monthlyTemperatureInit(); /*!<Initializes the monthly temperature chart for that user from the data collected in the database using trashInfoManager.trashInfoDatabaseRetrieveMonthly(userId);.   */
+    void yearlyTemperatureInit(); /*!<Initializes the yearly temperature chart for that user from the data collected in the database using trashInfoManager.trashInfoDatabaseRetrieveYearly(userId);.   */
 
-    void currentDataShow();
+    void currentDataShow(); /*!<Uses trashInfoManager.trashInfoDatabaseRetrieveDaily(userId) to retrieve the current trash data from the database for a specific user and print it to the data window;.  */
 
 };
 

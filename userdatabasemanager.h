@@ -47,30 +47,30 @@ public:
 
     bool userDataBaseUpdate(int userId, QString userName, QString password, QString full_name,
                              QString address, QString phone_number, QString email, QString payment_method,
-                             QString card_number, QString cvv, QString expiration_date);
+                             QString card_number, QString cvv, QString expiration_date); /*!<Updates the user details related to a specific user ID. */
 
-    QSqlQuery userDataBaseRetrieve(QString userName, QString passWord);
-    QSqlQuery userDataBaseRetrieve(int userId);
+    QSqlQuery userDataBaseRetrieve(QString userName, QString passWord); /*!<Uses the username and password to retrieve the user ID from the database. */
+    QSqlQuery userDataBaseRetrieve(int userId); /*!<Uses the user ID to retrieve that user's personal info from the database. */
     bool userDatabaseInsert(QString userName, QString password, QString full_name,
                             QString address, QString phone_number, QString email, QString payment_method,
-                            QString card_number, QString cvv, QString expiration_date);
-    QString userDataBaseRetrieveFullName(int id);
-    QString userDataBaseRetrieveUserName(int id);
-    QString userDataBaseRetrieveUserEmail(int id);
-    int userDataBaseRetrievePickupDay(int id);
-    bool availableUserName(QString userName);
-    bool availableUpdateUserName(int id, QString userNewName);
-    void userDatabaseDeleteAll();
-    bool userDatabaseDeleteUser(int id);
+                            QString card_number, QString cvv, QString expiration_date); /*!<Generate a random number to create a trash collection day for that user, populates the user database with the user information and returns true if the operation was successful. */
+    QString userDataBaseRetrieveFullName(int id); /*!<Uses the user ID to retrieve that user's full name from the database. */
+    QString userDataBaseRetrieveUserName(int id); /*!<Uses the user ID to retrieve that user's username from the database. */
+    QString userDataBaseRetrieveUserEmail(int id); /*!<Uses the user ID to retrieve that user's email from the database. */
+    int userDataBaseRetrievePickupDay(int id); /*!<Uses the user ID to retrieve that user's next trash collection date. */
+    bool availableUserName(QString userName); /*!<Compares the username entered by a new user with the usernames in the database to verify if it already exists and returns true or false. */
+    bool availableUpdateUserName(int id, QString userNewName); /*!<Compares the username updates by an existing user with the usernames in the database to verify if it already exists and returns true or false. */
+    void userDatabaseDeleteAll(); /*!<Removes the entire users database. */
+    bool userDatabaseDeleteUser(int id); /*!<Removes a specific user from the users database and returns true if the user databse for a specific user ID has been deleted. */
 
 
 private:
     QString userDatabasePath;
 
-    void userDatabaseConnect();
-    void userDatabaseInit();
+    void userDatabaseConnect(); /*!<Connects with the smartTrashCanDatabe.SQL database. */
+    void userDatabaseInit(); /*!<Initializes the user databse table. */
 
-    bool isExist();
+    bool isExist(); /*!<Verifies if the user database exists and has been opened and returns true or false. */
 };
 
 #endif // USERDATABASEMANAGER_H
