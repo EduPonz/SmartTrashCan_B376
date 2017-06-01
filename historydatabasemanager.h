@@ -16,7 +16,7 @@
 class HistoryDatabaseManager
 {
 public:
-    HistoryDatabaseManager();
+    HistoryDatabaseManager(); /*!<Populates the table strings for the name and attributes. Initializes the database calling to historyDatabaseInit()*/
 
     QString COLUMN_ID;
     QString COLUMN_USERID;

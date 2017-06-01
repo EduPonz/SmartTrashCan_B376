@@ -14,7 +14,7 @@
 class UserDataBaseManager
 {
 public:
-    UserDataBaseManager();
+    UserDataBaseManager(); /*!<Populates the table strings for the name and attributes. Initializes the database calling to userDatabaseConnect()*/
 
     QString emailAddress;
 
@@ -64,15 +64,15 @@ public:
     QString userDataBaseRetrieveUserEmail(int id); /*!<Uses the user ID to retrieve that user's email from the database. */
     int userDataBaseRetrievePickupDay(int id); /*!<Uses the user ID to retrieve that user's next trash collection date. */
     bool availableUserName(QString userName); /*!<Compares the username entered by a new user with the usernames in the database to verify if it already exists and returns true or false. */
-    bool availableUpdateUserName(int id, QString userNewName); /*!<Compares the username updates by an existing user with the usernames in the database to verify if it already exists and returns true or false. */
-    void userDatabaseDeleteAll(); /*!<Removes the entire users database. */
-    bool userDatabaseDeleteUser(int id); /*!<Removes a specific user from the users database and returns true if the user databse for a specific user ID has been deleted. */
+    bool availableUpdateUserName(int id, QString userNewName); /*!<Checks whether the username update is available. Returns true if it is avilable.*/
+    void userDatabaseDeleteAll(); /*!<Removes the entire database. */
+    bool userDatabaseDeleteUser(int id); /*!<Removes a specific user from the users database and returns true if the user database for a specific user ID has been deleted. */
 
 
 private:
     QString userDatabasePath;
 
-    void userDatabaseConnect(); /*!<Connects with the smartTrashCanDatabe.SQL database. */
+    void userDatabaseConnect(); /*!<Connects with the smartTrashCanDatabase.SQL database. */
     void userDatabaseInit(); /*!<Initializes the user databse table. */
 
     bool isExist(); /*!<Verifies if the user database exists and has been opened and returns true or false. */

@@ -22,12 +22,12 @@ class ExtraPickupWindow : public QWidget
     Q_OBJECT
 
 public:
-    ExtraPickupWindow(QWidget *parent = 0, int id = 0);
+    ExtraPickupWindow(QWidget *parent = 0, int id = 0); /*!<Assigns the UI to be a extrapickupwindow.ui. Initializes the required variables.*/
 
     QSqlDatabase userDataBase;
     int userId;
 
-    ~ExtraPickupWindow();
+    ~ExtraPickupWindow(); /*!<Deletes the extrapickupwindow.ui UI.*/
 
 signals:
     void cancel_service();
@@ -43,8 +43,8 @@ private:
     UserDataBaseManager dataBase;
     HistoryDatabaseManager historyManager;
 
-    bool sizeTimeMoneyHandler(); /*!< Calcules the total price of the purchase from the number of items, the size and the date choosen. Also calculates the pick up date based on the time choosen*/
-    void pickupTimeHandler(); /*!< Reads the checkboxes for the choosen time and displays the price of the time.*/
+    bool sizeTimeMoneyHandler(); /*!<Calcules the total price of the purchase from the number of items, the size and the date choosen. Also calculates the pick up date based on the time choosen*/
+    void pickupTimeHandler(); /*!<Reads the checkboxes for the choosen time and displays the price of the time.*/
     int timePrice;
     int intTrashTime;
     int price;
