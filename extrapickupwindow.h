@@ -1,3 +1,9 @@
+/*! \class ExtraPickupWindow class.
+    \brief Handles the extra pick up services UI and its backend logic.
+    It allows the user to choose items to be picked up, specify a date for pick up
+    and provide additional information regarding the items.
+*/
+
 #ifndef EXTRAPICKUPWINDOW_H
 #define EXTRAPICKUPWINDOW_H
 
@@ -27,18 +33,18 @@ signals:
     void cancel_service();
 
 private slots:
-    void on_extrapickupConfirmButton_clicked();
+    void on_extrapickupConfirmButton_clicked(); /*!<Gathers the data for the order confirmation email. Sends the gathered information to the HistoryDatabaseManager class for storage.*/
 
-    void mailSent(QString);
-    void on_pushButton_2_clicked();
+    void mailSent(QString); /*!<Checks if the email is successfully sent. If so, resets all the checkboxes and spinboxes to default position.*/
+    void on_pushButton_2_clicked(); /*!<Cancels the service.*/
 
 private:
 
     UserDataBaseManager dataBase;
     HistoryDatabaseManager historyManager;
 
-    bool sizeTimeMoneyHandler();
-    void pickupTimeHandler();
+    bool sizeTimeMoneyHandler(); /*!< Calcules the total price of the purchase from the number of items, the size and the date choosen. Also calculates the pick up date based on the time choosen*/
+    void pickupTimeHandler(); /*!< Reads the checkboxes for the choosen time and displays the price of the time.*/
     int timePrice;
     int intTrashTime;
     int price;
