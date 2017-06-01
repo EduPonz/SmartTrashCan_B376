@@ -1,3 +1,8 @@
+/*! \class UserDataBaseManager class.
+    \brief This class handles the users table in the SQLite database, which
+    stores user information, payment detailes and pick up weekday.
+*/
+
 #ifndef USERDATABASEMANAGER_H
 #define USERDATABASEMANAGER_H
 

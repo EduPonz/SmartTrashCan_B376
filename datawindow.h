@@ -1,3 +1,8 @@
+/*! \class DataWindow class.
+    \brief Controls the datawindow.ui. It displays current trash can data, next pick up date and a button to request extra pickup
+    servies. It creates and displays charts regarding trash can usage, using the information stored in the trashInfo table in the database.
+*/
+
 #ifndef DATAWINDOW_H
 #define DATAWINDOW_H
 
